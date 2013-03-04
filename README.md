@@ -1,4 +1,4 @@
-marek-profile
-=============
+marek-etc
+=========
 
-home directory rcfiles
+My profile and *rc files.

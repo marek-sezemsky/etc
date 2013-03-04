@@ -1,0 +1,8 @@
+-pt=2    # no spaces inside brackets:
+-sbt=2
+-bt=2
+-nsfs    # tight for semicolon
+-i=4  # indent
+-ssc
+
+
