@@ -1,4 +1,8 @@
 marek-etc
 =========
 
-My profile and *rc files.
+My profile files.
+
+    # installation
+    cd ~ && marek-etc/install.sh marek-etc/
+

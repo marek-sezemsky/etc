@@ -40,8 +40,8 @@ set statusline+=%(Ln\ %l/%L,\ Col\ %2c%)
 set statusline+=\ %{&ff}%Y\ ord(0d%03b,0x%02B)\ %P
 set laststatus=2
 
-au BufRead,BufNewFile *.tt2 set filetype=tt2html
-au BufRead,BufNewFile ~/public_html/*/templates/* set filetype=tt2html
-au BufRead,BufNewFile ~/public_html/*/templates/*html set filetype=html
+"au BufRead,BufNewFile ~/public_html/*/templates/* set filetype=tt2html
+"au BufRead,BufNewFile ~/public_html/*/templates/*html set filetype=html
+autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd FileType tt2html set tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
-autocmd FileType perl set foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+autocmd FileType perl,sh,markdown set foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
