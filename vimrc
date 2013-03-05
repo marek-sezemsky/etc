@@ -17,6 +17,7 @@ syntax on
 filetype plugin indent on
 
 set background=dark
+colorscheme default
 
 set incsearch
 set hlsearch
