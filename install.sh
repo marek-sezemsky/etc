@@ -11,7 +11,7 @@ set -u
 #set -x
 
 # files to install
-files="bashrc vimrc"
+files="bashrc bash_profile vimrc"
 
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <src>" >&2
@@ -26,7 +26,7 @@ link()
     file="$src/$1"
     link=".$1"
 
-    if [ -h $link ]; then
+    if [ -h $link ] || [ ! -e $link ]; then
         ln -sfn $file $link
         echo "installed $link -> $file"
     else
