@@ -1,20 +1,25 @@
 #!/bin/bash
 #
-# Install marek-etc files as symlinks in current directory. Overwrite existing
-# symlinks.
+# Install listed $1/ files as hidden symlinks into current directory.
+# Overwrite existing symlinks.
 #
+# cd $HOME && marek-etc/install.sh marek-etc/
 #
 
 set -e
 set -u
 #set -x
 
+# files to install
+files="bashrc vimrc"
+
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <src>" >&2
     exit 1
+else
+    src=$1
 fi
 
-src=$1
 
 link()
 {
@@ -30,7 +35,6 @@ link()
 }
 
 
-files="bashrc vimrc"
 for file in $files; do
     link $file
 done
