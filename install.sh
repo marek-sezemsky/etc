@@ -21,8 +21,8 @@ link()
     file="$src/$1"
     link=".$1"
 
-    if [ ! -e $link ]; then
-        ln -s $file $link
+    if [ -h $link ]; then
+        ln -sfn $file $link
         echo "installed $link -> $file"
     else
         echo "skipped $link"
