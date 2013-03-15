@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Install listed $1/ files as hidden symlinks into current directory.
-# Overwrite existing symlinks.
+# Install listed $1/ files as hidden symlinks into current directory and pull
+# or install VIm plugins.
 #
-# cd $HOME && marek-etc/install.sh marek-etc/
+# cd $HOME && marek-etc/install.sh marek-etc
 #
 
 set -e
@@ -13,24 +13,27 @@ set -u
 # files to install
 files="bashrc bash_profile vimrc vim"
 
+stderr() {
+    echo "$(basename $0): $*" >&2
+}
+
 if [ -z "${1:-}" ]; then
-    echo "Usage: $0 <src>" >&2
+    stderr "Usage: $0 <src>"
     exit 1
 else
     src=$1
 fi
-
 
 link()
 {
     file="$src/$1"
     link=".$1"
 
-    if [ -h $link ] || [ ! -e $link ]; then
+    if [ ! -e $link ]; then
         ln -sfn $file $link
-        echo "installed $link -> $file"
+        echo "Installed: $link -> $file"
     else
-        echo "skipped $link"
+        stderr "Warning: Skipped existing $link"
     fi
 }
 
@@ -38,3 +41,6 @@ link()
 for file in $files; do
     link $file
 done
+
+vim="$src/vim"
+$vim/git-pull.sh $vim/bundle < $vim/plugins

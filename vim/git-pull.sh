@@ -11,8 +11,12 @@ set -u
 
 [ -r ~/.proxy ] && source ~/.proxy
 
+stderr() {
+    echo "$(basename $0): $*" >&2
+}
+
 if [ -z "${1:-}" ]; then
-    echo "Usage: $0 <dst>" >&2
+    stderr "Usage: $0 <dst>"
     exit 1
 else
     dst=$1
@@ -20,16 +24,15 @@ fi
 
 while read url; do
     dir="$dst/$(basename $url)"
-    what="[$dir] @ $url"
+    what="Pulling: $dir [$url]"
     
+    echo "$what"
     if [ -d "$dir/.git" ]; then
-        echo pulling $what
         old=$PWD
         cd $dir
         git pull
         cd $old
     else
-        echo cloning $what
         git clone $url $dir
     fi
 done
