@@ -11,7 +11,7 @@ set -u
 #set -x
 
 # files to install
-files="bashrc bash_profile vimrc"
+files="bashrc bash_profile vimrc vim"
 
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <src>" >&2
