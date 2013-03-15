@@ -1,25 +1,25 @@
 #!/bin/bash
 #
-# Pull or install handy VIM plugins from URLs recieved on STDIN into given 
-# directory.
+# Pull or install handy VIM plugins into given destination directory.
 # 
-# git-pull.sh bundle
+# git-pull.sh bundle < plugins
 #
 
 set -e
 set -u
 #set -x
 
-# config
-github_url="https://github.com/vim-scripts/"
 [ -r ~/.proxy ] && source ~/.proxy
 
-# args
-base="${1:-bundle}"
+if [ -z "${1:-}" ]; then
+    echo "Usage: $0 <dst>" >&2
+    exit 1
+else
+    dst=$1
+fi
 
 while read url; do
-    dir="$base/$(basename $url)"
-    #dir="${dir%.git}"
+    dir="$dst/$(basename $url)"
     what="[$dir] @ $url"
     
     if [ -d "$dir/.git" ]; then
@@ -33,4 +33,3 @@ while read url; do
         git clone $url $dir
     fi
 done
-
