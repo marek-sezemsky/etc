@@ -1,46 +1,51 @@
 #!/bin/bash
 #
-# Install listed $1/ files as hidden symlinks into current directory and pull
-# or install VIm plugins.
+# Install marek-etc files as hidden symlinks into target directory.
 #
-# cd $HOME && marek-etc/install.sh marek-etc
+# marek-etc/install.sh $HOME
 #
 
 set -e
 set -u
 #set -x
 
-# files to install
-files="bashrc bash_profile vimrc vim"
+# files/directories to install
+links="bashrc bash_profile vimrc vim"
 
-stderr() {
+stderr() # prints stderr message {{{
+{
     echo "$(basename $0): $*" >&2
-}
+} # }}}
 
-if [ -z "${1:-}" ]; then
-    stderr "Usage: $0 <src>"
+source_dir() # return path to source directory {{{
+{
+    cd $(dirname $0)
+    local source=$(pwd -P)
+
+    echo $source
+} # }}}
+
+link() # create/overwrites SRC DST symlink {{{
+{
+    local src="${1:-}"
+    local dst="${2:-}"
+    [ -e "$src" ] && [ -n "$dst" ]
+
+    if [ -h "$dst" ] || [ ! -e "$dst" ]; then
+        ln -sfn "$src" "$dst"
+        echo "$dst -> $src"
+    else
+        stderr "Skipped: $dst"
+    fi
+} # }}}
+
+dst=${1:-}
+if [ -z "$dst" ]; then
+    stderr "Usage: $0 <dst>"
     exit 1
-else
-    src=$1
 fi
 
-link()
-{
-    file="$src/$1"
-    link=".$1"
-
-    if [ ! -e $link ]; then
-        ln -sfn $file $link
-        echo "Installed: $link -> $file"
-    else
-        stderr "Warning: Skipped existing $link"
-    fi
-}
-
-
-for file in $files; do
-    link $file
+src=$(source_dir)
+for file in $links; do
+    link "$src/$file" "$dst/.$file"
 done
-
-vim="$src/vim"
-$vim/git-pull.sh $vim/bundle < $vim/plugins
