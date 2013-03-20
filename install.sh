@@ -2,7 +2,7 @@
 #
 # Install marek-etc files as hidden symlinks into target directory.
 #
-# marek-etc/install.sh $HOME
+# marek-etc/install.sh [$HOME]
 #
 
 set -e
@@ -10,14 +10,15 @@ set -u
 #set -x
 
 # files/directories to install
-links="bashrc bash_profile vimrc vim"
+links="bashrc bash_profile vimrc vim gitignore_global"
+git="/usr/bin/git"
 
 stderr() # prints stderr message {{{
 {
     echo "$(basename $0): $*" >&2
 } # }}}
 
-source_dir() # return path to source directory {{{
+get_source_dir() # return path to source directory {{{
 {
     cd $(dirname $0)
     local source=$(pwd -P)
@@ -25,7 +26,7 @@ source_dir() # return path to source directory {{{
     echo $source
 } # }}}
 
-link() # create/overwrites SRC DST symlink {{{
+mklink() # create/overwrites SRC DST symlink {{{
 {
     local src="${1:-}"
     local dst="${2:-}"
@@ -39,13 +40,23 @@ link() # create/overwrites SRC DST symlink {{{
     fi
 } # }}}
 
-dst=${1:-}
+# arguments
+dst=${1:-$HOME}
 if [ -z "$dst" ]; then
-    stderr "Usage: $0 <dst>"
+    stderr "Usage: $0 [dst]  # destination directory (defaults to \$HOME)"
     exit 1
 fi
 
-src=$(source_dir)
+# Link files
+src=$(get_source_dir)
 for file in $links; do
-    link "$src/$file" "$dst/.$file"
+    mklink "$src/$file" "$dst/.$file"
 done
+
+# Set gitignore_global
+git="/usr/bin/git"
+gitignore="$dst/.gitignore_global"
+if [ -x "$git" ]; then
+    "$git" config --global core.excludesfile "$gitignore"
+    echo "# git.config.core.excludesfile now $gitignore"
+fi
