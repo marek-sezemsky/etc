@@ -58,5 +58,8 @@ git="/usr/bin/git"
 gitignore="$dst/.gitignore_global"
 if [ -x "$git" ]; then
     "$git" config --global core.excludesfile "$gitignore"
-    echo "# git.config.core.excludesfile now $gitignore"
+    echo "git.config.core.excludesfile now $gitignore"
 fi
+
+# git-pull
+$src/vim/git-pull.sh $src/vim/bundle

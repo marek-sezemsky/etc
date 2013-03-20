@@ -1,31 +1,30 @@
 #!/bin/bash
 #
 # Pull or install handy VIM plugins into given destination directory.
-# 
-# git-pull.sh bundle < plugins
+#
+# git-pull.sh vim/bundle
 #
 
 set -e
 set -u
 #set -x
 
-[ -r ~/.proxy ] && source ~/.proxy
+[ -x "$(which git)" ]
+[ -f ~/.proxy ] && source ~/.proxy
 
-stderr() {
+# url file
+git_plugins="$(dirname $0)/plugins"
+
+stderr() # prints stderr message {{{
+{
     echo "$(basename $0): $*" >&2
-}
+} # }}}
 
-dst="${1:-}"
-if [ -z "${1:-}" ]; then
-    stderr "Usage: $0 <dst> < urls"
-    exit 1
-fi
+git_pull() # clone or pull url into dir {{{
+{
+    local url="$1"
+    local dir="$2"
 
-while read url; do
-    dir="$dst/$(basename $url)"
-    dir="${dir%.git}"
-
-    echo "Pulling: $dir [$url]"
     if [ -d "$dir/.git" ]; then
         old="$(pwd)"
         cd "$dir"
@@ -34,4 +33,18 @@ while read url; do
     else
         git clone "$url" "$dir"
     fi
-done
+} # }}}
+
+dst="${1:-}"
+if [ -z "${1:-}" ]; then
+    stderr "Usage: $0 <dst> # fetches $git_plugins"
+    exit 1
+fi
+
+while read url; do
+    dir="$dst/$(basename $url)"
+    dir="${dir%.git}"
+
+    echo "$url -> $dir"
+    git_pull "$url" "$dir"
+done < $git_plugins
