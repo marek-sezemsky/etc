@@ -1,29 +1,34 @@
-"
-" Global settings
-"
+""
+"" Marek's vimrc
+""
+
+" Basics
 set nocompatible
 set nobackup
 set modeline
-
-" backspace over indent
-set backspace=indent,eol,start
-set nojoinspaces
-
+set backspace=indent,eol,start " backspace over indent
 set fileformats=unix,dos
+set showmatch     " show matching parenthesis
+set incsearch     " incremental search
+set hlsearch      " hightlight search
+set nojoinspaces  " don't join multiple spaces on Shift-J
 
+" Load pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
+execute pathogen#helptags()
+
+" use syntax hightlight and filetype plugins
 syntax on
 filetype plugin indent on
 
 set background=dark
 colorscheme default
+set noerrorbells visualbell t_vb=        " no a/v bells...
+autocmd GUIEnter * set visualbell t_vb=  " ...especially in GUI
 
-set incsearch
-set hlsearch
-set showmatch
 
-" wrap 
+" re-wrap on F3
 map <F3> gq
 
 " taglist on F4
@@ -32,16 +37,22 @@ let Tlist_File_Fold_Auto_Close = 1  "close fold for inactive buffers
 let Tlist_GainFocus_On_ToggleOpen = 1 " switch automatically to taglist
 map <F4> :TlistToggle<ENTER>
 
-" %file %help %modified %readonly %= separate ...
-" .... %b/%B (char/hexa), %line,%column(%VirtualColumn) %Percentage
-" "1 file[+][RO]  Ln 36, Col  2 chr(0d012,0x0C) 80%"
+" Status line:
+" [1 file[+][RO]  Ln 36, Col  2 chr(0d012,0x0C) 80%]
 set statusline =%n:\ %f%h%m%r%<%=
 set statusline+=%(Ln\ %l/%L,\ Col\ %2c%)
 set statusline+=\ %{&ff}%Y\ ord(0d%03b,0x%02B)\ %P
 set laststatus=2
 
+" Filetypes:
 "au BufRead,BufNewFile ~/public_html/*/templates/* set filetype=tt2html
 "au BufRead,BufNewFile ~/public_html/*/templates/*html set filetype=html
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
-autocmd FileType tt2html set tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
-autocmd FileType perl,sh,markdown set foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+autocmd FileType tt2html setlocal tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
+autocmd FileType perl,sh,markdown setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+
+" Update diff on file write
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+
+" remove trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
