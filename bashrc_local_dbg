@@ -2,6 +2,9 @@
 
 # DBG workarounds
 
+# no UTF-8
+export LANG=en_US
+
 # SysAdmins put TERM=xterm into /etc/profile or /etc/bashrc on Linux hosts,
 # this breaks my SecureCRT sessions (amongst other things).
 if [ "$(uname)" = "Linux" ] && [ -n "$(grep 'TERM=xterm' /etc/profile /etc/bashrc)" ]; then
@@ -27,10 +30,9 @@ alias cda='cd /vobs/Admin'
 alias cdw='cd /vobs/CFM/www/webtools/cgi-bin'
 alias cdl='cd /clearcase/apache/cfm-tools/cfm_live/'
 
-# for vobadm & root shells started as 'exec bash -rcfile ~cn880/.bashrc'
+# for vobadm & root shells started as 'exec bash -rcfile ~cn880/.bashr
 [ -f ~cn880/.display ] && source ~cn880/.display
-pathmunge /home/cn880/bin
 
 # Solaris 'make'
-[ -d "/usr/ccs/bin" ] && export PATH="$PATH:/usr/ccs/bin"
+[ -d "/usr/ccs/bin" ] && pathmunge /usr/ccs/bin after
 
