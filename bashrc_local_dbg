@@ -1,0 +1,36 @@
+# ~cn880/.bashrc_local
+
+# DBG workarounds
+
+# SysAdmins put TERM=xterm into /etc/profile or /etc/bashrc on Linux hosts,
+# this breaks my SecureCRT sessions (amongst other things).
+if [ "$(uname)" = "Linux" ] && [ -n "$(grep 'TERM=xterm' /etc/profile /etc/bashrc)" ]; then
+	export TERM=linux
+fi
+
+# If vim as editor if available
+if [ -n "$(which vim 2>/dev/null)" ]; then
+    # VIM 6.0 on Solaris machines has broken /usr/share/vim
+    vim_version=$(vim --version 2>&1 | awk '/^VIM/ { print $5 }')
+    if [ "$vim_version" = "6.0" ]; then
+        export VIMRUNTIME=~cn880/.vim60
+    fi
+    unset vim_version
+    export EDITOR="vim"
+fi
+
+alias b='cd $HOME/bugs/ && cd'
+alias mc='mc -a'
+
+alias cdt='cd /vobs/CFM/tools'
+alias cda='cd /vobs/Admin'
+alias cdw='cd /vobs/CFM/www/webtools/cgi-bin'
+alias cdl='cd /clearcase/apache/cfm-tools/cfm_live/'
+
+# for vobadm & root shells started as 'exec bash -rcfile ~cn880/.bashrc'
+[ -f ~cn880/.display ] && source ~cn880/.display
+pathmunge /home/cn880/bin
+
+# Solaris 'make'
+[ -d "/usr/ccs/bin" ] && export PATH="$PATH:/usr/ccs/bin"
+

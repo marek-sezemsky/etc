@@ -10,7 +10,7 @@ set -u
 #set -x
 
 # files/directories to install
-links="bashrc bash_profile vimrc vim gitignore_global"
+links="bashrc bash_profile vimrc vim gitignore_global screenrc"
 git="/usr/bin/git"
 
 stderr() # prints stderr message {{{
@@ -62,4 +62,8 @@ if [ -x "$git" ]; then
 fi
 
 # git-pull
-$src/vim/git-pull.sh $src/vim/bundle
+if [ -h ~/.vim ]; then
+    $src/vim/git-pull.sh $src/vim/bundle
+else
+    stderr "Skipped: git-pull.sh (~/.vim is not symlink)"
+fi

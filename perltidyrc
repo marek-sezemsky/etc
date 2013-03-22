@@ -1,3 +1,9 @@
+#
+# perltydyrc for nice Perl Coding Style
+# Heavy work-in-progress (i.e. not working at all)
+#
+
+#
 -pt=2    # no spaces inside brackets:
 -sbt=2
 -bt=2
@@ -6,3 +12,16 @@
 -ssc
 
 
+#
+-it=4	# FUCK IT! 4 iterations!
+
+
+-pt=0   # paren tightness
+-sbt=0  # --square-bracket-tightness
+-i=4	# indent
+-ci=4	# continuous indent
+-bl	# opening braces left
+-nolq	# no ountdenting long quotes
+#-ndnl	# no delete old newlines
+-boc	# break at old comma breakpoints
+-ssc	# static-side-comments

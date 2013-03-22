@@ -3,8 +3,13 @@ marek-etc
 
 Marek's profile files.
 
-    # installation
-    ./install.sh $HOME
+Installation or update that also fetches VIM bundles from GitHub:
 
-    # vim plugins
-    vim/git-pull.sh vim/bundle < vim/plugins
+    cd $HOME
+    marek-etc/install.sh .
+
+Additionaly link whatever local bash file should be present:
+
+    cd $HOME
+    ln -s marek-etc/bashrc_local_dbg .bashrc_local
+
