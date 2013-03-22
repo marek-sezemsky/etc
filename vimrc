@@ -13,10 +13,12 @@ set incsearch     " incremental search
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
 
-" Load pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-execute pathogen#helptags()
+" Load pathogen for vim 7.x+
+if version >= 700
+	runtime bundle/vim-pathogen/autoload/pathogen.vim
+	execute pathogen#infect()
+	execute pathogen#helptags()
+endif
 
 " use syntax hightlight and filetype plugins
 syntax on
@@ -26,7 +28,6 @@ set background=dark
 colorscheme default
 set noerrorbells visualbell t_vb=        " no a/v bells...
 autocmd GUIEnter * set visualbell t_vb=  " ...especially in GUI
-
 
 " re-wrap on F3
 map <F3> gq
