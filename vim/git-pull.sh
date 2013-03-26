@@ -26,6 +26,12 @@ git_pull() # clone or pull url into dir {{{
     local dir="$2"
 
     if [ -d "$dir/.git" ]; then
+        # fetched in last 24hr
+        uptodate="$(find $dir/.git/FETCH_HEAD -mtime -1)"
+        if [ -n "$uptodate" ]; then
+            echo "Remote pulled recently."
+            return
+        fi
         old="$(pwd)"
         cd "$dir"
         git pull
