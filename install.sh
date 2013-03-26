@@ -10,7 +10,7 @@ set -u
 #set -x
 
 # files/directories to install
-links="bashrc bash_profile vimrc vim gitignore_global screenrc"
+links="bashrc bash_profile vimrc vim gitignore_global screenrc rpmmacros"
 git="/usr/bin/git"
 
 stderr() # prints stderr message {{{
