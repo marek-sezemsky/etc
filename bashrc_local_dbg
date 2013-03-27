@@ -22,16 +22,20 @@ if [ -n "$(which vim 2>/dev/null)" ]; then
     export EDITOR="vim"
 fi
 
-alias b='cd $HOME/bugs/ && cd'
 alias mc='mc -a'
 
+# CFM
+alias b='cd $HOME/bugs/ && cd'
 alias cdt='cd /vobs/CFM/tools'
 alias cda='cd /vobs/Admin'
 alias cdw='cd /vobs/CFM/www/webtools/cgi-bin'
 alias cdl='cd /clearcase/apache/cfm-tools/cfm_live/'
 
-# for vobadm & root shells started as 'exec bash -rcfile ~cn880/.bashr
-[ -f ~cn880/.display ] && source ~cn880/.display
+# ClearCase
+pathmunge /opt/rational/clearcase/bin after
+pathmunge /opt/rational/clearcase/etc after
+pathmunge /opt/rational/clearcase/etc/utils after
+alias cl='cd /var/adm/rational/clearcase/log'
 
 # Solaris 'make'
 [ -d "/usr/ccs/bin" ] && pathmunge /usr/ccs/bin after
