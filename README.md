@@ -36,6 +36,6 @@ and create forced profile in your home:
     real=\$HOME
     HOME=$HOME  # home of whoever created this
     . ~/.bash_profile
-    HOME=$real
+    HOME=\$real
     unset real
     EOF
