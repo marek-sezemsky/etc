@@ -8,7 +8,8 @@ Instalation
 
 Clone into home directory:
 
-    git clone git@github.com:marek-sezemsky/marek-etc.git ~/etc
+    . ~/.proxy
+    git clone https://marek-sezemsky@github.com/marek-sezemsky/marek-etc.git ~/etc
 
 and install (or update) with:
 
