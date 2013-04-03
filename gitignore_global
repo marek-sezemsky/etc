@@ -1,5 +1,6 @@
 # And nothing of value was lost
 *~
 *.swp
+tmp
 *.tmp
 *.bak
