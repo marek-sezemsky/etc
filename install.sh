@@ -33,8 +33,13 @@ mklink() # create/overwrites SRC DST symlink {{{
 
 git_conf() # setup global git configuration value {{{
 {
-    echo git config --global $*
-    git config --global $*
+    local gc="git config --replace --global"
+    local name="$1"
+    shift
+    local value="$*"
+
+    echo $gc $name \"$value\"
+    $gc $name "$*"
 } # }}}
 
 src=$(get_source_dir)
@@ -50,11 +55,13 @@ done
 echo "# setup git configuration and aliases"
 if [ -n "$have_git" ]; then
     git_conf core.excludesfile "$src/gitignore_global"
+    git_conf log.decorate short
     git_conf alias.co checkout
     git_conf alias.br branch
     git_conf alias.ci commit
     git_conf alias.st status
     git_conf alias.di diff
+    git_conf alias.l  "log --oneline --decorate"
 else
     echo "skip: git not installed"
 fi
