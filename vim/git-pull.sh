@@ -25,19 +25,19 @@ git_pull() # clone or pull url into dir {{{
     local url="$1"
     local dir="$2"
 
-    if [ -d "$dir/.git" ]; then
-        # fetched in last 24hr
-        uptodate="$(find $dir/.git/FETCH_HEAD -mtime -1)"
-        if [ -n "$uptodate" ]; then
+    if [ ! -d "$dir" ]; then
+        git clone "$url" "$dir"
+    else
+        fhead="$dir/.git/FETCH_HEAD"
+        if [ -f "$fhead" ] && [ -n "$(find $fhead -mtime -1)" ]; then
             echo "Fetched recently."
             return
+        else
+            old="$(pwd)"
+            cd "$dir"
+            git pull
+            cd "$old"
         fi
-        old="$(pwd)"
-        cd "$dir"
-        git pull
-        cd "$old"
-    else
-        git clone "$url" "$dir"
     fi
 } # }}}
 
