@@ -36,7 +36,10 @@ pathmunge /opt/rational/clearcase/bin after
 pathmunge /opt/rational/clearcase/etc after
 pathmunge /opt/rational/clearcase/etc/utils after
 alias cl='cd /var/adm/rational/clearcase/log'
+export LOCAL_VIEW_PREFIX="cn880"
+export LOCAL_VIEW_SHELL="bash -rcfile /home/cn880/.bashrc_hack"
 
 # Solaris 'make'
 [ -d "/usr/ccs/bin" ] && pathmunge /usr/ccs/bin after
 
+# vim:ft=sh
