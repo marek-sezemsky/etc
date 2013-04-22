@@ -13,6 +13,9 @@ set incsearch     " incremental search
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
 
+" direct Snipmate to my snippets
+let g:snippets_dir="$HOME/.vim/snippets"
+
 " Load pathogen for vim 7.x+
 if version >= 700
 	runtime bundle/vim-pathogen/autoload/pathogen.vim

@@ -1,7 +1,7 @@
 marek-etc
 =========
 
-Marek's ~/etc profile files.
+Marek's ~/etc profile files and Vim configuration.
 
 Instalation
 -----------
@@ -15,6 +15,11 @@ and install (or update) with:
 
     ~/etc/install.sh
 
+Vim
+---
+Installation will also clone/pull vim bundles (pathogen plugins) as listed in
+`vim/plugins`. Custom code snippets are located in `vim/snippets/`.
+
 Extras
 ------
 
@@ -25,17 +30,19 @@ Setup local bash additions (work, home, ...):
 SecureCRT
 ---------
 
-Source bash profile with sessions to shared accounts (vobadm, ccm_root,
-builder) via automated login (change 'marek' to whoever you are):
+To source my bash profile for shared accounts (like vobadm, ccm_root,
+builder), create forced profile that will change $HOME during sourcing of
+.bash_profile (change 'marek' to whoever you are on the machine) and setup
+SecureCRT's 'automated' login:
 
-* Expect: ` ~]`  # [vobadm@cc ~]$ or [root@box ~]#
+* Expect: ` ~]`  # [vobadm@box ~]$ or [root@box ~]#
 * Send:   `exec bash -rcfile ~marek/.bash_profile_forced`
 
-and create forced profile in your home:
+Create forced profile - `$HOME` will be hardcoded in this file:
 
     cat > ~/.bash_profile_forced <<EOF
     real=\$HOME
-    HOME=$HOME  # home of whoever created this
+    HOME=$HOME  # $HOME of whoever created this file
     . ~/.bash_profile
     HOME=\$real
     unset real

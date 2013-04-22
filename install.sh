@@ -61,8 +61,9 @@ if [ -n "$have_git" ]; then
     git_conf alias.ci commit
     git_conf alias.st status
     git_conf alias.di diff
-    git_conf alias.l  "log --oneline --decorate"
-    git_conf alias.s  "status --short --branch"
+    git_conf alias.dc diff --cached
+    git_conf alias.l  log --oneline --decorate
+    git_conf alias.s  status --short --branch
 else
     echo "skip: git not installed"
 fi
