@@ -5,13 +5,12 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-pathmunge () {
-    if ! echo $PATH | egrep "(^|:)$1($|:)" >/dev/null; then
-        if [ "$2" = "after" ] ; then
-            export PATH=$PATH:$1
-        else
-            export PATH=$1:$PATH
-        fi
+pathmunge()
+{
+    if [ "${2:-}" = "after" ] ; then
+        export PATH=$PATH:$1
+    else
+        export PATH=$1:$PATH
     fi
 }
 
@@ -20,11 +19,9 @@ HISTCONTROL=ignorespace:ignoredups
 HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
 # Make sure all common paths are in PATH
-paths="/usr/local/sbin /usr/sbin /sbin /usr/local/bin /usr/bin /bin $HOME/bin"
-for d in $paths; do
-    [ -d $d ] && pathmunge "$d"
-done
-unset paths
+export PATH="$HOME/local/bin:$HOME/bin"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
