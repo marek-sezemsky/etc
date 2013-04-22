@@ -31,6 +31,10 @@ alias cda='cd /vobs/Admin'
 alias cdw='cd /vobs/CFM/www/webtools/cgi-bin'
 alias cdl='cd /clearcase/apache/cfm-tools/cfm_live/'
 
+alias v='cc-view-set.sh'
+alias lsv='cc-view-list.sh'
+alias mkv='cc-view-create.sh'
+
 # ClearCase
 pathmunge /opt/rational/clearcase/bin after
 pathmunge /opt/rational/clearcase/etc after
