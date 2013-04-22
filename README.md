@@ -1,7 +1,7 @@
-marek-etc
-=========
+~/etc
+=====
 
-Marek's ~/etc profile files and Vim configuration.
+Marek's ~/etc profile files and Vim configuration repository.
 
 Instalation
 -----------
@@ -9,7 +9,7 @@ Instalation
 Clone into home directory:
 
     . ~/.proxy
-    git clone https://marek-sezemsky@github.com/marek-sezemsky/marek-etc.git ~/etc
+    git clone https://marek-sezemsky@github.com/marek-sezemsky/etc.git
 
 and install (or update) with:
 

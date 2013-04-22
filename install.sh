@@ -2,7 +2,7 @@
 #
 # Install into home.
 #
-# marek-etc/install.sh
+# ~/etc/install.sh
 #
 
 set -e
