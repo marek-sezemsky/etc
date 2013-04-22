@@ -43,7 +43,7 @@ git_pull() # clone or pull url into dir {{{
 
 dst="${1:-}"
 if [ -z "${1:-}" ]; then
-    stderr "Usage: $0 <dst> # fetches $git_plugins"
+    stderr "Usage: $0 <bundle> # fetches $git_plugins"
     exit 1
 fi
 
