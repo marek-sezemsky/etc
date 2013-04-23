@@ -1,49 +1,45 @@
 ~/etc
 =====
+Marek's ~/etc configuration files (`.*rc`) for bash, Vim and others.
 
-Marek's ~/etc profile files and Vim configuration repository.
+Download and install
+--------------------
+Clone into your home directory:
 
-Instalation
------------
+    git clone git://github.com/marek-sezemsky/etc.git
 
-Clone into home directory:
+Or source proxy settings first and use proxy-friendly HTTPS.
 
     . ~/.proxy
     git clone https://marek-sezemsky@github.com/marek-sezemsky/etc.git
 
-and install (or update) with:
+Install (or update) with:
 
     ~/etc/install.sh
 
-Vim
----
-Installation will also clone/pull vim bundles (pathogen plugins) as listed in
-`vim/plugins`. Custom code snippets are located in `vim/snippets/`.
-
 Extras
 ------
+Setup local bash additions or workarounds (office, cygwin, ...):
 
-Setup local bash additions (work, home, ...):
+    ln -s ~/etc/bashrc_local_office ~/.bashrc_local
 
-    ln -s ~/etc/bashrc_local_work ~/.bashrc_local
-
-SecureCRT
----------
-
-To source my bash profile for shared accounts (like vobadm, ccm_root,
-builder), create forced profile that will change $HOME during sourcing of
-.bash_profile (change 'marek' to whoever you are on the machine) and setup
-SecureCRT's 'automated' login:
-
-* Expect: ` ~]`  # [vobadm@box ~]$ or [root@box ~]#
-* Send:   `exec bash -rcfile ~marek/.bash_profile_forced`
-
-Create forced profile - `$HOME` will be hardcoded in this file:
+Using from shared accounts
+--------------------------
+To use ~/etc profile when logging to accounts where default profile is always
+kept (like vobadm), use two-step hack: as first, create bash with profile
+sourced with changed $HOME.
 
     cat > ~/.bash_profile_forced <<EOF
     real=\$HOME
-    HOME=$HOME  # $HOME of whoever created this file
+    HOME=$HOME  # $HOME evals to ~
     . ~/.bash_profile
     HOME=\$real
     unset real
     EOF
+
+And once logged into shared account, exec shell again:
+
+    [vobadm@box ~]$  exec bash -rcfile ~marek/.bash_profile_forced
+
+This may be used with SecureCRT Automated login (or `expect`) to wait for `~]`
+(as example for RHEL-based machines) and launching the same command as above.

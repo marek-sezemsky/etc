@@ -10,6 +10,7 @@ set backspace=indent,eol,start " backspace over indent
 set fileformats=unix,dos
 set showmatch     " show matching parenthesis
 set incsearch     " incremental search
+set smartcase     " ignore case when lc(pattern)
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
 
