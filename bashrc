@@ -26,7 +26,9 @@ export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
     alias g='git'
-    complete -o default -o nospace -F _git g
+    if [ -f "/etc/bash_completion.d/git" ]; then
+        complete -o default -o nospace -F _git g
+    fi
 fi
 
 # SCM: ClearCase
