@@ -48,6 +48,9 @@ if [ -d "$cc" ]; then
 fi
 unset cc
 
+# --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
+export LESS="-R"
+
 # fancy colors; linux only
 if [ "$(uname)" = "Linux" ]; then
 	alias grep='grep --color=auto'

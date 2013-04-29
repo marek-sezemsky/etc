@@ -54,6 +54,7 @@ done
 
 echo "# setup git configuration and aliases"
 if [ -n "$have_git" ]; then
+    git_conf color.ui true
     git_conf core.excludesfile "$src/gitignore_global"
     git_conf log.decorate short
     git_conf alias.co checkout
