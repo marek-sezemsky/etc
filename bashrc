@@ -23,6 +23,9 @@ export PATH="$HOME/local/bin:$HOME/bin"
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
+# Perl
+alias pd='perldoc'
+
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
     alias g='git'
