@@ -34,6 +34,9 @@ colorscheme default
 set noerrorbells visualbell t_vb=        " no a/v bells...
 autocmd GUIEnter * set visualbell t_vb=  " ...especially in GUI
 
+" perldoc of current file on F2
+map <F2> :!perldoc %:p<CR>
+
 " re-wrap on F3
 map <F3> gq
 
