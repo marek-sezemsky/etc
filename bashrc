@@ -23,8 +23,10 @@ export PATH="$HOME/local/bin:$HOME/bin"
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
-# Perl
+# Aliases
 alias pd='perldoc'
+alias l='ls -l'
+alias la='ls -la'
 
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
@@ -53,6 +55,10 @@ unset cc
 
 # --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
 export LESS="-R"
+
+if [ -n "$(which vim 2>/dev/null)" ]; then
+    export EDITOR=vim
+fi
 
 # fancy colors; linux only
 if [ "$(uname)" = "Linux" ]; then

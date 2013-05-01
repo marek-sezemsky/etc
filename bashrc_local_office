@@ -11,16 +11,12 @@ if [ "$(uname)" = "Linux" ] && [ -n "$(grep 'TERM=xterm' /etc/profile /etc/bashr
 	export TERM=linux
 fi
 
-# If vim as editor if available
-if [ -n "$(which vim 2>/dev/null)" ]; then
-    # VIM 6.0 on Solaris machines has broken /usr/share/vim
-    vim_version=$(vim --version 2>&1 | awk '/^VIM/ { print $5 }')
-    if [ "$vim_version" = "6.0" ]; then
-        export VIMRUNTIME=~cn880/.vim60
-    fi
-    unset vim_version
-    export EDITOR="vim"
+# VIM 6.0 on Solaris machines has broken /usr/share/vim
+vim_version=$(vim --version 2>&1 | awk '/^VIM/ { print $5 }')
+if [ "$vim_version" = "6.0" ]; then
+    export VIMRUNTIME=~cn880/.vim60
 fi
+unset vim_version
 
 alias mc='mc -a'
 
