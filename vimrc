@@ -55,8 +55,8 @@ set laststatus=2
 
 " Filetypes:
 "au BufRead,BufNewFile ~/public_html/*/templates/* set filetype=tt2html
-"au BufRead,BufNewFile ~/public_html/*/templates/*html set filetype=html
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
+autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd FileType tt2html setlocal tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
 autocmd FileType perl,sh,markdown,python setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
 

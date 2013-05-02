@@ -29,12 +29,9 @@ our $VERSION = '0.01';
 # Exporter definition.
 #
 # {{{
-
 use base 'Exporter';
-our (@EXPORT, @EXPORT_OK, %EXPORT_TAGS);
-
+our (@EXPORT_OK, %EXPORT_TAGS);
 {
-    @EXPORT    = ( );
     @EXPORT_OK = qw(
     sub
     );
@@ -42,9 +39,9 @@ our (@EXPORT, @EXPORT_OK, %EXPORT_TAGS);
         all     => [ @EXPORT_OK ],
     );
 }
-
-
 # }}}
+
+## use Module;
 
 =head1 PROPERTIES
 

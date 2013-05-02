@@ -57,14 +57,14 @@ if [ -n "$have_git" ]; then
     git_conf color.ui true
     git_conf core.excludesfile "$src/gitignore_global"
     git_conf log.decorate short
+    git_conf alias.b  branch
+    git_conf alias.ci commit --verbose
     git_conf alias.co checkout
-    git_conf alias.br branch
-    git_conf alias.ci commit
-    git_conf alias.st status
-    git_conf alias.di diff
+    git_conf alias.d  diff
     git_conf alias.dc diff --cached
     git_conf alias.l  log --all --oneline --graph --decorate -20
     git_conf alias.s  status --short --branch
+    git_conf alias.st status
 else
     echo "skip: git not installed"
 fi
