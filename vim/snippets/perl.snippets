@@ -84,17 +84,18 @@ snippet for
 # Foreach Loop One-line
 snippet fore
 	${1:expression} foreach @${2:array};${3}
+# Subroutine
+snippet sub
+	# ${1:name} - ${2:description}
+	sub $1 # {{{
+	{
+		my (%args) = @_;
 
-#
-# Subroutine snippets
-#
-snippet sub ${1:function_name} {
-		${2:#body ...}
-	}
+		return;
+	} # }}}
 
-#
-# Subroutine snippet with POD doc block.
-snippet sub1
+# Subroutine with POD
+snippet subp
 	=item C<${1:name}> I<${2:ARGS}>
 
 	${3:Do something and return value.}
@@ -111,8 +112,8 @@ snippet sub1
 		return;
 	} # }}}
 
-# Subroutine snippet with commented doc block.
-snippet sub2
+# Subroutine with comments
+snippet subc
 	#
 	# ${1:name} ${2:ARGS}
 	#
