@@ -86,10 +86,11 @@ snippet fore
 	${1:expression} foreach @${2:array};${3}
 # Subroutine
 snippet sub
-	# ${1:name} - ${2:description}
-	sub $1 # {{{
+	# ${2:description}
+	sub ${1:name} # {{{
 	{
 		my (%args) = @_;
+		${3}
 
 		return;
 	} # }}}
