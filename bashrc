@@ -60,18 +60,14 @@ if [ -n "$(which vim 2>/dev/null)" ]; then
     export EDITOR=vim
 fi
 
-# fancy colors; linux only
-if [ "$(uname)" = "Linux" ]; then
+# PS1 color for capable terminals only
+colors=$(tput colors 2>/dev/null)
+if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
 	alias grep='grep --color=auto'
 	alias egrep='egrep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias ls='ls --color=auto'
     alias grep='grep --color=auto'
-fi
-
-# PS1 color for capable terminals only
-colors=$(tput colors 2>/dev/null)
-if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
 	off=$(tput sgr0)
 	#green=$(tput setaf 2)
 	#red=$(tput setaf 1)
