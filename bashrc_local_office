@@ -21,7 +21,7 @@ unset vim_version
 alias mc='mc -a'
 
 # CFM
-alias b='cd $HOME/bugs/ && cd'
+alias b='cd $HOME/bug/ && cd'
 alias cdt='cd /vobs/CFM/tools'
 alias cda='cd /vobs/Admin'
 alias cdw='cd /vobs/CFM/www/webtools/cgi-bin'
