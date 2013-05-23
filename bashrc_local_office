@@ -8,7 +8,7 @@ export LANG=en_US
 # SysAdmins put TERM=xterm into /etc/profile or /etc/bashrc on Linux hosts,
 # this breaks my SecureCRT sessions (amongst other things).
 if [ "$(uname)" = "Linux" ] && [ -n "$(grep 'TERM=xterm' /etc/profile /etc/bashrc)" ]; then
-	export TERM=linux
+    export TERM=linux
 fi
 
 # VIM 6.0 on Solaris machines has broken /usr/share/vim

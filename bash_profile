@@ -2,5 +2,7 @@
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
+    . ~/.bashrc
 fi
+
+# vim:ft=sh

@@ -2,17 +2,17 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 fi
 
-pathmunge()
+pathmunge() # {{{
 {
     if [ "${2:-}" = "after" ] ; then
         export PATH=$PATH:$1
     else
         export PATH=$1:$PATH
     fi
-}
+} # }}}
 
 # History control
 HISTCONTROL=ignorespace:ignoredups
@@ -71,14 +71,14 @@ if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
         alias ls='ls --color=auto'
         alias grep='grep --color=auto'
     fi
-	off=$(tput sgr0)
-	#green=$(tput setaf 2)
-	#red=$(tput setaf 1)
-	grey=$(tput bold ; tput setaf 0)
-	yellow=$(tput setaf 3)
-	bold_red=$(tput bold ; tput setaf 1)
-	bold_white=$(tput bold ; tput setaf 7)
-	export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
+    off=$(tput sgr0)
+    #green=$(tput setaf 2)
+    #red=$(tput setaf 1)
+    grey=$(tput bold ; tput setaf 0)
+    yellow=$(tput setaf 3)
+    bold_red=$(tput bold ; tput setaf 1)
+    bold_white=$(tput bold ; tput setaf 7)
+    export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
 else
     export __ps1_retval=''
     unset PROMPT_COMMAND
@@ -97,3 +97,5 @@ unset off grey yellow bold_red bold_white
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
 
 unset pathmunge
+
+# vim:ft=sh
