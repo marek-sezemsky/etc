@@ -63,11 +63,14 @@ fi
 # PS1 color for capable terminals only
 colors=$(tput colors 2>/dev/null)
 if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
-	alias grep='grep --color=auto'
-	alias egrep='egrep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
+    if ls --color=auto -d / > /dev/null 2>&1 ; then
+        # use colors only when supported by ls
+        alias grep='grep --color=auto'
+        alias egrep='egrep --color=auto'
+        alias fgrep='fgrep --color=auto'
+        alias ls='ls --color=auto'
+        alias grep='grep --color=auto'
+    fi
 	off=$(tput sgr0)
 	#green=$(tput setaf 2)
 	#red=$(tput setaf 1)
@@ -75,7 +78,7 @@ if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
 	yellow=$(tput setaf 3)
 	bold_red=$(tput bold ; tput setaf 1)
 	bold_white=$(tput bold ; tput setaf 7)
-	export PROMPT_COMMAND="es=\$?; [[ \$es -eq 0 ]] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
+	export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
 else
     export __ps1_retval=''
     unset PROMPT_COMMAND
