@@ -22,6 +22,7 @@ Extras
 Setup local bash additions or workarounds (office, cygwin, ...):
 
     ln -s ~/etc/bashrc_local_office ~/.bashrc_local
+    ln -s ~/etc/proxy/clearstream ~/.proxy
 
 Using from shared accounts
 --------------------------
