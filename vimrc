@@ -58,7 +58,8 @@ set laststatus=2
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd FileType tt2html setlocal tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
-autocmd FileType perl,sh,markdown,python setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+autocmd FileType perl,sh,markdown,python,mediawiki
+	\ setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif

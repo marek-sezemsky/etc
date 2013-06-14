@@ -43,6 +43,32 @@ our (@EXPORT_OK, %EXPORT_TAGS);
 
 ## use Module;
 
+=head1 CONSTRUCTOR
+
+=over
+
+=item C<new>
+
+Create and return new instance of self.
+
+=cut
+
+use new # {{{
+{
+    my $class  = shift;
+    my (%opts) = @_;
+    trace();
+
+    my $self = bless { }, $class;
+    foreach my ($property, $value) ( %opts ) {
+        $self->$property($value);
+    }
+
+    return $self;
+}; # }}}
+
+=back
+
 =head1 PROPERTIES
 
     # get
@@ -71,35 +97,13 @@ sub name  # {{{
 
 =head1 METHODS
 
-=over
+=item C<action>, I<LIST...>
 
-=item C<new>
-
-Create and return new instance of self.
+Action that needs list.
 
 =cut
 
-use new # {{{
-{
-    my $class  = shift;
-    my (%opts) = @_;
-    trace();
-
-    my $self = bless { }, $class;
-    foreach my ($property, $value) ( %opts ) {
-        $self->$property($value);
-    }
-
-    return $self;
-}; # }}}
-
-=item C<sub>, I<LIST...>
-
-Needs list.
-
-=cut
-
-use sub # {{{
+use action # {{{
 {
     my (@list) = @_;
     trace();
