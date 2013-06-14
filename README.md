@@ -15,7 +15,7 @@ Or source proxy settings first and use proxy-friendly HTTPS.
 
 Install (or update) with:
 
-    ~/etc/install.sh
+    ~/etc/install
 
 Extras
 ------
@@ -27,7 +27,7 @@ Setup local bash additions or workarounds (office, cygwin, ...):
 Using from shared accounts
 --------------------------
 To use ~/etc profile when logging to accounts where default profile is always
-kept (like vobadm), use two-step hack: as first, create bash with profile
+kept (like vobadm), use two-step hack: as first create bash with profile
 sourced with changed $HOME.
 
     cat > ~/.bash_profile_forced <<EOF
