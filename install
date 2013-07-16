@@ -62,7 +62,7 @@ if [ -n "$have_git" ]; then
     git_conf alias.co checkout
     git_conf alias.d  diff
     git_conf alias.dc diff --cached
-    git_conf alias.l  log --all --oneline --graph --decorate -20
+    git_conf alias.l  log --oneline --graph --decorate
     git_conf alias.s  status --short --branch
     git_conf alias.st status
 else
