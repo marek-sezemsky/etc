@@ -22,7 +22,7 @@ Script's arguments.
 
 =item B<-h>, B<--help>
 
-This page.
+Short or long version of help.
 
 =item B<--verbose>
 
@@ -80,6 +80,7 @@ sub parse_arguments # {{{
     my @options = (
         'argument|a=s',
         # default arguments:
+        'h+',
         'help+',
         'verbose+',
         'debug+',
@@ -88,7 +89,8 @@ sub parse_arguments # {{{
     if ( not GetOptions(\%args, @options) ) {
         pod2usage(2);
     }
-    pod2usage(1) if $args{help};
+    pod2usage(1) if $args{h};
+    pod2usage(-verbose => 2) if $args{help};
     pod2usage(2) if @ARGV;
 
     want_verbose(1) if $args{verbose};
