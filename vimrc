@@ -58,11 +58,13 @@ set laststatus=2
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd FileType tt2html setlocal tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
-autocmd FileType perl,sh,markdown,python,mediawiki
+autocmd FileType perl,sh,markdown,python,javascript
 	\ setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+
+autocmd FileType mediawiki setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 ts=2 sw=2 st=2 expandtab
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
-" remove trailing whitespace on save
+" Remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
