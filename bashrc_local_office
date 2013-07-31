@@ -42,7 +42,4 @@ export LOCAL_VIEW_SHELL="bash -rcfile /home/cn880/.bashrc_hack"
 # Solaris 'make'
 [ -d "/usr/ccs/bin" ] && pathmunge /usr/ccs/bin after
 
-# Source proxy
-[ -f ~/.proxy ] && source ~/.proxy
-
 # vim:ft=sh
