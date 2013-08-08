@@ -27,6 +27,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 alias pd='perldoc'
 alias l='ls -l'
 alias la='ls -la'
+alias mc='mc -a'
 
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
