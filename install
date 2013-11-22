@@ -47,7 +47,7 @@ dst=~
 have_git="$(which git)"
 
 echo "# link $src into home"
-links="bashrc bash_profile vimrc vim screenrc rpmmacros"
+links="bashrc bash_profile vimrc vim screenrc rpmmacros gitignore_global"
 for file in $links; do
     mklink "$src/$file" "$dst/.$file"
 done
@@ -55,7 +55,7 @@ done
 echo "# setup git configuration and aliases"
 if [ -n "$have_git" ]; then
     git_conf color.ui true
-    git_conf core.excludesfile "$src/gitignore_global"
+    git_conf core.excludesfile "~/.gitignore_global"
     git_conf log.decorate short
     git_conf alias.b  branch
     git_conf alias.ci commit --verbose
