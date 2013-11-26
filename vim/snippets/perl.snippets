@@ -157,4 +157,28 @@ snippet run advanced run() (with output capture)
 
 	${5:# process output}
 
+snippet has Moose attribute definition
+	=item C<${1:name}>
 
+	${2:Property description}
+
+	=cut
+
+	has $1 => (
+	    is  => 'ro',
+	    isa => 'String',
+	);
+
+snippet hasb Moose attribute definition with builder
+	has ${1:name}  => (
+	    is   => 'ro',
+	    isa  => 'String',
+	    lazy => 1,
+	    builder => '_build_$1',
+	);
+
+	sub _build_$1
+	{
+	    my $self = shift;
+	    return '$1';
+	}
