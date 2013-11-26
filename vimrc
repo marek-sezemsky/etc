@@ -53,15 +53,16 @@ set statusline+=%(Ln\ %l/%L,\ Col\ %2c%)
 set statusline+=\ %{&ff}%Y\ ord(0d%03b,0x%02B)\ %P
 set laststatus=2
 
-" Filetypes:
-"au BufRead,BufNewFile ~/public_html/*/templates/* set filetype=tt2html
+" Filetypes
+"au BufRead,BufNewFile */www/templates/* set filetype=tt2html
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
-autocmd FileType tt2html setlocal tabstop=1 shiftwidth=1 expandtab softtabstop=1 foldmethod=syntax
-autocmd FileType perl,sh,markdown,python,javascript
+autocmd BufRead,BufNewFile *.t set filetype=perl
+autocmd FileType tt2html   setlocal foldmethod=indent
+autocmd FileType mediawiki setlocal wrap linebreak nolist expandtab wrapmargin=40
+autocmd FileType mediawiki setlocal textwidth=0 wrapmargin=0
+autocmd FileType perl,sh,markdown,python,mediawiki,javascript,tt2html
 	\ setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
-
-autocmd FileType mediawiki setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 ts=2 sw=2 st=2 expandtab
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
