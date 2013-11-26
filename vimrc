@@ -66,6 +66,3 @@ autocmd FileType perl,sh,markdown,python,mediawiki,javascript,tt2html
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
-
-" Remove trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
