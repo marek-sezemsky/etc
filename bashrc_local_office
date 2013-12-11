@@ -2,9 +2,6 @@
 
 # DBG workarounds
 
-# no UTF-8
-export LANG=en_US
-
 # SysAdmins put TERM=xterm into /etc/profile or /etc/bashrc on Linux hosts,
 # this breaks my SecureCRT sessions (amongst other things).
 if [ "$(uname)" = "Linux" ] && [ -n "$(grep 'TERM=xterm' /etc/profile /etc/bashrc)" ]; then
@@ -17,8 +14,6 @@ if [ "$vim_version" = "6.0" ]; then
     export VIMRUNTIME=~cn880/.vim60
 fi
 unset vim_version
-
-alias mc='mc -a'
 
 # CFM
 alias b='cd $HOME/bug/ && cd'
