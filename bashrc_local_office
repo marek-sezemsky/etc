@@ -30,7 +30,6 @@ alias mkv='cc-view-create.sh'
 pathmunge /opt/rational/clearcase/bin after
 pathmunge /opt/rational/clearcase/etc after
 pathmunge /opt/rational/clearcase/etc/utils after
-pathmunge /home/cn880/scm after
 
 alias cl='cd /var/adm/rational/clearcase/log'
 export LOCAL_VIEW_PREFIX="cn880"
@@ -38,10 +37,5 @@ export LOCAL_VIEW_SHELL="bash -rcfile /home/cn880/.bashrc_hack"
 
 # Solaris 'make'
 [ -d "/usr/ccs/bin" ] && pathmunge /usr/ccs/bin after
-
-# ClearstreamWA
-export CFM_DIR=/home/cn880/wa/ClearstreamCFM
-export PERL5LIB=${CFM_DIR}/lib:${PERL5LIB:-}
-export PATH=${CFM_DIR}/bin:$PATH
 
 # vim:ft=sh
