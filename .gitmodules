@@ -43,3 +43,6 @@
 	ignore = dirty
 	path = vim/bundle/vim-bad-whitespace
 	url = https://github.com/bitc/vim-bad-whitespace.git
+[submodule "vim/bundle/vim-json"]
+	path = vim/bundle/vim-json
+	url = https://github.com/elzr/vim-json.git
