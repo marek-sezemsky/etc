@@ -1,10 +1,11 @@
-'''
-'''
+#!/usr/bin/env python
+"""
+"""
 
 
-def doMain():
+def main():
     pass
 
 
 if __name__ == '__main__':
-    doMain()
+    main()
