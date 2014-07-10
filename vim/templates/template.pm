@@ -114,17 +114,9 @@ use action # {{{
 
 =back
 
-=head1 TODO
-
-Change this.
-
-=head1 AUTHOR
-
-Marek Sezemsky <marek.sezemsky@deutsche-boerse.com>
-
 =head1 LICENSE
 
-Copyright 2013 Deutsche Boerse Services s.r.o.
+Copyright 2014 Deutsche Boerse Services s.r.o.
 
 =cut
 

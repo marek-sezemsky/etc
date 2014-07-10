@@ -42,18 +42,9 @@ Return 0 when everything is OK, non-zero value on error.
 
 Examples how to use the script.
 
-=head1 AUTHOR
-
-    %USER% %EMAIL%
-
 =head1 LICENSE
 
-    Copyright 2013 Deutsche Boerse Services s.r.o.
-    Copyright 2013 Clearstream Services S.A.
-
-=head1 HISTORY
-
-     %DATE% created
+    Copyright 2014 Deutsche Boerse Services s.r.o.
 
 =cut
 
