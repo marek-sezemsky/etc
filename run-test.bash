@@ -2,12 +2,10 @@ set -u
 set -e
 set -x
 
-# __init__
-workdir=tmp/fake_home.$$
+# setUp
+workdir=fake_home.$$.tmp
 mkdir $workdir
 export HOME=$workdir
-
-# setUp
 cd $workdir
 touch skeleton diff1 diff2 # for tests
 mkdir .vim
@@ -25,6 +23,7 @@ ls -Fa $workdir | tee $workdir/diff1
 diff $workdir/diff1 $workdir/diff1
 
 # test_gitconfig
+./install $workdir
 [ -f $workdir/.gitconfig ]
 
 # tearDown
