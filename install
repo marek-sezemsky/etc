@@ -1,79 +1,50 @@
 #!/bin/bash
 #
-# Install into home.
+# ~/etc/install [DestDir]
 #
-# ~/etc/install.sh
-#
-
 set -e
 set -u
 #set -x
 
-get_source_dir() # return path to source directory {{{
-{
-    cd $(dirname $0)
-    local source=$(pwd -P)
+sourcedir="$(dirname $0)"
+destdir="${1:-$HOME}"
 
-    echo $source
-} # }}}
-
-mklink() # create/overwrites SRC DST symlink {{{
-{
-    local src="${1:-}"
-    local dst="${2:-}"
-    [ -e "$src" ] && [ -n "$dst" ]
-
-    if [ -h "$dst" ] || [ ! -e "$dst" ]; then
-        echo "symlink $dst -> $src"
-        ln -sfn "$src" "$dst"
-    else
-        echo "skip: $dst exists"
+symlinks=(
+bashrc
+bash_profile
+vimrc
+vim
+screenrc
+rpmmacros
+gitignore_global
+)
+echo "install $sourcedir symlinks into $destdir ..."
+for link in ${symlinks[@]}; do
+    src="$sourcedir/${link}"
+    dst="$destdir/.${link}"
+    if [ -e "$dst" ] && [ ! -L "$dst" ]
+    then
+        mv -v "$dst" "$dst~"
     fi
-} # }}}
-
-git_conf() # setup global git configuration value {{{
-{
-    local gc="git config --replace --global"
-    local name="$1"
-    shift
-    local value="$*"
-
-    echo $gc $name \"$value\"
-    $gc $name "$*"
-} # }}}
-
-src=$(get_source_dir)
-dst=~
-have_git="$(which git)"
-
-echo "# link $src into home"
-links="bashrc bash_profile vimrc vim screenrc rpmmacros gitignore_global"
-for file in $links; do
-    mklink "$src/$file" "$dst/.$file"
+    ln -nsfv "$src" "$dst"
 done
 
-echo "# setup git configuration and aliases"
-if [ -n "$have_git" ]; then
-    git_conf color.ui true
-    git_conf core.excludesfile "~/.gitignore_global"
-    git_conf log.decorate short
-    git_conf alias.b  branch
-    git_conf alias.br branch
-    git_conf alias.ci commit --verbose
-    git_conf alias.co checkout
-    git_conf alias.d  diff
-    git_conf alias.dc diff --cached
-    git_conf alias.l  log --oneline --graph --decorate
-    git_conf alias.s  status --short --branch
-    git_conf alias.st status
-    git_conf alias.cp cherry-pick
-else
-    echo "skip: git not installed"
-fi
-
-echo "# git-pull vim bundles"
-if [ -h $dst/.vim ]; then
-    $src/vim/git-pull.sh $src/vim/bundle
-else
-    echo "skip: $dst/.vim is not symlink"
+git=$(which git)
+if $git --version >/dev/null
+then
+    echo "install $git configuration ..."
+    gitconfig="$git config --replace --global"
+    $gitconfig color.ui true
+    $gitconfig core.excludesfile "~/.gitignore_global"
+    $gitconfig log.decorate "short"
+    $gitconfig alias.b  "branch"
+    $gitconfig alias.br "branch"
+    $gitconfig alias.ci "commit --verbose"
+    $gitconfig alias.co "checkout"
+    $gitconfig alias.d  "diff"
+    $gitconfig alias.dc "diff --cached"
+    $gitconfig alias.l  "log --oneline --graph --decorate"
+    $gitconfig alias.s  "status --short --branch"
+    $gitconfig alias.st "status"
+    $gitconfig alias.cp "cherry-pick"
 fi

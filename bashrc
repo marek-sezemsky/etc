@@ -19,9 +19,9 @@ HISTCONTROL=ignorespace:ignoredups
 HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
 # Make sure all common paths are in PATH
-export PATH="$HOME/local/bin:$HOME/bin"
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
-export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
+pathmunge "$HOME/local/bin:$HOME/bin"
+pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
+pathmunge "/usr/local/bin:/usr/bin:/bin" after
 
 # Aliases
 alias pd='perldoc'
