@@ -29,7 +29,6 @@ for link in ${symlinks[@]}; do
     ln -nsfv "$src" "$dst"
 done
 
-
 git=$(which git)
 if $git --version >/dev/null
 then
@@ -39,6 +38,7 @@ then
     $gitconfig core.excludesfile "~/.gitignore_global"
     $gitconfig log.decorate "short"
     $gitconfig alias.b  "branch"
+    $gitconfig alias.br "branch"
     $gitconfig alias.ci "commit --verbose"
     $gitconfig alias.co "checkout"
     $gitconfig alias.d  "diff"
