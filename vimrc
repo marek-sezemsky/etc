@@ -29,8 +29,8 @@ endif
 syntax on
 filetype plugin indent on
 
-set background=dark
 colorscheme default
+set background=dark
 set noerrorbells visualbell t_vb=        " no a/v bells...
 autocmd GUIEnter * set visualbell t_vb=  " ...especially in GUI
 
