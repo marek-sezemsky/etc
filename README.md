@@ -6,12 +6,12 @@ Download and install
 --------------------
 Clone into your home directory:
 
-    git clone git://github.com/marek-sezemsky/etc.git
+    git clone -r git://github.com/marek-sezemsky/etc.git
 
 Or source proxy settings first and use proxy-friendly HTTPS.
 
     # export HTTP_PROXY=http://
-    cd ~ && git clone https://marek-sezemsky@github.com/marek-sezemsky/etc.git
+    cd ~ && git clone -r https://marek-sezemsky@github.com/marek-sezemsky/etc.git
 
 Install (or update) with:
 
