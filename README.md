@@ -10,12 +10,16 @@ Clone into your home directory:
 
 Or source proxy settings first and use proxy-friendly HTTPS.
 
-    . ~/.proxy
-    git clone https://marek-sezemsky@github.com/marek-sezemsky/etc.git
+    # export HTTP_PROXY=http://
+    cd ~ && git clone https://marek-sezemsky@github.com/marek-sezemsky/etc.git
 
 Install (or update) with:
 
-    ~/etc/install
+    cd ~ && etc/install
+
+Test:
+
+    cd ~/etc && bash run-test.bash
 
 Extras
 ------
