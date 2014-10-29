@@ -27,6 +27,8 @@ export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 alias pd='perldoc'
 alias l='ls -l'
 alias la='ls -la'
+alias gl='g l --no-merges'
+alias gf='g flow'
 
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
@@ -86,7 +88,7 @@ fi
 
 # user@box:~$ _
 # current_view_tag root@box:~# _
-export PS1="\[$bold_white\]$cc_view\[$off\]\\u\[$grey\]@\[$off\]\\h\[$grey\]:\[$off\]\\w\[\$__ps1_retval\]\\$\[$off\] "
+export PS1="\[$bold_white\]$cc_view\[$off\]\\u\[$grey\]@\[$off\]\\h\[$grey\]:\[$off\]\\W\[\$__ps1_retval\]\\$\[$off\] "
 
 unset off grey yellow bold_red bold_white
 

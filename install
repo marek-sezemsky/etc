@@ -58,6 +58,7 @@ if [ -n "$have_git" ]; then
     git_conf core.excludesfile "~/.gitignore_global"
     git_conf log.decorate short
     git_conf alias.b  branch
+    git_conf alias.br branch
     git_conf alias.ci commit --verbose
     git_conf alias.co checkout
     git_conf alias.d  diff
