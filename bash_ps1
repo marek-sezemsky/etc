@@ -3,29 +3,36 @@
 # PS1 color for capable terminals only
 colors=$(tput colors 2>/dev/null)
 if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
-    off=$(tput sgr0)
-    #green=$(tput setaf 2)
-    #red=$(tput setaf 1)
-    grey=$(tput bold ; tput setaf 0)
-    yellow=$(tput setaf 3)
-    bold_red=$(tput bold ; tput setaf 1)
-    bold_white=$(tput bold ; tput setaf 7)
-    export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
+    __color_off=$(tput sgr0)
+    __color_default=$__color_off
+    __color_grey=$(tput bold; tput setaf 0)
+    __color_yellow=$(tput bold; tput setaf 3)
+    __color_red=$(tput bold ; tput setaf 1)
+    __color_white=$(tput bold ; tput setaf 7)
+    __color_green=$(tput bold ; tput setaf 2)
 else
-    export __ps1_retval=''
-    unset PROMPT_COMMAND
+    __color_off=""
+    __color_default=""
+    __color_grey=""
+    __color_yellow=""
+    __color_red=""
+    __color_white=""
+    __color_green=""
 fi
+unset colors
+
+export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$__color_default' || __ps1_retval='$__color_red'"
 
 if [ -n "${CLEARCASE_ROOT:-}" ]; then
-    cc_view="$(basename ${CLEARCASE_ROOT}) "
+    cc_view="\[$__color_white\]$(basename ${CLEARCASE_ROOT})\[$__color_off\] "
 else
     cc_view=""
 fi
 
-# user@box:~$ _
-# current_view_tag root@box:~# _
-export PS1="\n\[$bold_white\]$cc_view\[$off\]\\u\[$grey\]@\[$off\]\\h\[$grey\] \[$off\]\\w\n\[\$__ps1_retval\]\\$\[$off\] "
+# (current_view_tag) root@box ~ \\ $
+export PS1=""
+export PS1="$PS1\n${cc_view}\u\[$__color_grey\]@\[$__color_off\]\h \w"
+export PS1="$PS1\n\[\$__ps1_retval\]\$\[$__color_off\] "
 
-unset off grey yellow bold_red bold_white
-
+unset cc_view
 # vim:ft=sh
