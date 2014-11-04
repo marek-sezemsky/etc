@@ -11,6 +11,7 @@ destdir="${1:-$HOME}"
 
 symlinks=(
 bashrc
+bash_ps1
 bash_profile
 vimrc
 vim

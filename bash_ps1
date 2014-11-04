@@ -1,0 +1,31 @@
+# .bash_ps1
+
+# PS1 color for capable terminals only
+colors=$(tput colors 2>/dev/null)
+if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
+    off=$(tput sgr0)
+    #green=$(tput setaf 2)
+    #red=$(tput setaf 1)
+    grey=$(tput bold ; tput setaf 0)
+    yellow=$(tput setaf 3)
+    bold_red=$(tput bold ; tput setaf 1)
+    bold_white=$(tput bold ; tput setaf 7)
+    export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
+else
+    export __ps1_retval=''
+    unset PROMPT_COMMAND
+fi
+
+if [ -n "${CLEARCASE_ROOT:-}" ]; then
+    cc_view="$(basename ${CLEARCASE_ROOT}) "
+else
+    cc_view=""
+fi
+
+# user@box:~$ _
+# current_view_tag root@box:~# _
+export PS1="\n\[$bold_white\]$cc_view\[$off\]\\u\[$grey\]@\[$off\]\\h\[$grey\] \[$off\]\\w\n\[\$__ps1_retval\]\\$\[$off\] "
+
+unset off grey yellow bold_red bold_white
+
+# vim:ft=sh
