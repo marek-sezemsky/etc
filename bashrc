@@ -66,6 +66,7 @@ if [ -n "$(which vim 2>/dev/null)" ]; then
 fi
 
 # fancy PS1 prompt
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 [ -f ~/.bash_ps1 ] && source ~/.bash_ps1
 
 # $DISPLAY

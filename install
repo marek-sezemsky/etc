@@ -13,6 +13,7 @@ symlinks=(
 bashrc
 bash_ps1
 bash_profile
+git-prompt.sh
 vimrc
 vim
 screenrc
