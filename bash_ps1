@@ -1,0 +1,58 @@
+# .bash_ps1
+
+# PS1 color for capable terminals only
+if [ "$(tput colors 2>/dev/null)" -ge "8" ]; then
+    __ps1_color_off=$(tput sgr0)
+    __ps1_color_grey=$(tput bold; tput setaf 0)
+    __ps1_color_yellow=$(tput bold; tput setaf 3)
+    __ps1_color_red=$(tput bold ; tput setaf 1)
+    __ps1_color_white=$(tput bold ; tput setaf 7)
+    __ps1_color_green=$(tput bold ; tput setaf 2)
+else
+    __ps1_color_off=""
+    __ps1_color_grey=""
+    __ps1_color_yellow=""
+    __ps1_color_red=""
+    __ps1_color_white=""
+    __ps1_color_green=""
+fi
+
+__ps1_update() # set PS1 quick and dirty
+{
+    # Call this in PROMPT_COMMAND to update PS1:
+    # (view) (master=) user@host:~
+    # $ !255
+
+    local retval=$?
+    local git
+
+    PS1="\n"
+
+    if [ -n "${CLEARCASE_ROOT:-}" ]
+    then
+        PS1="${PS1}\[$__ps1_color_white\]${CLEARCASE_ROOT}\[$__ps1_color_off\] "
+    fi
+
+    if declare -f __git_ps1 >/dev/null
+    then
+        PS1=${PS1}$(__git_ps1 "%s ")
+    fi
+
+    # user@host:~/pwd
+    PS1="${PS1}\[$__ps1_color_green\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
+    PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\]\n"
+
+    PS1="$PS1\$ "
+
+    # warn on retval
+    if [ $retval -gt 0 ]
+    then
+        PS1="${PS1}\[$__ps1_color_red\]!$retval\[$__ps1_color_off\] "
+    fi
+
+    export PS1
+}
+
+export PROMPT_COMMAND="__ps1_update"
+
+# vim:ft=sh:nowrap

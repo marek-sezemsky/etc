@@ -24,15 +24,24 @@ pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
 pathmunge "/usr/local/bin:/usr/bin:/bin" after
 
 # Aliases
+if ls --color=auto -d / > /dev/null 2>&1 ; then
+    # use colors only when supported by ls
+    alias grep='grep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
 alias pd='perldoc'
 alias l='ls -l'
 alias la='ls -la'
+alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
 
 # SCM: git
 if [ -n "$(which git 2>/dev/null)" ]; then
-    alias g='git'
     if [ -f "/etc/bash_completion.d/git" ]; then
         complete -o default -o nospace -F _git g
     fi
@@ -46,12 +55,6 @@ if [ -d "$cc" ]; then
     alias edcs='cleartool edcs'
     alias catcs="cleartool catcs | egrep -v '^\s*(#.*)?$'"
     alias lsco='cleartool lsco -cview -short'
-
-    if [ -n "${CLEARCASE_ROOT:-}" ]; then
-        cc_view="$(basename ${CLEARCASE_ROOT}) "
-    else
-        cc_view=""
-    fi
 fi
 unset cc
 
@@ -62,35 +65,9 @@ if [ -n "$(which vim 2>/dev/null)" ]; then
     export EDITOR=vim
 fi
 
-# PS1 color for capable terminals only
-colors=$(tput colors 2>/dev/null)
-if [ -n "$colors" ] && [ "$colors" -ge "8" ]; then
-    if ls --color=auto -d / > /dev/null 2>&1 ; then
-        # use colors only when supported by ls
-        alias grep='grep --color=auto'
-        alias egrep='egrep --color=auto'
-        alias fgrep='fgrep --color=auto'
-        alias ls='ls --color=auto'
-        alias grep='grep --color=auto'
-    fi
-    off=$(tput sgr0)
-    #green=$(tput setaf 2)
-    #red=$(tput setaf 1)
-    grey=$(tput bold ; tput setaf 0)
-    yellow=$(tput setaf 3)
-    bold_red=$(tput bold ; tput setaf 1)
-    bold_white=$(tput bold ; tput setaf 7)
-    export PROMPT_COMMAND="es=\$?; [ \$es -eq 0 ] && __ps1_retval='$grey' || __ps1_retval='$bold_red'"
-else
-    export __ps1_retval=''
-    unset PROMPT_COMMAND
-fi
-
-# user@box:~$ _
-# current_view_tag root@box:~# _
-export PS1="\[$bold_white\]$cc_view\[$off\]\\u\[$grey\]@\[$off\]\\h\[$grey\]:\[$off\]\\W\[\$__ps1_retval\]\\$\[$off\] "
-
-unset off grey yellow bold_red bold_white
+# fancy PS1 prompt
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+[ -f ~/.bash_ps1 ] && source ~/.bash_ps1
 
 # $DISPLAY
 [ -f ~/.display ] && source ~/.display
