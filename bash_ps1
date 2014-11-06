@@ -29,6 +29,11 @@ __ps1_update() # set PS1 quick and dirty
 
     PS1="\n"
 
+    if [ -n "${VIRTUAL_ENV:-}" ]
+    then
+        PS1="${PS1}($(basename $VIRTUAL_ENV)) "
+    fi
+
     if [ -n "${CLEARCASE_ROOT:-}" ]
     then
         PS1="${PS1}\[$__ps1_color_white\]$(basename ${CLEARCASE_ROOT})\[$__ps1_color_off\] "
