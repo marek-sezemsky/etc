@@ -21,7 +21,7 @@ __ps1_update() # set PS1 quick and dirty
 {
     # Call this in PROMPT_COMMAND to update PS1:
     # (view) (master=) user@host:~
-    # $ !255
+    # !255 $
 
     local retval=$?
     local git
@@ -31,32 +31,30 @@ __ps1_update() # set PS1 quick and dirty
 
     if [ -n "${CLEARCASE_ROOT:-}" ]
     then
-        PS1="${PS1}\[$__ps1_color_white\]${CLEARCASE_ROOT}\[$__ps1_color_off\] "
+        PS1="${PS1}\[$__ps1_color_white\]$(basename ${CLEARCASE_ROOT})\[$__ps1_color_off\] "
     fi
 
     if declare -f __git_ps1 >/dev/null
     then
-        PS1=${PS1}$(__git_ps1 "%s ")
+        PS1=${PS1}$(__git_ps1 "(%s) ")
     fi
 
-    # user@host:~/pwd
-    if [ $EUID -eq 0 ]
+    # make username red if superuser
+    if [ ${EUID:-1} -eq 0 ]
     then
         usercolor=$__ps1_color_red
     else
         usercolor=$__ps1_color_green
     fi
-
     PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
     PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\]\n"
 
-    PS1="$PS1\$ "
-
-    # warn on retval
+    # prompt will be red if previous command failed
     if [ $retval -gt 0 ]
     then
-        PS1="${PS1}\[$__ps1_color_red\]!$retval\[$__ps1_color_off\] "
+        PS1="${PS1}\[$__ps1_color_red\]!$retval "
     fi
+    PS1="$PS1\[$__ps1_color_off\]\$ "
 
     export PS1
 }

@@ -66,6 +66,10 @@ if [ -n "$(which vim 2>/dev/null)" ]; then
 fi
 
 # fancy PS1 prompt
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM=auto
+
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 [ -f ~/.bash_ps1 ] && source ~/.bash_ps1
 
