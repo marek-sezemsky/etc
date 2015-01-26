@@ -15,7 +15,7 @@ set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
 
 " direct Snipmate to my snippets
-let g:template_dir="$HOME/.vim/templates"
+let g:templates_directory="$HOME/.vim/templates"
 let g:snippets_dir="$HOME/.vim/snippets"
 
 " Load pathogen for vim 7.x+
