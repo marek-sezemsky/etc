@@ -27,10 +27,6 @@
 	ignore = dirty
 	path = vim/bundle/wikipedia.vim
 	url = https://github.com/vim-scripts/wikipedia.vim.git
-[submodule "vim/bundle/ccase.vim"]
-	ignore = dirty
-	path = vim/bundle/ccase.vim
-	url = https://github.com/vim-scripts/ccase.vim.git
 [submodule "vim/bundle/vim-template"]
 	ignore = dirty
 	path = vim/bundle/vim-template

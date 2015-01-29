@@ -1,7 +1,8 @@
 # .bash_ps1
 
 # PS1 color for capable terminals only
-if [ "$(/usr/bin/tput colors 2>/dev/null)" -ge "8" ]; then
+colors=$(/usr/bin/tput colors 2>/dev/null)
+if [ "${colors:-0}" -ge "8" ]; then
     __ps1_color_off=$(tput sgr0)
     __ps1_color_grey=$(tput bold; tput setaf 0)
     __ps1_color_yellow=$(tput bold; tput setaf 3)
