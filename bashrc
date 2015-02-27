@@ -19,7 +19,7 @@ HISTCONTROL=ignorespace:ignoredups
 HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
 # Make sure all common paths are in PATH
-pathmunge "$HOME/local/bin:$HOME/bin"
+pathmunge "$HOME/local/bin:$HOME/bin" after
 pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
 pathmunge "/usr/local/bin:/usr/bin:/bin" after
 
