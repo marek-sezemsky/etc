@@ -12,6 +12,7 @@ TODO
 .netrwhist
 
 # Do not track SQLite databases
+*.sqlite
 *.sqlite3
 
 *.py[cod]
