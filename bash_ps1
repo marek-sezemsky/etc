@@ -54,7 +54,7 @@ __ps1_update() # set PS1 quick and dirty
         usercolor=$__ps1_color_green
     fi
     PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
-    PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\]\n"
+    PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\] "
 
     # prompt will be red if previous command failed
     if [ $retval -gt 0 ]
