@@ -44,7 +44,7 @@ Examples how to use the script.
 
 =head1 LICENSE
 
-    Copyright 2014 Deutsche Boerse Services s.r.o.
+    Public domain
 
 =cut
 
@@ -55,8 +55,6 @@ use warnings;
 use Data::Dumper;
 use Getopt::Long;
 use Pod::Usage;
-
-use Local::Tools 0.12 qw( :all );
 
 #
 # parse_arguments
@@ -75,7 +73,6 @@ sub parse_arguments # {{{
         'help+',
         'verbose+',
         'debug+',
-        'trace+',
     );
     if ( not GetOptions(\%args, @options) ) {
         pod2usage(2);
@@ -84,11 +81,6 @@ sub parse_arguments # {{{
     pod2usage(-verbose => 2) if $args{help};
     pod2usage(2) if @ARGV;
 
-    want_verbose(1) if $args{verbose};
-    want_debug(1)   if $args{debug};
-    want_trace(1)   if $args{trace};
-
-    trace("Parsed arguments: ", Dumper \%args);
     return %args;
 } # }}}
 
@@ -98,12 +90,5 @@ sub parse_arguments # {{{
 
 my %args = parse_arguments();
 
-if ( defined $args{argument} ) {
-    msg("Argument is: ", $args{argument});
-}
-else {
-    msg_warning("No argument specified. Perhaps try --help?");
-    exit 1;
-}
 
 # vim:foldmethod=marker:ts=4:sw=4:st=4:expandtab:tw=78

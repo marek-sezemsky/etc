@@ -18,14 +18,15 @@ def parse_arguments():
 
     return parser.parse_args()
 
-def main(args):
+
+def main():
+    args = parse_arguments()
+    logging.basicConfig(level=args.loglevel,
+            format='{}: %(levelname)s: %(msg)s'.format(__file__))
     logging.debug("Debug message")
     logging.info("Info message")
     logging.warning("Warninig message")
 
 
 if __name__ == '__main__':
-    args = parse_arguments()
-    logging.basicConfig(level=args.loglevel,
-            format='{}: %(levelname)s: %(msg)s'.format(__file__))
-    main(args)
+    main()
