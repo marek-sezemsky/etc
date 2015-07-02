@@ -116,7 +116,7 @@ use action # {{{
 
 =head1 LICENSE
 
-Copyright 2014 Deutsche Boerse Services s.r.o.
+    Public domain
 
 =cut
 
