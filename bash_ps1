@@ -27,6 +27,7 @@ __ps1_update() # set PS1 quick and dirty
     local retval=$?
     local git
     local usercolor
+    local titlebar
 
     PS1="\n"
 
@@ -62,6 +63,11 @@ __ps1_update() # set PS1 quick and dirty
         PS1="${PS1}\[$__ps1_color_red\]!$retval "
     fi
     PS1="$PS1\[$__ps1_color_off\]\$ "
+
+    # Set title for xterm
+    # http://unix.stackexchange.com/questions/14113/
+    titlebar='\[\e]0;\u@\h:\w\a\]'
+    PS1="${titlebar}$PS1"
 
     export PS1
 }
