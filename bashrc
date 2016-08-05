@@ -33,6 +33,7 @@ if ls --color=auto -d / > /dev/null 2>&1 ; then
     alias grep='grep --color=auto'
 fi
 
+alias fn='find . -name'
 alias pd='perldoc'
 alias l='ls -l'
 alias la='ls -la'
@@ -40,11 +41,13 @@ alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
 
-# SCM: git
-if [ -n "$(which git 2>/dev/null)" ]; then
-    if [ -f "/etc/bash_completion.d/git" ]; then
-        complete -o default -o nospace -F _git g
+# SCM: git bash completion
+if [ -f "/etc/bash_completion.d/git" ]; then
+    if ! type _git >/dev/null 2>&1
+    then
+        source "/etc/bash_completion.d/git"
     fi
+    complete -o default -o nospace -F _git g
 fi
 
 # SCM: ClearCase
