@@ -58,11 +58,16 @@ set laststatus=2
 autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd BufRead,BufNewFile *.t set filetype=perl
+autocmd BufRead,BufNewFile *.groovy set filetype=groovy
+autocmd BufRead,BufNewFile Jenkinsfile set filetype=groovy
+
 autocmd FileType tt2html   setlocal foldmethod=indent
 autocmd FileType mediawiki setlocal wrap linebreak nolist expandtab wrapmargin=40
 autocmd FileType mediawiki setlocal textwidth=0 wrapmargin=0
 autocmd FileType perl,sh,markdown,python,mediawiki,javascript,tt2html
-	\ setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=78
+	\ setlocal foldmethod=marker ts=4 sw=4 st=4 expandtab tw=0
+autocmd FileType groovy
+	\ setlocal ts=4 sw=4 st=4 expandtab
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif

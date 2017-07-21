@@ -51,3 +51,6 @@
 [submodule "vim/bundle/vim-ansible-yaml"]
 	path = vim/bundle/vim-ansible-yaml
 	url = https://github.com/chase/vim-ansible-yaml
+[submodule "vim/bundle/vim-scripts-groovy"]
+	path = vim/bundle/vim-scripts-groovy
+	url = https://github.com/vim-scripts/groovy.vim

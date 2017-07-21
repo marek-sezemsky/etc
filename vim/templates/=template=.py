@@ -9,12 +9,12 @@ def parse_arguments():
     # ...
 
     parser.add_argument('-d','--debug',
-            help='Print lots of debugging statements',
-            action="store_const", dest="loglevel", const=logging.DEBUG,
-            default=logging.WARNING)
+                        help='Print lots of debugging statements',
+                        action="store_const", dest="loglevel", const=logging.DEBUG,
+                        default=logging.WARNING)
     parser.add_argument('-v','--verbose',
-            help='Be verbose',
-            action="store_const",dest="loglevel",const=logging.INFO)
+                        help='Be verbose',
+                        action="store_const", dest="loglevel", const=logging.INFO)
 
     return parser.parse_args()
 
@@ -22,10 +22,10 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     logging.basicConfig(level=args.loglevel,
-            format='{}: %(levelname)s: %(msg)s'.format(__file__))
+                        format='{}: %(levelname)s: %(msg)s'.format(__file__))
     logging.debug("Debug message")
     logging.info("Info message")
-    logging.warning("Warninig message")
+    logging.warning("Warning message")
 
 
 if __name__ == '__main__':
