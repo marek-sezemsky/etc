@@ -54,3 +54,6 @@
 [submodule "vim/bundle/vim-scripts-groovy"]
 	path = vim/bundle/vim-scripts-groovy
 	url = https://github.com/vim-scripts/groovy.vim
+[submodule "vim/bundle/vim-polyglot"]
+	path = vim/bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
