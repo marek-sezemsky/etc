@@ -50,17 +50,6 @@ if [ -f "/etc/bash_completion.d/git" ]; then
     complete -o default -o nospace -F _git g
 fi
 
-# SCM: ClearCase
-cc='/opt/rational/clearcase'
-if [ -d "$cc" ]; then
-    pathmunge "$cc/bin" after
-    alias ct='cleartool'
-    alias edcs='cleartool edcs'
-    alias catcs="cleartool catcs | egrep -v '^\s*(#.*)?$'"
-    alias lsco='cleartool lsco -cview -short'
-fi
-unset cc
-
 # --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
 export LESS="-R"
 
