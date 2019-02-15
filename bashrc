@@ -24,6 +24,8 @@ pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
 pathmunge "/usr/local/bin:/usr/bin:/bin" after
 
 # Aliases
+alias p36='source ~/env/python3.6/bin/activate'
+
 if ls --color=auto -d / > /dev/null 2>&1 ; then
     # use colors only when supported by ls
     alias grep='grep --color=auto'
@@ -31,7 +33,10 @@ if ls --color=auto -d / > /dev/null 2>&1 ; then
     alias fgrep='fgrep --color=auto'
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
+
+    alias watch='watch --color'
 fi
+
 
 alias fn='find . -name'
 alias pd='perldoc'
