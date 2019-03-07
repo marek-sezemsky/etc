@@ -57,6 +57,12 @@ __ps1_update() # set PS1 quick and dirty
     PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
     PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\] "
 
+    # insert newline to better handle long dirnames
+    PS1="$PS1\n"
+
+    # add local (i18n) date before final $ prompt - dik pane klobouk!
+    PS1="$PS1$__ps1_color_grey$(date) "
+
     # prompt will be red if previous command failed
     if [ $retval -gt 0 ]
     then
@@ -64,7 +70,7 @@ __ps1_update() # set PS1 quick and dirty
     fi
     PS1="$PS1\[$__ps1_color_off\]\$ "
 
-    # Set title for xterm
+    # Set title for xterm: '[user@host:workdir]'
     # http://unix.stackexchange.com/questions/14113/
     titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${titlebar}$PS1"
