@@ -24,8 +24,10 @@ def main():
     logging.basicConfig(level=args.loglevel,
                         format='{}: %(levelname)s: %(msg)s'.format(__file__))
     logging.debug("Debug message")
-    logging.info("Info message")
-    logging.warning("Warning message")
+    logging.info("Info message.")
+    logging.warning("Warning message!")
+    logging.error("ERROR message!!!")
+    raise RuntimeError
 
 
 if __name__ == '__main__':
