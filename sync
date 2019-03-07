@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# ~/etc/sync # will work on ~/etc
+#
+set -e
+set -u
+#set -x
+
+cd $(dirname $0)
+
+git submodule update --recursive --remote
