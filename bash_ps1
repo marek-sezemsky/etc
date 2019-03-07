@@ -61,14 +61,16 @@ __ps1_update() # set PS1 quick and dirty
     PS1="$PS1\n"
 
     # add local (i18n) date before final $ prompt - dik pane klobouk!
-    PS1="$PS1$__ps1_color_grey$(date) "
+    PS1="$PS1\[$__ps1_color_grey\]$(date) "
 
-    # prompt will be red if previous command failed
-    if [ $retval -gt 0 ]
+    # prompt with utf
+    if [ $retval -ne 0 ]
     then
-        PS1="${PS1}\[$__ps1_color_red\]!$retval "
+        PS1="${PS1}\[$__ps1_color_red\]✗ "
+    else
+        PS1="${PS1}\[$__ps1_color_green\]✓ "
     fi
-    PS1="$PS1\[$__ps1_color_off\]\$ "
+    PS1="$PS1\$ \[$__ps1_color_off\]"
 
     # Set title for xterm: '[user@host:workdir]'
     # http://unix.stackexchange.com/questions/14113/
