@@ -9,7 +9,7 @@ Download and install
 
 Clone into your home directory:
 
-    git clone --recursive git://github.com/marek-sezemsky/etc.git
+    cd ~ && git clone --recursive git://github.com/marek-sezemsky/etc.git
 
 Or source proxy settings first and use proxy-friendly HTTPS.
 
