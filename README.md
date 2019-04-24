@@ -1,9 +1,12 @@
 ~/etc
 =====
-Marek's ~/etc configuration files (`.*rc`) for bash, Vim and others.
+
+Marek's ~/etc configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins.
+
 
 Download and install
 --------------------
+
 Clone into your home directory:
 
     git clone --recursive git://github.com/marek-sezemsky/etc.git
@@ -21,30 +24,22 @@ Test:
 
     cd ~/etc && bash run-test.bash
 
-Extras
-------
-Setup local bash additions or workarounds (office, cygwin, ...):
 
-    ln -s ~/etc/bashrc_local_office ~/.bashrc_local
-    ln -s ~/etc/proxy/clearstream ~/.proxy
+Sourced files
+-------------
 
-Using from shared accounts
---------------------------
-To use ~/etc profile when logging to accounts where default profile is always
-kept (like vobadm), use two-step hack: as first create bash with profile
-sourced with changed $HOME.
+If present, those files are sourced automatically via `~/etc/bashrc`:
 
-    cat > ~/.bash_profile_forced <<EOF
-    real=\$HOME
-    HOME=$HOME  # $HOME evals to ~
-    . ~/.bash_profile
-    HOME=\$real
-    unset real
-    EOF
+* `~/.bashrc_local` - custom specific bash additions or workarounds (office, cygwin, ...)
+* `~/.display` - for `$DISPLAY` value
 
-And once logged into shared account, exec shell again:
 
-    [vobadm@box ~]$  exec bash -rcfile ~marek/.bash_profile_forced
+Binaries
+--------
 
-This may be used with SecureCRT Automated login (or `expect`) to wait for `~]`
-(as example for RHEL-based machines) and launching the same command as above.
+Worthwhile scripts:
+
+* `~/etc/install` - installation script
+* `~/etc/sync` - pull submodules recursively
+
+

@@ -23,21 +23,19 @@ pathmunge "$HOME/local/bin:$HOME/bin" after
 pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
 pathmunge "/usr/local/bin:/usr/bin:/bin" after
 
-# Aliases
-alias p36='source ~/env/python3.6/bin/activate'
-
-if ls --color=auto -d / > /dev/null 2>&1 ; then
+# use auto color when able
+if ls --color=auto /dev/null &> /dev/null ; then
     # use colors only when supported by ls
     alias grep='grep --color=auto'
     alias egrep='egrep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
-
     alias watch='watch --color'
 fi
 
-
+# Aliases
+alias p36='source ~/env/python3.6/bin/activate'
 alias fn='find . -name'
 alias pd='perldoc'
 alias l='ls -l'
@@ -58,16 +56,17 @@ fi
 # --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
 export LESS="-R"
 
-if [ -n "$(which vim 2>/dev/null)" ]; then
+if which vim &>/dev/null; then
     export EDITOR=vim
 fi
 
-# fancy PS1 prompt
+# fancy Git prompt
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM=auto
-
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+
+# fancy Bash prompt
 [ -f ~/.bash_ps1 ] && source ~/.bash_ps1
 
 # $DISPLAY

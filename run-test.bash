@@ -22,7 +22,7 @@ ls -Fa $workdir | tee $workdir/diff1
 ls -Fa $workdir | tee $workdir/diff1
 diff $workdir/diff1 $workdir/diff1
 
-# test_gitconfig
+# test_gitconfig_gets_installed
 ./install $workdir
 [ -f $workdir/.gitconfig ]
 

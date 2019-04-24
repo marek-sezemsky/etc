@@ -50,5 +50,4 @@ then
     $gitconfig alias.st "status"
     $gitconfig alias.cp "cherry-pick"
     $gitconfig push.default simple
-
 fi

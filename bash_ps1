@@ -1,8 +1,9 @@
 # .bash_ps1
 
 # PS1 color for capable terminals only
-colors=$(/usr/bin/tput colors 2>/dev/null)
-if [ "${colors:-0}" -ge "8" ]; then
+__ps1_colors=$(tput colors 2>/dev/null)
+if [ "${__ps1_colors:-0}" -ge "8" ]
+then
     __ps1_color_off=$(tput sgr0)
     __ps1_color_grey=$(tput bold; tput setaf 0)
     __ps1_color_yellow=$(tput bold; tput setaf 3)
@@ -17,6 +18,7 @@ else
     __ps1_color_white=""
     __ps1_color_green=""
 fi
+unset __ps1_colors
 
 __ps1_update() # set PS1 quick and dirty
 {
@@ -29,19 +31,17 @@ __ps1_update() # set PS1 quick and dirty
     local usercolor
     local titlebar
 
+    # make a room (empty line)
     PS1="\n"
 
+    # python venv name (if set)
     if [ -n "${VIRTUAL_ENV:-}" ]
     then
         PS1="${PS1}@ \[$__ps1_color_white\]$(basename\
             $VIRTUAL_ENV)\[$__ps1_color_off\] "
     fi
 
-    if [ -n "${CLEARCASE_ROOT:-}" ]
-    then
-        PS1="${PS1}\[$__ps1_color_white\]$(basename ${CLEARCASE_ROOT})\[$__ps1_color_off\] "
-    fi
-
+    # use Git PS1 if available
     if declare -f __git_ps1 >/dev/null
     then
         PS1=${PS1}$(__git_ps1 "(%s) ")
@@ -54,23 +54,27 @@ __ps1_update() # set PS1 quick and dirty
     else
         usercolor=$__ps1_color_green
     fi
+    # colorized 'user@host:pwd '
     PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
     PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\] "
 
-    # insert newline to better handle long dirnames
+    # insert newline to better handle long paths in pwd
     PS1="$PS1\n"
 
     # add local (i18n) date before final $ prompt - dik pane klobouk!
     PS1="$PS1\[$__ps1_color_grey\]$(date) "
 
-    # prompt with utf
+    # prompt with utf check or cross depending on last retval
     if [ $retval -ne 0 ]
     then
         PS1="${PS1}\[$__ps1_color_red\]✗ "
     else
         PS1="${PS1}\[$__ps1_color_green\]✓ "
     fi
+
+    # ... behold prompt!
     PS1="$PS1\$ \[$__ps1_color_off\]"
+    #     C:\>_
 
     # Set title for xterm: '[user@host:workdir]'
     # http://unix.stackexchange.com/questions/14113/
