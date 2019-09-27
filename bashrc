@@ -31,15 +31,14 @@ if ls --color=auto /dev/null &> /dev/null ; then
     alias fgrep='fgrep --color=auto'
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
-    alias watch='watch --color'
 fi
 
 # Aliases
 alias p36='source ~/env/python3.6/bin/activate'
 alias fn='find . -name'
 alias pd='perldoc'
-alias l='ls -l'
-alias la='ls -la'
+alias l='ls -lv --inode --full-time --group-directories-first'
+alias la='l -a'
 alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
