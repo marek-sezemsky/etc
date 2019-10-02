@@ -1,29 +1,19 @@
-# .bashrc
+# ~/.bashrc
 
-# Source global definitions
+# source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-pathmunge() # {{{
-{
-    if [ "${2:-}" = "after" ] ; then
-        export PATH=$PATH:$1
-    else
-        export PATH=$1:$PATH
-    fi
-} # }}}
-
-# History control
+# history control
 HISTCONTROL=ignorespace:ignoredups
 HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
-# Make sure all common paths are in PATH
-pathmunge "$HOME/local/bin:$HOME/bin" after
-pathmunge "/usr/local/sbin:/usr/sbin:/sbin" after
-pathmunge "/usr/local/bin:/usr/bin:/bin" after
+export PATH="$PATH:$HOME/local/bin:$HOME/bin"        # home
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"  # sysop
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"     # system
 
-# use auto color when able
+# alias to auto color when able
 if ls --color=auto /dev/null &> /dev/null ; then
     # use colors only when supported by ls
     alias grep='grep --color=auto'
@@ -33,17 +23,19 @@ if ls --color=auto /dev/null &> /dev/null ; then
     alias grep='grep --color=auto'
 fi
 
-# Aliases
+# aliases
+alias p27='source ~/env/python2.7/bin/activate'
 alias p36='source ~/env/python3.6/bin/activate'
+alias p37='source ~/env/python3.7/bin/activate'
 alias fn='find . -name'
 alias pd='perldoc'
-alias l='ls -lv --inode --full-time --group-directories-first'
+alias l='ls -Alpvis --group-directories-first --time-style=+%Y-%m-%dT%H:%M:%S,%N%:z'
 alias la='l -a'
 alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
 
-# SCM: git bash completion
+# git bash completion
 if [ -f "/etc/bash_completion.d/git" ]; then
     if ! type _git >/dev/null 2>&1
     then
@@ -73,7 +65,5 @@ export GIT_PS1_SHOWUPSTREAM=auto
 
 # local definitions
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
-
-unset pathmunge
 
 # vim:ft=sh
