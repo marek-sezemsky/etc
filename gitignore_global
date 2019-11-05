@@ -15,7 +15,9 @@ TODO
 *.sqlite
 *.sqlite3
 
-*.py[cod]
+# Maven version:set backups
+pom.xml.versionsBackup
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
