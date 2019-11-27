@@ -4,8 +4,6 @@
 tmp
 *.tmp
 *.bak
-# Sandbox TODO
-TODO
 
 # http://stackoverflow.com/questions/9850360/what-is-netrwhist
 # do not want (to track)
