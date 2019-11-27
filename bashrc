@@ -34,6 +34,7 @@ alias la='l -a'
 alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
+alias d='docker'
 
 # git bash completion
 if [ -f "/etc/bash_completion.d/git" ]; then
