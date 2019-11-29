@@ -5,6 +5,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+# don't trust distros!
+umask 022
+
 # history control
 HISTCONTROL=ignorespace:ignoredups
 HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
