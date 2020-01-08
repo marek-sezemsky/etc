@@ -9,15 +9,15 @@ fi
 umask 022
 
 # history control
-HISTCONTROL=ignorespace:ignoredups
-HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
+export HISTCONTROL=ignorespace:ignoredups
+export HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
-export PATH="$PATH:$HOME/local/bin:$HOME/bin"        # home
-export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"  # sysop
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"     # system
+export PATH="$PATH:$HOME/usr/local/bin:$HOME/usr/bin:$HOME/bin" # home
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"             # sysop
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 
 # alias to auto color when able
-if ls --color=auto /dev/null &> /dev/null ; then
+if ls --color=auto /dev/null &>/dev/null ; then
     # use colors only when supported by ls
     alias grep='grep --color=auto'
     alias egrep='egrep --color=auto'
@@ -38,6 +38,42 @@ alias g='git'
 alias gl='g l --no-merges'
 alias gf='g flow'
 alias d='docker'
+alias p='podman'
+
+# functions
+function e()  # find environments
+{
+    find -type f -path '*/bin/activate' 2>/dev/null |
+        awk '{ printf "%3-s  %s\n", ++i, $0 }'
+}
+
+function se() # source environment
+{
+    local env="${1:-}"
+
+    if [ -f "$env" ]
+    then
+        # arg is direct bin/activate file
+        activate=$env
+    elif [ -f "$env/bin/activate" ]
+    then
+        # arg is env dirname
+        activate="$env/bin/activate"
+    elif grep -qP "^\d+$" <<<"$env"
+    then
+        # arg is env number, find it
+        activate=$(e | head -$env | tail -1 | awk '{print $2}')
+    fi
+
+    if [ -n "$activate" ]
+    then
+        source $activate
+        echo VIRTUAL_ENV $VIRTUAL_ENV
+    else
+        echo >&2 "Need environment (#,name,path); try e!"
+    fi
+}
+
 
 # git bash completion
 if [ -f "/etc/bash_completion.d/git" ]; then
