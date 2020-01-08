@@ -41,15 +41,15 @@ alias d='docker'
 alias p='podman'
 
 # functions
-function e()  # find environments
-{
-    find -type f -path '*/bin/activate' 2>/dev/null |
-        awk '{ printf "%3-s  %s\n", ++i, $0 }'
-}
-
-function se() # source environment
+function e()  # find and source environments
 {
     local env="${1:-}"
+    if [ -z "$env" ]
+    then
+        # no args: list envs
+        find -type f -path '*/bin/activate' 2>/dev/null | awk '{ printf "%3-s  %s\n", ++i, $0 }'
+        return
+    fi
 
     if [ -f "$env" ]
     then
