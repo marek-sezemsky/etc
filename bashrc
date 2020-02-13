@@ -27,18 +27,23 @@ if ls --color=auto /dev/null &>/dev/null ; then
 fi
 
 # aliases
+alias AI='false'
+alias a='ansible'
+alias ai='ansible-inventory'
+alias ap='ansible-playbook'
+alias d='docker'
+alias fn='find . -name'
+alias g='git'
+alias gf='g flow'
+alias gl='g l --no-merges'
+alias l='ls -Alpvis --time-style=+%Y-%m-%dT%H:%M:%S%:z'
+alias la='l -a'
 alias p27='source ~/env/python2.7/bin/activate'
 alias p36='source ~/env/python3.6/bin/activate'
 alias p37='source ~/env/python3.7/bin/activate'
-alias fn='find . -name'
-alias pd='perldoc'
-alias g='git'
-alias gl='g l --no-merges'
-alias gf='g flow'
-alias l='ls -Alpvis --time-style=+%Y-%m-%dT%H:%M:%S%:z'
-alias la='l -a'
-alias d='docker'
 alias p='podman'
+alias pd='perldoc'
+alias t='terraform'
 
 # functions
 function e()  # find and source environments
