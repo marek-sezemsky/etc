@@ -1,0 +1,8 @@
+- name: install my dev base on fedora
+  package:
+    state: present
+    name:
+      - '@Development tools'
+      - vim
+      - mc
+      - podman
