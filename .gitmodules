@@ -23,10 +23,6 @@
 	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 
-[submodule "vim/bundle/vim-flake8"]
-	path = vim/bundle/vim-flake8
-	url = https://github.com/nvie/vim-flake8.git
-
 [submodule "vim/bundle/taglist.vim"]
 	# Source code browser (supports C/C++, java, perl, python, tcl, sql,
 	# php, etc) -- taglist.vim require 'ctags' executable!

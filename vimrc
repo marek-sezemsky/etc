@@ -2,13 +2,6 @@
 "" Marek's vimrc
 ""
 
-" Load pathogen for vim 7.x+
-if version >= 700
-	runtime bundle/vim-pathogen/autoload/pathogen.vim
-	execute pathogen#infect()
-	execute pathogen#helptags()
-endif
-
 " Basics
 set nocompatible
 set nobackup
@@ -24,6 +17,13 @@ set nojoinspaces  " don't join multiple spaces on Shift-J
 " direct Snipmate to my snippets
 let g:templates_directory="$HOME/.vim/templates"
 let g:snippets_dir="$HOME/.vim/snippets"
+
+" Load pathogen for vim 7.x+
+if version >= 700
+	runtime bundle/vim-pathogen/autoload/pathogen.vim
+	execute pathogen#infect()
+	execute pathogen#helptags()
+endif
 
 " use syntax hightlight and filetype plugins
 syntax on
