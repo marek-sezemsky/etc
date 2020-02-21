@@ -13,6 +13,9 @@ set incsearch     " incremental search
 set smartcase     " ignore case when lc(pattern)
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
+"""set expandtab  " expand tabs with 4 spaces
+set tabstop=4
+set shiftwidth=4
 
 " direct Snipmate to my snippets
 let g:templates_directory="$HOME/.vim/templates"
