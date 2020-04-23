@@ -26,6 +26,11 @@ if ls --color=auto /dev/null &>/dev/null ; then
     alias grep='grep --color=auto'
 fi
 
+# cd aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../../'
+
 # aliases
 alias a='ansible'
 alias ai='ansible-inventory'
