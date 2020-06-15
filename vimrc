@@ -17,6 +17,9 @@ set expandtab     " expand tabs with 4 spaces
 set tabstop=4
 set shiftwidth=4
 
+" enable mouse
+set mouse=a
+
 " direct Snipmate to my snippets
 let g:templates_directory="$HOME/.vim/templates"
 let g:snippets_dir="$HOME/.vim/snippets"
