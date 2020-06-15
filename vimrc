@@ -13,7 +13,7 @@ set incsearch     " incremental search
 set smartcase     " ignore case when lc(pattern)
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
-"""set expandtab  " expand tabs with 4 spaces
+set expandtab     " expand tabs with 4 spaces
 set tabstop=4
 set shiftwidth=4
 
@@ -48,6 +48,12 @@ let Tlist_Exit_OnlyWindow = 1 " close when taglist is last
 let Tlist_File_Fold_Auto_Close = 1  "close fold for inactive buffers
 let Tlist_GainFocus_On_ToggleOpen = 1 " switch automatically to taglist
 map <F4> :TlistToggle<ENTER>
+
+" nerdtree on F5
+map <F5> :NERDTreeToggle<ENTER>
+
+set wildmode=longest,list,full
+set wildmenu
 
 " Status line:
 " [1 file[+][RO]  Ln 36, Col  2 chr(0d012,0x0C) 80%]
