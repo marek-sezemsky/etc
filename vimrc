@@ -75,8 +75,10 @@ autocmd BufRead,BufNewFile Jenkinsfile set filetype=Jenkinsfile
 
 autocmd FileType mediawiki setlocal wrap linebreak nolist expandtab wrapmargin=40
 autocmd FileType mediawiki setlocal textwidth=0 wrapmargin=0
-autocmd FileType perl,sh,markdown,python,mediawiki,javascript,groovy,css,html,htmldjango
+autocmd FileType perl,sh,markdown,python,mediawiki,javascript,groovy
 	\ setlocal foldmethod=indent ts=4 sw=4 st=4 expandtab tw=0
+autocmd FileType css,html,htmldjango
+	\ setlocal foldmethod=indent ts=2 sw=2 st=2 expandtab tw=0
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
