@@ -53,41 +53,6 @@ alias push='g push'
 alias se='source env/bin/activate'
 alias t='terraform'
 
-# functions
-function e()  # find and source environments
-{
-    local env="${1:-}"
-    if [ -z "$env" ]
-    then
-        # no args: list envs
-        find -type f -path '*/bin/activate' 2>/dev/null | awk '{ printf "%3-s  %s\n", ++i, $0 }'
-        return
-    fi
-
-    if [ -f "$env" ]
-    then
-        # arg is direct bin/activate file
-        activate=$env
-    elif [ -f "$env/bin/activate" ]
-    then
-        # arg is env dirname
-        activate="$env/bin/activate"
-    elif grep -qP "^\d+$" <<<"$env"
-    then
-        # arg is env number, find it
-        activate=$(e | head -$env | tail -1 | awk '{print $2}')
-    fi
-
-    if [ -n "$activate" ]
-    then
-        source $activate
-        echo VIRTUAL_ENV $VIRTUAL_ENV
-    else
-        echo >&2 "Need environment (#,name,path); try e!"
-    fi
-}
-
-
 # git bash completion
 if [ -f "/etc/bash_completion.d/git" ]; then
     if ! type _git >/dev/null 2>&1
