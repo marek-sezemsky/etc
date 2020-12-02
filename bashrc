@@ -51,6 +51,8 @@ alias pd='perldoc'
 alias pull='g pull'
 alias push='g push'
 alias se='source env/bin/activate'
+alias vimo='vim -o'
+alias vimO='vim -O'
 alias t='terraform'
 
 # git bash completion
