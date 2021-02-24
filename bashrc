@@ -84,6 +84,12 @@ export GIT_PS1_SHOWUPSTREAM=auto
 [ -f ~/.display ] && source ~/.display
 
 # local definitions
-[ -f ~/.bashrc_local ] && source ~/.bashrc_local
+for bashrc_local in $(ls -1 ~/.bashrc_local* 2>/dev/null); do
+    # ignore backup files
+    if [[ ! ${bashrc_local} =~ ~$ ]]; then
+        source ${bashrc_local}
+    fi
+done
+unset bashrc_local
 
 # vim:ft=sh

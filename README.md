@@ -25,13 +25,12 @@ Test:
     cd ~/etc && bash run-test.bash
 
 
-Sourced files
--------------
+`local.d/`
+----------
 
-If present, those files are sourced automatically via `~/etc/bashrc`:
+Untracked directory for any per-site or other local bashrc files. May contain flat files or sub-directories (or git-repos).
 
-* `~/.bashrc_local` - custom specific bash additions or workarounds (office, cygwin, ...)
-* `~/.display` - for `$DISPLAY` value
+All files matching `bashrc_local_*` (even in subdirectories) will be picked up by installer script, symlinked as `~/.bashrc_local_...` and sourced on login.
 
 
 Binaries
