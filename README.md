@@ -20,10 +20,6 @@ Install (or update) with:
 
     cd ~ && etc/install
 
-Test:
-
-    cd ~/etc && bash run-test.bash
-
 
 `local.d/`
 ----------
