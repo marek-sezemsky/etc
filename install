@@ -20,6 +20,7 @@ symlinks=(
     bashrc
     bash_ps1
     bash_profile
+    bash_logout
     git-prompt.sh
     vimrc
     vim
