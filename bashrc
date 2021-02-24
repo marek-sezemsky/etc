@@ -80,9 +80,6 @@ export GIT_PS1_SHOWUPSTREAM=auto
 # fancy Bash prompt
 [ -f ~/.bash_ps1 ] && source ~/.bash_ps1
 
-# $DISPLAY
-[ -f ~/.display ] && source ~/.display
-
 # local definitions
 for bashrc_local in $(ls -1 ~/.bashrc_local* 2>/dev/null); do
     # ignore backup files
