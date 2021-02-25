@@ -17,10 +17,11 @@ echo
 # install explicitly listed symlinks from ~/etc
 #
 symlinks=(
-    bashrc
-    bash_ps1
-    bash_profile
+    bash_aliases
     bash_logout
+    bash_profile
+    bash_ps1
+    bashrc
     git-prompt.sh
     vimrc
     vim
