@@ -17,9 +17,9 @@
 	path = vim/bundle/vim-bad-whitespace
 	url = https://github.com/bitc/vim-bad-whitespace.git
 
-[submodule "vim/bundle/vim-five"]
+[submodule "vim/bundle/vim-fugitive"]
 	ignore = dirty
-	path = vim/bundle/vim-five
+	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 
 [submodule "vim/bundle/vim-flake8"]
