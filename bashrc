@@ -1,53 +1,53 @@
 # ~/.bashrc
 
-# source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+# load system definitions
+if [ -r /etc/bashrc ]; then
+    source /etc/bashrc
 fi
 
-# don't trust distros!
-umask 022
+# load system git completion
+if [ -r /etc/bash_completion.d/git ]; then
+    source /etc/bash_completion.d/git
+fi
+
+# adjust paths, bring in everything
+export PATH="$PATH:$HOME/usr/local/bin:$HOME/usr/bin:$HOME/bin" # home
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"             # sysop
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 
 # history control
 export HISTCONTROL=ignorespace:ignoredups
 export HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
 
-export PATH="$PATH:$HOME/usr/local/bin:$HOME/usr/bin:$HOME/bin" # home
-export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"             # sysop
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
-
 # --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
 export LESS="-R"
 
+# make vim default editor if present
 if which vim &>/dev/null; then
     export EDITOR=vim
 fi
 
-# git bash completion
-if [ -f "/etc/bash_completion.d/git" ]; then
-    if ! type _git >/dev/null 2>&1
-    then
-        source "/etc/bash_completion.d/git"
-    fi
-    complete -o default -o nospace -F _git g
+# load user aliases
+if [ -r ~/.bash_aliases ]; then
+    source ~/.bash_aliases
 fi
 
-# fancy Git prompt
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-export GIT_PS1_SHOWUPSTREAM=auto
-[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+# load fancy Git prompt
+if [ -r ~/.git-prompt.sh ]; then
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    export GIT_PS1_SHOWUNTRACKEDFILES=1
+    export GIT_PS1_SHOWUPSTREAM=auto
+    source ~/.git-prompt.sh
+fi
 
-# fancy Bash prompt
-[ -f ~/.bash_ps1 ] && source ~/.bash_ps1
+# load fancy Bash prompt
+if [ -r ~/.bash_ps1 ]; then
+    source ~/.bash_ps1
+fi
 
-# load aliases
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-# local definitions
-for bashrc_local in $(ls -1 ~/.bashrc_local* 2>/dev/null); do
-    # ignore backup files
-    if [[ ! ${bashrc_local} =~ ~$ ]]; then
+# load bashrc_local_* files (ignore backups~)
+for bashrc_local in $(ls ~/.bashrc_local* 2>/dev/null); do
+    if [[ ! ${bashrc_local} =~ ~$ && -r ${bashrc_local} ]]; then
         source ${bashrc_local}
     fi
 done
