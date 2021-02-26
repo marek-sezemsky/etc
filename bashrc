@@ -18,6 +18,8 @@ export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 # history control
 export HISTCONTROL=ignorespace:ignoredups
 export HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
+export HISTSIZE=4096
+export HISTFILESIZE=32768
 
 # --RAW-CONTROL-CHARS: allow ANSI "color" escape sequences
 export LESS="-R"
