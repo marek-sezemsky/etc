@@ -64,20 +64,25 @@ if git --version &>/dev/null
 then
     echo "Configuring global Git configuration ..."
     gitconfig="git config --replace --global"
+
+    # behavior
+    $gitconfig advice.detachedHead false
     $gitconfig color.ui true
     $gitconfig core.excludesfile "~/.gitignore_global"
-    $gitconfig log.decorate "short"
-    $gitconfig alias.b  "branch"
+    $gitconfig diff.submodule log
+    $gitconfig log.decorate short
+    $gitconfig push.default simple
+
+    # aliases
     $gitconfig alias.br "branch"
     $gitconfig alias.ci "commit --verbose"
     $gitconfig alias.co "checkout"
+    $gitconfig alias.cp "cherry-pick"
     $gitconfig alias.d  "diff"
     $gitconfig alias.dc "diff --cached"
     $gitconfig alias.l  "log --oneline --graph --decorate"
     $gitconfig alias.s  "status --short --branch"
-    $gitconfig alias.st "status"
-    $gitconfig alias.cp "cherry-pick"
-    $gitconfig push.default simple
+
     echo "Review changes with: git config --global --list"
 else
     echo "Warning: No git found?!" >&2
