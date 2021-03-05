@@ -1,7 +1,7 @@
 # ~/.bash_aliases
 
 # useful
-alias l='ls -a -l -v --inode --size --time-style=+%Y-%m-%dT%H:%M:%S%:z'
+alias l='ls -A -l -v --inode --size --time-style=+%Y-%m-%dT%H:%M:%S%:z --group-directories-first'
 alias ll='ls -l'
 alias fn='find . -name'
 alias se='source env/bin/activate'
