@@ -23,11 +23,12 @@ symlinks=(
     bash_ps1
     bashrc
     git-prompt.sh
-    vimrc
-    vim
-    screenrc
-    rpmmacros
     gitignore_global
+    rpmmacros
+    screenrc
+    toprc
+    vim
+    vimrc
 )
 echo "Install top-level symlinks ..."
 for link in ${symlinks[@]}; do
