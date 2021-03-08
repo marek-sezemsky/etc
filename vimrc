@@ -17,6 +17,9 @@ set expandtab     " expand tabs with 4 spaces
 set tabstop=4
 set shiftwidth=4
 
+" open files unfolded
+set foldlevelstart=99
+
 " enable mouse
 set mouse=a
 
