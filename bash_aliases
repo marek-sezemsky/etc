@@ -21,6 +21,7 @@ alias ci='git commit --verbose'
 alias co='git checkout'
 alias d='git diff'
 alias gl='git log --oneline --graph --decorate'
+alias gg='git grep'
 alias pull='git pull'
 alias push='git push'
 alias s='git status --short --branch'
@@ -37,6 +38,7 @@ if type __git_complete __git_main &>/dev/null; then
     __git_complete co _git_checkout
     __git_complete d _git_diff
     __git_complete gl _git_log
+    __git_complete gg _git_grep
     __git_complete pull _git_pull
     __git_complete push _git_push
     __git_complete s _git_status

@@ -27,6 +27,9 @@ set mouse=a
 let g:templates_directory="$HOME/.vim/templates"
 let g:snippets_dir="$HOME/.vim/snippets"
 
+" let's not be sensible
+let g:polyglot_disabled = ['sensible']
+
 " Load pathogen for vim 7.x+
 if version >= 700
 	runtime bundle/vim-pathogen/autoload/pathogen.vim
