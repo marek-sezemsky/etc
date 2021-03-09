@@ -29,6 +29,11 @@ if which vim &>/dev/null; then
     export EDITOR=vim
 fi
 
+# bash options
+shopt -s autocd
+shopt -s cdspell
+shopt -s direxpand
+
 # load user aliases
 if [ -r ~/.bash_aliases ]; then
     source ~/.bash_aliases
