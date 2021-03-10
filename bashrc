@@ -17,7 +17,7 @@ export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 
 # history control
 export HISTCONTROL=ignorespace:ignoredups
-export HISTIGNORE=ls:ll:la:l:cd:pwd:exit:mc:su:df:clear
+export HISTIGNORE=ls:ll:la:l:cd:pwd:s
 export HISTSIZE=4096
 export HISTFILESIZE=32768
 
@@ -33,6 +33,8 @@ fi
 shopt -s autocd
 shopt -s cdspell
 shopt -s direxpand
+shopt -s cmdhist # multiple-line command in the same history entry
+shopt -s lithist # embedded newlines rather than semicolon separators
 
 # load user aliases
 if [ -r ~/.bash_aliases ]; then
