@@ -20,6 +20,7 @@ alias br='git branch'
 alias ci='git commit --verbose'
 alias co='git checkout'
 alias d='git diff'
+alias dc='git diff --cached' # (eclipses /bin/dc: an arbitrary precision calculator)
 alias gl='git log --oneline --graph --decorate'
 alias gg='git grep'
 alias pull='git pull'
@@ -37,6 +38,7 @@ if type __git_complete __git_main &>/dev/null; then
     __git_complete ci _git_commit
     __git_complete co _git_checkout
     __git_complete d _git_diff
+    __git_complete dc _git_diff
     __git_complete gl _git_log
     __git_complete gg _git_grep
     __git_complete pull _git_pull
