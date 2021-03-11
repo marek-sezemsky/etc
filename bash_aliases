@@ -26,7 +26,7 @@ alias l='git log --oneline --graph --decorate'
 alias pull='git pull'
 alias push='git push'
 alias s='git status --short --branch'
-alias show='git --no-pager show'
+alias show='git show'
 if type __git_complete __git_main &>/dev/null; then
     # main 'g';
     __git_complete g __git_main
