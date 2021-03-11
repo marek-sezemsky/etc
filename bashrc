@@ -17,7 +17,7 @@ export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 
 # history control
 export HISTCONTROL=ignorespace:ignoredups
-export HISTIGNORE=ls:ll:la:l:cd:pwd:s
+export HISTIGNORE=l:v:vv:vvv:vvvv:s:d:dc:ll:cd:pwd
 export HISTSIZE=4096
 export HISTFILESIZE=32768
 
