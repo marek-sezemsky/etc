@@ -1,0 +1,4 @@
+# Write your default config options here!
+subfont-text-scale=2
+af=volume=15:1
+volume=100

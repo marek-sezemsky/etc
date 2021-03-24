@@ -24,6 +24,7 @@ symlinks=(
     bashrc
     git-prompt.sh
     gitignore_global
+    mplayer
     rpmmacros
     screenrc
     toprc
