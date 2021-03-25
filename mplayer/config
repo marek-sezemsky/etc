@@ -1,4 +1,5 @@
 # Write your default config options here!
-subfont-text-scale=2
-af=volume=15:1
+subfont-text-scale=1.7
+af=volume=10:1
 volume=100
+use-filename-title=yes
