@@ -11,11 +11,14 @@ set fileformats=unix,dos
 set showmatch     " show matching parenthesis
 set incsearch     " incremental search
 set smartcase     " ignore case when lc(pattern)
+set smartindent   " smart indenting on new line
 set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
+set formatoptions+=jro  " better comment handling on inserts,join,etc.
 set expandtab     " expand tabs with 4 spaces
 set tabstop=4
 set shiftwidth=4
+set scrolloff=3   " scrolloffset 3 lines
 
 " open files unfolded
 set foldlevelstart=99
@@ -74,7 +77,6 @@ autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd BufRead,BufNewFile *.t set filetype=perl
 autocmd BufRead,BufNewFile *.groovy set filetype=groovy
-autocmd BufRead,BufNewFile Jenkinsfile set filetype=Jenkinsfile
 
 autocmd FileType mediawiki setlocal wrap linebreak nolist expandtab wrapmargin=40
 autocmd FileType mediawiki setlocal textwidth=0 wrapmargin=0
@@ -85,3 +87,4 @@ autocmd FileType css,html,htmldjango
 
 " Update diff on file write
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+
