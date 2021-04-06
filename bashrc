@@ -16,8 +16,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"             # sysop
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
 
 # history control
-export HISTCONTROL=ignorespace:ignoredups
-export HISTIGNORE=l:v:vv:vvv:vvvv:s:d:dc:ll:cd:pwd
+export HISTCONTROL=ignoredups
 export HISTSIZE=4096
 export HISTFILESIZE=32768
 
