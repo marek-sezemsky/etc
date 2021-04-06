@@ -67,7 +67,7 @@ __ps1_update() # set PS1 quick and dirty
     # prompt with utf check or cross depending on last retval
     if [ $retval -ne 0 ]
     then
-        PS1="${PS1}\[$__ps1_color_red\]$retval ✗ "
+        PS1="${PS1}\[$__ps1_color_red\]✗ $retval "
     else
         PS1="${PS1}\[$__ps1_color_green\]✓ "
     fi
