@@ -16,8 +16,6 @@ set hlsearch      " hightlight search
 set nojoinspaces  " don't join multiple spaces on Shift-J
 set formatoptions+=jro  " better comment handling on inserts,join,etc.
 set expandtab     " expand tabs with 4 spaces
-set tabstop=4
-set shiftwidth=4
 set scrolloff=3   " scrolloffset 3 lines
 
 " open files unfolded

@@ -43,7 +43,6 @@ for link in ${symlinks[@]}; do
 done
 echo
 
-
 #
 # install any ~/etc/local.d/****/bashrc_local_*
 #
@@ -61,7 +60,9 @@ do
 done
 echo
 
-
+#
+# Set git configuration
+#
 if git --version &>/dev/null
 then
     echo "Configuring global Git configuration ..."
@@ -91,4 +92,17 @@ else
 fi
 echo
 
-
+#
+# Secure sensitive info
+# (files that do or may contain passwords/tokens/etc)
+#
+echo "Securing sensitive files ..."
+secrets="
+    .netrc
+    .bash_history
+    "
+for secret in $secrets; do
+    if [ -f "$destdir/$secret" ]; then
+        chmod -v 0600 "$destdir/$secret"
+    fi
+done
