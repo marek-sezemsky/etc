@@ -10,7 +10,7 @@ then
     __ps1_color_red=$(tput bold ; tput setaf 1)
     __ps1_color_white=$(tput bold ; tput setaf 7)
     __ps1_color_green=$(tput bold ; tput setaf 2)
-    __ps1_color_cyan=$(tput dim ; tput setaf 6)
+    __ps1_color_cyan=$(tput dim; tput setaf 6)
 else
     __ps1_color_off=""
     __ps1_color_grey=""
@@ -64,7 +64,7 @@ __ps1_update() # set PS1 quick and dirty
     PS1="$PS1\n"
 
     # add local (i18n) date before final $ prompt - dik pane klobouk!
-    PS1="$PS1\[$__ps1_color_grey\]$(date) "
+    PS1="$PS1\[$__ps1_color_cyan\]$(date +'%a %d %T') "
 
     # prompt with utf check or cross depending on last retval
     if [ $retval -ne 0 ]
