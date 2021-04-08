@@ -10,6 +10,7 @@ then
     __ps1_color_red=$(tput bold ; tput setaf 1)
     __ps1_color_white=$(tput bold ; tput setaf 7)
     __ps1_color_green=$(tput bold ; tput setaf 2)
+    __ps1_color_cyan=$(tput dim ; tput setaf 6)
 else
     __ps1_color_off=""
     __ps1_color_grey=""
@@ -17,6 +18,7 @@ else
     __ps1_color_red=""
     __ps1_color_white=""
     __ps1_color_green=""
+    __ps1_color_cyan=""
 fi
 unset __ps1_colors
 

@@ -75,6 +75,7 @@ then
     $gitconfig diff.submodule log
     $gitconfig log.decorate short
     $gitconfig push.default simple
+    $gitconfig pretty.onelinedate "tformat:%C(auto)%h %C(black)%C(bold)%ci%C(auto)%d %C(reset)%s"
 
     # aliases
     $gitconfig alias.br "branch"
