@@ -80,15 +80,15 @@ __ps1_update() # set PS1 quick and dirty
         fi
     fi
     if [ -n "${VIRTUAL_ENV:-}" ]; then
-        envs="${envs}# python ${envcolor}$VIRTUAL_ENV${dim} $(python --version)${__c_off} "
+        envs="${envs}# python ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
     fi
 
     if [ -n "${JAVA_HOME:-}" ]; then
-        envs="${envs}# ${dim}$(javac --version)${__c_off} "
+        envs="${envs}# ${dim}$(javac --version | head -11)${__c_off} "
     fi
 
     if [ -n "${M2_HOME:-}" ]; then
-        envs="${envs}# ${dim}$(mvn --version)${__c_off} "
+        envs="${envs}# ${dim}$(mvn --version | head -1)${__c_off} "
     fi
 
     if [ -n "${JBOSS_HOME:-}" ]; then
