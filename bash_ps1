@@ -5,20 +5,22 @@ __ps1_colors=$(tput colors 2>/dev/null)
 if [ "${__ps1_colors:-0}" -ge "8" ]
 then
     __ps1_color_off=$(tput sgr0)
-    __ps1_color_grey=$(tput bold; tput setaf 0)
+    __ps1_color_black_bold=$(tput bold; tput setaf 0)
     __ps1_color_yellow=$(tput bold; tput setaf 3)
     __ps1_color_red=$(tput bold ; tput setaf 1)
     __ps1_color_white=$(tput bold ; tput setaf 7)
     __ps1_color_green=$(tput bold ; tput setaf 2)
     __ps1_color_cyan=$(tput dim; tput setaf 6)
+    __ps1_color_cyan_bold=$(tput bold ; tput setaf 6)
 else
     __ps1_color_off=""
-    __ps1_color_grey=""
+    __ps1_color_black_bold=""
     __ps1_color_yellow=""
     __ps1_color_red=""
     __ps1_color_white=""
     __ps1_color_green=""
     __ps1_color_cyan=""
+    __ps1_color_cyan_bold=""
 fi
 unset __ps1_colors
 
@@ -30,7 +32,9 @@ __ps1_update() # set PS1 quick and dirty
 
     local retval=$?
     local git
-    local usercolor
+
+    # colors
+    local usercolor=
     local titlebar
 
     # make a room (empty line)
@@ -56,27 +60,37 @@ __ps1_update() # set PS1 quick and dirty
     else
         usercolor=$__ps1_color_green
     fi
-    # colorized 'user@host:pwd '
-    PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$usercolor\]\h"
-    PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\] "
+    pathcolor=$__ps1_color_yellow
+    timecolor=$__ps1_color_cyan
+    dimcolor=$__ps1_color_black_bold
 
-    # insert newline to better handle long paths in pwd
-    PS1="$PS1\n"
+    #
+    # line 1: 'user@host:pwd \n'
+    #
+    PS1="${PS1}\[$usercolor\]\u\[$dimcolor\]@\[$usercolor\]\h"
+    PS1="${PS1}\[$dimcolor\]:\[$pathcolor\]\w\[$__ps1_color_off\] \n"
 
-    # add local (i18n) date before final $ prompt - dik pane klobouk!
-    PS1="$PS1\[$__ps1_color_cyan\]$(date +'%a %d %T') "
+    #
+    # line 2: 'date ✗ 255'
+    #
 
-    # prompt with utf check or cross depending on last retval
-    if [ $retval -ne 0 ]
+    # Friday 13 13:13:13
+    PS1="$PS1\[$timecolor\]$(date +'%a %d %T')\[$__ps1_color_off\]"
+    # last command status
+    if [ $retval -eq 0 ]
     then
-        PS1="${PS1}\[$__ps1_color_red\]✗ $retval "
+        PS1="${PS1} \[$__ps1_color_green\]✓\[$__ps1_color_off\]"
     else
-        PS1="${PS1}\[$__ps1_color_green\]✓ "
+        PS1="${PS1} \[$__ps1_color_red\]✗ $retval\[$__ps1_color_off\]"
     fi
 
-    # ... behold prompt!
-    PS1="$PS1\$ \[$__ps1_color_off\]"
-    #     C:\>_
+    # prompt # or $ plus last retval
+    if [ ${EUID:-1} -eq 0 ]
+    then
+        PS1="$PS1 ${__ps1_color_red}###${__ps1_color_off} "
+    else
+        PS1="$PS1 ${__ps1_color_white}\$${__ps1_color_off} "
+    fi
 
     # Set title for xterm: '[user@host:workdir]'
     # http://unix.stackexchange.com/questions/14113/
@@ -84,6 +98,8 @@ __ps1_update() # set PS1 quick and dirty
     PS1="${titlebar}$PS1"
 
     export PS1
+    # ... behold prompt!
+    #     C:\>_
 }
 
 export PROMPT_COMMAND="__ps1_update"
