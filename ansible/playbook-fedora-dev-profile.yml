@@ -6,3 +6,7 @@
       - vim
       - mc
       - podman
+      - htop
+      - top
+
+

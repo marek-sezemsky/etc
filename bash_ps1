@@ -57,7 +57,7 @@ __ps1_update() # set PS1 quick and dirty
         usercolor=$__ps1_color_green
     fi
     # colorized 'user@host:pwd '
-    PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$__ps1_color_green\]\h"
+    PS1="${PS1}\[$usercolor\]\u\[$__ps1_color_grey\]@\[$usercolor\]\h"
     PS1="${PS1}\[$__ps1_color_grey\]:\[$__ps1_color_yellow\]\w\[$__ps1_color_off\] "
 
     # insert newline to better handle long paths in pwd
