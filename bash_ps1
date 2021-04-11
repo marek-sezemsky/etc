@@ -1,28 +1,38 @@
 # .bash_ps1
 
 # PS1 color for capable terminals only
-__ps1_colors=$(tput colors 2>/dev/null)
-if [ "${__ps1_colors:-0}" -ge "8" ]
+__colors="$(tput colors 2>/dev/null)"
+if [ "${__colors:-0}" -ge "8" ]
 then
-    __ps1_color_off=$(tput sgr0)
-    __ps1_color_black_bold=$(tput bold; tput setaf 0)
-    __ps1_color_yellow=$(tput bold; tput setaf 3)
-    __ps1_color_red=$(tput bold ; tput setaf 1)
-    __ps1_color_white=$(tput bold ; tput setaf 7)
-    __ps1_color_green=$(tput bold ; tput setaf 2)
-    __ps1_color_cyan=$(tput dim; tput setaf 6)
-    __ps1_color_cyan_bold=$(tput bold ; tput setaf 6)
+    __c_off="$(tput sgr0)"
+
+    __c_bold="$(tput bold)"
+    __c_underline="$(tput smul)"
+
+    __c_black="$(tput setaf 0)"
+    __c_red="$(tput setaf 1)"
+    __c_green="$(tput setaf 2)"
+    __c_yellow="$(tput setaf 3)"
+    __c_blue="$(tput setaf 4)"
+    __c_magenta="$(tput setaf 5)"
+    __c_cyan="$(tput setaf 6)"
+    __c_white="$(tput setaf 7)"
+
 else
-    __ps1_color_off=""
-    __ps1_color_black_bold=""
-    __ps1_color_yellow=""
-    __ps1_color_red=""
-    __ps1_color_white=""
-    __ps1_color_green=""
-    __ps1_color_cyan=""
-    __ps1_color_cyan_bold=""
+    __c_off=""
+
+    __c_bold=""
+    __c_underline=""
+
+    __c_black=""
+    __c_red=""
+    __c_green=""
+    __c_yellow=""
+    __c_blue=""
+    __c_magenta=""
+    __c_cyan=""
+    __c_white=""
 fi
-unset __ps1_colors
 
 __ps1_update() # set PS1 quick and dirty
 {
@@ -31,75 +41,75 @@ __ps1_update() # set PS1 quick and dirty
     # !255 $
 
     local retval=$?
-    local git
-
-    # colors
-    local usercolor=
     local titlebar
+
+    # color configuration
+    if [ ${EUID:-1} -eq 0 ]
+    then
+        local usercolor="${__c_bold}${__c_red}"
+        local prompt="${__c_bold}${__c_red}##${__c_off} "
+    else
+        local usercolor="${__c_bold}${__c_green}"
+        local prompt="${__c_bold}${__c_white}\$${__c_off} "
+    fi
+    local pathcolor="${__c_bold}${__c_yellow}"
+    local timecolor="${__c_cyan}${__c_underline}"
+    local successcolor="${__c_bold}${__c_green}"
+    local failurecolor="${__c_bold}${__c_red}"
+    local envcolor="${__c_bold}${__c_white}"
+    local gitcolor="${__c_bold}${__c_cyan}"
+    local dim="${__c_bold}${__c_black}"
 
     # make a room (empty line)
     PS1="\n"
 
-    # python venv name (if set)
-    if [ -n "${VIRTUAL_ENV:-}" ]
-    then
-        PS1="${PS1}@ \[$__ps1_color_white\]$(basename\
-            $VIRTUAL_ENV)\[$__ps1_color_off\] "
-    fi
-
-    # use Git PS1 if available
-    if declare -f __git_ps1 >/dev/null
-    then
-        PS1=${PS1}$(__git_ps1 "(%s) ")
-    fi
-
-    # make username red if superuser
-    if [ ${EUID:-1} -eq 0 ]
-    then
-        usercolor=$__ps1_color_red
-    else
-        usercolor=$__ps1_color_green
-    fi
-    pathcolor=$__ps1_color_yellow
-    timecolor=$__ps1_color_cyan
-    dimcolor=$__ps1_color_black_bold
-
-    #
-    # line 1: 'user@host:pwd \n'
-    #
-    PS1="${PS1}\[$usercolor\]\u\[$dimcolor\]@\[$usercolor\]\h"
-    PS1="${PS1}\[$dimcolor\]:\[$pathcolor\]\w\[$__ps1_color_off\] \n"
-
-    #
-    # line 2: 'date ✗ 255'
-    #
-
-    # Friday 13 13:13:13
-    PS1="$PS1\[$timecolor\]$(date +'%a %d %T')\[$__ps1_color_off\]"
-    # last command status
-    if [ $retval -eq 0 ]
-    then
-        PS1="${PS1} \[$__ps1_color_green\]✓\[$__ps1_color_off\]"
-    else
-        PS1="${PS1} \[$__ps1_color_red\]✗ $retval\[$__ps1_color_off\]"
-    fi
-
-    # prompt # or $ plus last retval
-    if [ ${EUID:-1} -eq 0 ]
-    then
-        PS1="$PS1 ${__ps1_color_red}###${__ps1_color_off} "
-    else
-        PS1="$PS1 ${__ps1_color_white}\$${__ps1_color_off} "
-    fi
-
-    # Set title for xterm: '[user@host:workdir]'
+    # reset tput and set title for xterm: 'user@host:workdir'
     # http://unix.stackexchange.com/questions/14113/
     titlebar='\[\e]0;\u@\h:\w\a\]'
-    PS1="${titlebar}$PS1"
+    PS1="${__c_off}${titlebar}\n"
 
-    export PS1
+    # --- '# user@host:pwd\n'
+    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
+
+    # --- '# envs ..."
+    local envs=""
+    if declare -f __git_ps1 >/dev/null; then
+        local gitstr="$(__git_ps1 '(%s)')"
+        if [ -n "${gitstr}" ]; then
+            envs="${envs}# git ${gitcolor}${gitstr}${__c_off} "
+        fi
+    fi
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        envs="${envs}# python ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
+    fi
+
+    if [ -n "${JAVA_HOME:-}" ]; then
+        envs="${envs}# ${dim}$(javac --version | head -11)${__c_off} "
+    fi
+
+    if [ -n "${M2_HOME:-}" ]; then
+        envs="${envs}# ${dim}$(mvn --version | head -1)${__c_off} "
+    fi
+
+    if [ -n "${JBOSS_HOME:-}" ]; then
+        envs="${envs}# ${dim}$JBOSS_HOME${__c_off} "
+    fi
+    if [ -n "${envs}" ]; then
+        PS1="${PS1}${envs}\n"
+    fi
+
+    # --- '# Friday 13 HH:MM:SS ✗ 255 \$' # dík Pane Klobouk
+    PS1="${PS1}# ${timecolor}$(date +'%A %d %T')${__c_off}"
+    if [ $retval -eq 0 ]; then
+        PS1="${PS1} ${successcolor}✓${__c_off}"
+    else
+        PS1="${PS1} ${failurecolor}✗ $retval${__c_off}"
+    fi
+    PS1="${PS1} ${prompt} "
+
     # ... behold prompt!
     #     C:\>_
+    export PS1
 }
 
 export PROMPT_COMMAND="__ps1_update"
