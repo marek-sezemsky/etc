@@ -68,9 +68,6 @@ __ps1_update() # set PS1 quick and dirty
     titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
 
-    # --- '# user@host:pwd\n'
-    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
-
     # --- '# envs ..."
     local envs=""
     if declare -f __git_ps1 >/dev/null; then
@@ -80,7 +77,7 @@ __ps1_update() # set PS1 quick and dirty
         fi
     fi
     if [ -n "${VIRTUAL_ENV:-}" ]; then
-        envs="${envs}# python ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
+        envs="${envs}# pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
     fi
 
     if [ -n "${JAVA_HOME:-}" ]; then
@@ -92,14 +89,17 @@ __ps1_update() # set PS1 quick and dirty
     fi
 
     if [ -n "${JBOSS_HOME:-}" ]; then
-        envs="${envs}# ${dim}$JBOSS_HOME${__c_off} "
+        envs="${envs}# JBoss ${dim}$JBOSS_HOME${__c_off} "
     fi
     if [ -n "${envs}" ]; then
         PS1="${PS1}${envs}\n"
     fi
 
-    # --- '# Friday 13 HH:MM:SS ✗ 255 \$' # dík Pane Klobouk
-    PS1="${PS1}# ${timecolor}$(date +'%A %d %T')${__c_off}"
+    # --- '# user@host:pwd\n'
+    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
+
+    # --- '# 🕑 Friday 13 HH:MM:SS ✗ 255 \$' # dík Pane Klobouk
+    PS1="${PS1}# 🕑 ${timecolor}$(date +'%A %d %T')${__c_off}"
     if [ $retval -eq 0 ]; then
         PS1="${PS1} ${successcolor}✓${__c_off}"
     else
