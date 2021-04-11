@@ -47,10 +47,10 @@ __ps1_update() # set PS1 quick and dirty
     if [ ${EUID:-1} -eq 0 ]
     then
         local usercolor="${__c_bold}${__c_red}"
-        local prompt="${__c_bold}${__c_red}##${__c_off} "
+        local prompt="#"
     else
         local usercolor="${__c_bold}${__c_green}"
-        local prompt="${__c_bold}${__c_white}\$${__c_off} "
+        local prompt="\$"
     fi
     local pathcolor="${__c_bold}${__c_yellow}"
     local timecolor="${__c_cyan}${__c_underline}"
@@ -101,11 +101,11 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# 🕑 Friday 13 HH:MM:SS ✗ 255 \$' # dík Pane Klobouk
     PS1="${PS1}# 🕑 ${timecolor}$(date +'%A %d %T')${__c_off}"
     if [ $retval -eq 0 ]; then
-        PS1="${PS1} ${successcolor}✓${__c_off}"
+        PS1="${PS1} ${successcolor}✓"
     else
-        PS1="${PS1} ${failurecolor}✗ $retval${__c_off}"
+        PS1="${PS1} ${failurecolor}✗ $retval"
     fi
-    PS1="${PS1} ${prompt} "
+    PS1="${PS1} ${prompt}${__c_off} "
 
     # ... behold prompt!
     #     C:\>_
