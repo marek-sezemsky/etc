@@ -47,7 +47,7 @@ __ps1_update() # set PS1 quick and dirty
     if [ ${EUID:-1} -eq 0 ]
     then
         local usercolor="${__c_bold}${__c_red}"
-        local prompt="${__c_bold}${__c_red}###${__c_off} "
+        local prompt="${__c_bold}${__c_red}##${__c_off} "
     else
         local usercolor="${__c_bold}${__c_green}"
         local prompt="${__c_bold}${__c_white}\$${__c_off} "
@@ -92,7 +92,7 @@ __ps1_update() # set PS1 quick and dirty
     fi
 
     if [ -n "${JBOSS_HOME:-}" ]; then
-        envs="${envs}# jboss  ${dim}$JBOSS_HOME${__c_off} "
+        envs="${envs}# jboss ${dim}$JBOSS_HOME${__c_off} "
     fi
     if [ -n "${envs}" ]; then
         PS1="${PS1}${envs}\n"
