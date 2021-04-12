@@ -69,9 +69,6 @@ __ps1_update() # set PS1 quick and dirty
     titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
 
-    # --- '# user@host:pwd\n'
-    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
-
     # --- '# envs ..."
     local envs=""
     if declare -f __git_ps1 >/dev/null; then
@@ -99,6 +96,9 @@ __ps1_update() # set PS1 quick and dirty
     if [ -n "${envs}" ]; then
         PS1="${PS1}${envs}\n"
     fi
+
+    # --- '# user@host:pwd\n'
+    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
 
     # --- '# time retval \$' # dík Pane Klobouk 🕑
     # this is poor man's timer
