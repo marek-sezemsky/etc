@@ -57,7 +57,7 @@ __ps1_update() # set PS1 quick and dirty
     local failurecolor="${__c_bold}${__c_red}"
     local warningcolor="${__c_bold}${__c_yellow}"
     local successcolor="${__c_bold}${__c_green}"
-    local envcolor="${__c_bold}${__c_white}"
+    local envcolor="${__c_bold}${__c_blue}"
     local gitcolor="${__c_bold}${__c_cyan}"
     local dim="${__c_bold}${__c_black}"
 
