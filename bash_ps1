@@ -4,19 +4,19 @@
 __colors="$(tput colors 2>/dev/null)"
 if [ "${__colors:-0}" -ge "8" ]
 then
-    __c_off="$(tput sgr0)"
+    __c_off="\[$(tput sgr0)\]"
 
-    __c_bold="$(tput bold)"
-    __c_underline="$(tput smul)"
+    __c_bold="\[$(tput bold)\]"
+    __c_underline="\[$(tput smul)\]"
 
-    __c_black="$(tput setaf 0)"
-    __c_red="$(tput setaf 1)"
-    __c_green="$(tput setaf 2)"
-    __c_yellow="$(tput setaf 3)"
-    __c_blue="$(tput setaf 4)"
-    __c_magenta="$(tput setaf 5)"
-    __c_cyan="$(tput setaf 6)"
-    __c_white="$(tput setaf 7)"
+    __c_black="\[$(tput setaf 0)\]"
+    __c_red="\[$(tput setaf 1)\]"
+    __c_green="\[$(tput setaf 2)\]"
+    __c_yellow="\[$(tput setaf 3)\]"
+    __c_blue="\[$(tput setaf 4)\]"
+    __c_magenta="\[$(tput setaf 5)\]"
+    __c_cyan="\[$(tput setaf 6)\]"
+    __c_white="\[$(tput setaf 7)\]"
 
 else
     __c_off=""
