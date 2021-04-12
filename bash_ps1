@@ -54,8 +54,9 @@ __ps1_update() # set PS1 quick and dirty
     fi
     local pathcolor="${__c_bold}${__c_yellow}"
     local timecolor="${__c_cyan}${__c_underline}"
-    local successcolor="${__c_bold}${__c_green}"
     local failurecolor="${__c_bold}${__c_red}"
+    local warningcolor="${__c_bold}${__c_yellow}"
+    local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_bold}${__c_white}"
     local gitcolor="${__c_bold}${__c_cyan}"
     local dim="${__c_bold}${__c_black}"
@@ -68,6 +69,9 @@ __ps1_update() # set PS1 quick and dirty
     titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
 
+    # --- '# user@host:pwd\n'
+    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
+
     # --- '# envs ..."
     local envs=""
     if declare -f __git_ps1 >/dev/null; then
@@ -79,33 +83,38 @@ __ps1_update() # set PS1 quick and dirty
     if [ -n "${VIRTUAL_ENV:-}" ]; then
         envs="${envs}# pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
     fi
-
-    if [ -n "${JAVA_HOME:-}" ]; then
-        envs="${envs}# ${dim}$(javac --version | head -11)${__c_off} "
-    fi
-
-    if [ -n "${M2_HOME:-}" ]; then
-        envs="${envs}# ${dim}$(mvn --version | head -1)${__c_off} "
-    fi
-
-    if [ -n "${JBOSS_HOME:-}" ]; then
-        envs="${envs}# JBoss ${dim}$JBOSS_HOME${__c_off} "
+    # --- '# versions'
+    if [ -n "$DEBUG" ]; then
+        envs="${envs}# DEBUG=${__c_magenta}${DEBUG}${__c_off} "
+        if [ -n "${JAVA_HOME:-}" ]; then
+            envs="${envs}# ${dim}$(javac -version | head -11)${__c_off} "
+        fi
+        if [ -n "${M2_HOME:-}" ]; then
+            envs="${envs}# ${dim}$(mvn --version | head -1)${__c_off} "
+        fi
+        if [ -n "${JBOSS_HOME:-}" ]; then
+            envs="${envs}# JBoss ${dim}$JBOSS_HOME${__c_off} "
+        fi
     fi
     if [ -n "${envs}" ]; then
         PS1="${PS1}${envs}\n"
     fi
 
-    # --- '# user@host:pwd\n'
-    PS1="${PS1}# ${usercolor}\u${__c_off}@${usercolor}\h${__c_off}:${pathcolor}\w${__c_off}\n"
-
-    # --- '# 🕑 Friday 13 HH:MM:SS ✗ 255 \$' # dík Pane Klobouk
-    PS1="${PS1}# 🕑 ${timecolor}$(date +'%A %d %T')${__c_off}"
+    # --- '# time retval \$' # dík Pane Klobouk 🕑
+    # this is poor man's timer
+    local T=${SECONDS}
+    local D=$((T/60/60/24))
+    local H=$((T/60/60%24))
+    local M=$((T/60%60))
+    local S=$((T%60))
+    SECONDS=0
+    PS1="${PS1}# ${timecolor}$(date +'%A %d %T')${__c_off} ${warningcolor}~${__c_off}${D}d,${H}h:${M}m:${S}s "
     if [ $retval -eq 0 ]; then
-        PS1="${PS1} ${successcolor}✓"
+        PS1="${PS1}${successcolor}✓ "
     else
-        PS1="${PS1} ${failurecolor}✗ $retval"
+        PS1="${PS1}${failurecolor}✗ $retval "
     fi
-    PS1="${PS1} ${prompt}${__c_off} "
+    PS1="${PS1}${prompt}${__c_off} "
 
     # ... behold prompt!
     #     C:\>_
