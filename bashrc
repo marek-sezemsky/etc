@@ -40,11 +40,7 @@ if [ -r ~/.bash_aliases ]; then
     source ~/.bash_aliases
 fi
 
-# load fancy Git prompt
 if [ -r ~/.git-prompt.sh ]; then
-    export GIT_PS1_SHOWDIRTYSTATE=1
-    export GIT_PS1_SHOWUNTRACKEDFILES=1
-    export GIT_PS1_SHOWUPSTREAM=auto
     source ~/.git-prompt.sh
 fi
 

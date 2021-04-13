@@ -52,14 +52,14 @@ __ps1_update() # set PS1 quick and dirty
         local usercolor="${__c_bold}${__c_green}"
         local prompt="\$"
     fi
-    local pathcolor="${__c_bold}${__c_yellow}"
-    local timecolor="${__c_cyan}${__c_underline}"
     local failurecolor="${__c_bold}${__c_red}"
     local warningcolor="${__c_bold}${__c_yellow}"
     local successcolor="${__c_bold}${__c_green}"
-    local envcolor="${__c_bold}${__c_blue}"
-    local gitcolor="${__c_bold}${__c_cyan}"
+    local envcolor="${__c_off}${__c_cyan}"
+    local gitcolor="${__c_off}${__c_cyan}"
     local dim="${__c_bold}${__c_black}"
+    local pathcolor="${__c_bold}${__c_yellow}"
+    local timecolor="${dim}"
 
     # make a room (empty line)
     PS1="\n"
@@ -71,30 +71,32 @@ __ps1_update() # set PS1 quick and dirty
 
     # --- '# envs ..."
     local envs=""
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        envs="${envs}# ${dim}pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off}\n"
+    fi
     if declare -f __git_ps1 >/dev/null; then
+        GIT_PS1_SHOWDIRTYSTATE=1
+        GIT_PS1_SHOWUNTRACKEDFILES=1
+        GIT_PS1_SHOWUPSTREAM="verbose"
         local gitstr="$(__git_ps1 '(%s)')"
         if [ -n "${gitstr}" ]; then
-            envs="${envs}# git ${gitcolor}${gitstr}${__c_off} "
+            envs="${envs}# ${dim}git ${gitcolor}${gitstr}${__c_off}\n"
         fi
     fi
-    if [ -n "${VIRTUAL_ENV:-}" ]; then
-        envs="${envs}# pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off} "
-    fi
-    # --- '# versions'
+    PS1="${PS1}${envs}"
+
+    # --- '# versions' for DEBUG
     if [ -n "$DEBUG" ]; then
-        envs="${envs}# DEBUG=${__c_magenta}${DEBUG}${__c_off} "
         if [ -n "${JAVA_HOME:-}" ]; then
-            envs="${envs}# ${dim}$(javac -version | head -11)${__c_off} "
+            PS1="${PS1}# JAVA_HOME ${JAVA_HOME} ${dim}# $(javac -version 2>&1 | head -1)${__c_off}\n"
         fi
         if [ -n "${M2_HOME:-}" ]; then
-            envs="${envs}# ${dim}$(mvn --version | head -1)${__c_off} "
+            PS1="${PS1}# M2_HOME ${dim}${M2_HOME} ${dim}$(mvn --version 2>&1| head -1)${__c_off}\n"
         fi
         if [ -n "${JBOSS_HOME:-}" ]; then
-            envs="${envs}# JBoss ${dim}$JBOSS_HOME${__c_off} "
+            PS1="${PS1}# JBOSS_HOME ${dim}${JBOSS_HOME} $(head -1 ${JBOSS_HOME}/version.txt)${__c_off}\n"
         fi
-    fi
-    if [ -n "${envs}" ]; then
-        PS1="${PS1}${envs}\n"
+        PS1="${PS1}# PATH ${dim}${PATH}${__c_off}\n"
     fi
 
     # --- '# user@host:pwd\n'
@@ -103,16 +105,14 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# time retval \$' # dík Pane Klobouk 🕑
     # this is poor man's timer
     local T=${SECONDS}
-    local D=$((T/60/60/24))
-    local H=$((T/60/60%24))
     local M=$((T/60%60))
     local S=$((T%60))
     SECONDS=0
-    PS1="${PS1}# ${timecolor}$(date +'%A %d %T')${__c_off} ${warningcolor}~${__c_off}${D}d,${H}h:${M}m:${S}s "
+    PS1="${PS1}# ${timecolor}$(date +'📅 %a%d 🕑 %H%M%S')${__c_off} ${M}m${S}s${warningcolor}~${__c_off} "
     if [ $retval -eq 0 ]; then
-        PS1="${PS1}${successcolor}✓ "
+        PS1="${PS1}${successcolor}$retval ✓ "
     else
-        PS1="${PS1}${failurecolor}✗ $retval "
+        PS1="${PS1}${failurecolor}$retval ✗ "
     fi
     PS1="${PS1}${prompt}${__c_off} "
 
