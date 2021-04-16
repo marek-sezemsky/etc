@@ -108,7 +108,7 @@ __ps1_update() # set PS1 quick and dirty
     local M=$((T/60%60))
     local S=$((T%60))
     SECONDS=0
-    PS1="${PS1}# ${timecolor}$(date +'📅 %a%d 🕑 %H%M%S')${__c_off} ${M}m${S}s${warningcolor}~${__c_off} "
+    PS1="${PS1}# ${timecolor}$(date +'%a%d %H%M%S')${__c_off} ${M}m${S}s${warningcolor}~${__c_off} "
     if [ $retval -eq 0 ]; then
         PS1="${PS1}${successcolor}$retval ✓ "
     else
