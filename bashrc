@@ -11,9 +11,9 @@ if [ -r /etc/bash_completion.d/git ]; then
 fi
 
 # adjust paths, bring in everything
-export PATH="$PATH:$HOME/usr/local/bin:$HOME/usr/bin:$HOME/bin" # home
-export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"             # sysop
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"                # system
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"     # system
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"  # sysop
+export PATH="$HOME/bin:$HOME/local/bin:$PATH"        # home
 
 # history control
 export HISTCONTROL=ignoredups
