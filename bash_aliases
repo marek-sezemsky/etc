@@ -21,10 +21,11 @@ alias co='git checkout'
 alias d='git diff'
 alias dc='git diff --cached' # (eclipses /bin/dc: an arbitrary precision calculator)
 alias gg='git grep -n'
-alias v='git --no-pager log --abbrev=14 --pretty=onelinedate --date=relative --decorate -30'
-alias vv='git log --abbrev=14 --pretty=onelinedate --date=relative --decorate --graph'
+alias v='git --no-pager log --abbrev --pretty=onelinedate --date=relative --decorate -30'
+alias vv='git log --abbrev --pretty=onelinedate --date=relative --decorate --graph'
 alias pull='git pull'
 alias push='git push'
+alias reset='git reset' # (eclipses /(usr/)bin/reset: terminal initialization)
 alias s='git status --short --branch'
 alias show='git show'
 if type __git_complete __git_main &>/dev/null; then
