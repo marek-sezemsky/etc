@@ -49,12 +49,9 @@ if [ -r ~/.bash_ps1 ]; then
     source ~/.bash_ps1
 fi
 
-# load bashrc_local_* files (ignore backups~)
-for bashrc_local in $(ls ~/.bashrc_local* 2>/dev/null); do
-    if [[ ! ${bashrc_local} =~ ~$ && -r ${bashrc_local} ]]; then
-        source ${bashrc_local}
-    fi
+# load ~/etc.d/*/bashrc files
+for bashrc in $(ls ~/etc.d/*/bashrc 2>/dev/null); do
+    source ${bashrc}
 done
-unset bashrc_local
+unset bashrc
 
-# vim:ft=sh

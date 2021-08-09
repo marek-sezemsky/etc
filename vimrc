@@ -17,6 +17,8 @@ set nojoinspaces  " don't join multiple spaces on Shift-J
 set formatoptions+=jro  " better comment handling on inserts,join,etc.
 set expandtab     " expand tabs with 4 spaces
 set scrolloff=3   " scrolloffset 3 lines
+set number
+set nowrap
 
 " open files unfolded
 set foldlevelstart=99

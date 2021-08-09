@@ -44,23 +44,6 @@ done
 echo
 
 #
-# install any ~/etc/local.d/****/bashrc_local_*
-#
-sourcedir="$sourcedir/local.d/"
-echo "Install bashrc_local_* symlinks ..."
-for link in $(find $sourcedir -type f -name 'bashrc_local_*')
-do
-    src="${link}"
-    dst="$destdir/.$(basename $link)"
-    if [ -e "$dst" ] && [ ! -L "$dst" ]
-    then
-        mv -v "$dst" "$dst~"
-    fi
-    ln -nsfv "$src" "$dst"
-done
-echo
-
-#
 # Set git configuration
 #
 if git --version &>/dev/null
@@ -101,9 +84,12 @@ echo "Securing sensitive files ..."
 secrets="
     .netrc
     .bash_history
+    .ssh/authorized_keys
+    .ssh/id_rsa
     "
 for secret in $secrets; do
     if [ -f "$destdir/$secret" ]; then
         chmod -v 0600 "$destdir/$secret"
     fi
 done
+

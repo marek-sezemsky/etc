@@ -21,12 +21,12 @@ Install (or update) with:
     cd ~ && etc/install
 
 
-`local.d/`
+~/etc.d/*
 ----------
 
-Untracked directory for any per-site or other local bashrc files. May contain flat files or sub-directories (or git-repos).
+Untracked directory for any per-site or other customized bashrc files.
 
-All files matching `bashrc_local_*` (even in subdirectories) will be picked up by installer script, symlinked as `~/.bashrc_local_...` and sourced on login.
+All `~/etc.d/*/bashrc` files will be sourced.
 
 
 Binaries
