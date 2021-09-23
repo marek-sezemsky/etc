@@ -50,6 +50,6 @@ if type __git_complete __git_main &>/dev/null; then
 fi
 
 # quick switch-to-current-master
-alias master='git checkout master && git pull && git status'
+alias master='git checkout master && git pull --prune && git status'
 
 # vim:ft=sh
