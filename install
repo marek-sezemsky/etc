@@ -9,6 +9,10 @@ set -u
 sourcedir="$(dirname $0)"
 destdir="${1:-$HOME}"
 
+# work with absoulte paths
+sourcedir=$(readlink -f "${sourcedir}")
+destdir=$(readlink -f "${destdir}")
+
 echo
 echo "Installing $sourcedir into $destdir"
 echo
@@ -31,13 +35,13 @@ symlinks=(
     vim
     vimrc
 )
-echo "Install top-level symlinks ..."
+echo "Installing top-level symlinks ..."
 for link in ${symlinks[@]}; do
     src="$sourcedir/${link}"
     dst="$destdir/.${link}"
     if [ -e "$dst" ] && [ ! -L "$dst" ]
     then
-        mv -v "$dst" "$dst~"
+        mv -v "$dst" "$dst~" # move away backup
     fi
     ln -nsfv "$src" "$dst"
 done
@@ -71,6 +75,8 @@ then
     $gitconfig alias.s  "status --short --branch"
 
     echo "Review changes with: git config --global --list"
+
+    # TODO check/show user.name and user.email?
 else
     echo "Warning: No git found?!" >&2
 fi
@@ -92,4 +98,18 @@ for secret in $secrets; do
         chmod -v 0600 "$destdir/$secret"
     fi
 done
+echo
+
+#
+# Execute module ~/etc.d/*/install files
+#
+for module_install in $(ls ${destdir}/etc.d/*/install 2>/dev/null); do
+    echo Running ${module_install} ...
+    ${module_install} "${destdir}"
+    echo
+done
+echo
+
+echo Installation complete! ${destdir} ready.
+echo
 
