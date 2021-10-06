@@ -69,6 +69,13 @@ __ps1_update() # set PS1 quick and dirty
     titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
 
+    # --- '# proxy ..."
+    local proxy=""
+    if [ -n "${ALL_PROXY:-}" ]; then
+        proxy="${proxy}# ${dim}all_proxy ${envcolor}$ALL_PROXY${dim}${__c_off}\n"
+    fi
+    PS1="${PS1}${proxy}"
+
     # --- '# envs ..."
     local envs=""
     if [ -n "${VIRTUAL_ENV:-}" ]; then
@@ -78,7 +85,7 @@ __ps1_update() # set PS1 quick and dirty
         GIT_PS1_SHOWDIRTYSTATE=1
         GIT_PS1_SHOWUNTRACKEDFILES=1
         GIT_PS1_SHOWUPSTREAM="verbose"
-        local gitstr="$(__git_ps1 '(%s)')"
+        local gitstr="$(__git_ps1 '%s')"
         if [ -n "${gitstr}" ]; then
             envs="${envs}# ${dim}git ${gitcolor}${gitstr}${__c_off}\n"
         fi

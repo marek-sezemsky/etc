@@ -8,8 +8,12 @@ alias se='source env/bin/activate'
 alias t='terraform'
 alias vimO='vim -O'
 alias vimo='vim -o'
+alias o='vim -o'
+alias O='vim -O'
+alias e=o
+alias E=O
 
-# git aliases; replacing ct=cleartool + mt=multitool
+# git aliases; replacing ct=cleartool + mt=multitool; RIP ClearCase, you will be missed
 alias g='git'
 # see also ~/etc/install for configured git shortcuts; both 's' and 'g s' work
 alias a='git add'
@@ -52,4 +56,3 @@ fi
 # quick switch-to-current-master
 alias master='git checkout master && git pull --prune && git status'
 
-# vim:ft=sh
