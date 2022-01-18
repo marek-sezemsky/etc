@@ -1,8 +1,10 @@
 # ~/.bash_aliases
 
 # useful
-alias l='ls --almost-all -l -v --inode --size --time-style=+%Y-%m-%dT%H:%M:%S%:z --group-directories-first'
-alias ll='l --all --full-time'
+# (-v=natural number sort; -o/-l listing modes)
+alias _l='ls -v --size --classify --group-directories-first'
+alias  l='_l --almost-all -o'
+alias ll='_l --all -l --inode --time-style=+%Y-%m-%dT%H.%M.%SZ%z'
 alias fn='find . -name'
 alias se='source env/bin/activate'
 alias t='terraform'
