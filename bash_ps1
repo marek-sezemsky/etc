@@ -72,7 +72,7 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# proxy ..."
     local proxy=""
     if [ -n "${ALL_PROXY:-}" ]; then
-        proxy="${proxy}# ${dim}all_proxy ${envcolor}$ALL_PROXY${dim}${__c_off}\n"
+        local proxy="${proxy}# ${dim}all_proxy ${envcolor}$ALL_PROXY${dim}${__c_off}\n"
     fi
     PS1="${PS1}${proxy}"
 
@@ -81,16 +81,21 @@ __ps1_update() # set PS1 quick and dirty
     if [ -n "${VIRTUAL_ENV:-}" ]; then
         envs="${envs}# ${dim}pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off}\n"
     fi
+    PS1="${PS1}${envs}"
+
+    # --- '# git ...'
     if declare -f __git_ps1 >/dev/null; then
         GIT_PS1_SHOWDIRTYSTATE=1
         GIT_PS1_SHOWUNTRACKEDFILES=1
         GIT_PS1_SHOWUPSTREAM="verbose"
         local gitstr="$(__git_ps1 '%s')"
         if [ -n "${gitstr}" ]; then
-            envs="${envs}# ${dim}git ${gitcolor}${gitstr}${__c_off}\n"
+            # additionaly obtain raw hash
+            local shortSha=$(git rev-parse --short HEAD)
+            local git="# ${dim}git ${gitcolor}${shortSha} ${gitstr}${__c_off}\n"
         fi
     fi
-    PS1="${PS1}${envs}"
+    PS1="${PS1}${git}"
 
     # --- '# versions' for DEBUG
     if [ -n "$DEBUG" ]; then
