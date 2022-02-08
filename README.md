@@ -20,6 +20,14 @@ Install (or update) with:
 
     cd ~ && etc/install
 
+Source from ~/.bashrc:
+
+    # User specific aliases and functions
+    if [ -f ~/etc/bashrc ]; then
+        source ~/etc/bashrc
+    fi
+
+
 
 ~/etc.d/*
 ----------

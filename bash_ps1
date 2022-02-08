@@ -58,6 +58,7 @@ __ps1_update() # set PS1 quick and dirty
     local envcolor="${__c_off}${__c_cyan}"
     local gitcolor="${__c_off}${__c_cyan}"
     local dim="${__c_bold}${__c_black}"
+    local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
     local timecolor="${dim}"
 
@@ -66,8 +67,15 @@ __ps1_update() # set PS1 quick and dirty
 
     # reset tput and set title for xterm: 'user@host:workdir'
     # http://unix.stackexchange.com/questions/14113/
-    titlebar='\[\e]0;\u@\h:\w\a\]'
+    local titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
+
+    # --- '# (~/.bash_ps1_motd) ..."
+    local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
+    if [ -n "${motd:-}" ]; then
+        motd="# ${dim}motd ${motdcolor}${motd}${__c_off}\n"
+    fi
+    PS1="${PS1}${motd}"
 
     # --- '# proxy ..."
     local proxy=""

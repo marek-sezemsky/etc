@@ -1,18 +1,13 @@
-# ~/.bashrc
+# ~/etc/bashrc
+#
+# this file is typically sourced from user's ~/.bashrc
+#
 
-# load system definitions
-if [ -r /etc/bashrc ]; then
-    source /etc/bashrc
-fi
-
-# load system git completion
-if [ -r /etc/bash_completion.d/git ]; then
-    source /etc/bash_completion.d/git
-fi
-
-# adjust paths, bring in everything
+# append generic system paths /usr/local, usr and bin sbin
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"     # system
 export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"  # sysop
+
+# prepend user home and local bin
 export PATH="$HOME/bin:$HOME/local/bin:$PATH"        # home
 
 # history control
@@ -36,17 +31,17 @@ shopt -s cmdhist # multiple-line command in the same history entry
 shopt -s lithist # embedded newlines rather than semicolon separators
 
 # load user aliases
-if [ -r ~/.bash_aliases ]; then
-    source ~/.bash_aliases
+if [ -r ~/etc/bash_aliases ]; then
+    source ~/etc/bash_aliases
 fi
 
-if [ -r ~/.git-prompt.sh ]; then
-    source ~/.git-prompt.sh
+if [ -r ~/etc/git-prompt.sh ]; then
+    source ~/etc/git-prompt.sh
 fi
 
 # load fancy Bash prompt
-if [ -r ~/.bash_ps1 ]; then
-    source ~/.bash_ps1
+if [ -r ~/etc/bash_ps1 ]; then
+    source ~/etc/bash_ps1
 fi
 
 # load ~/etc.d/*/bashrc files

@@ -6,7 +6,7 @@ set -e
 set -u
 #set -x
 
-sourcedir="$(dirname $0)"
+sourcedir="$(dirname ${BASH_SOURCE[0]})"
 destdir="${1:-$HOME}"
 
 # work with absoulte paths
@@ -18,15 +18,10 @@ echo "Installing $sourcedir into $destdir"
 echo
 
 #
-# install explicitly listed symlinks from ~/etc
+# install explicitly listed dotfiles symlinks :
+#   ~/.<dotfile> -> ~/etc/<dotfile>
 #
-symlinks=(
-    bash_aliases
-    bash_logout
-    bash_profile
-    bash_ps1
-    bashrc
-    git-prompt.sh
+dotfiles=(
     gitignore_global
     mplayer
     rpmmacros
@@ -35,12 +30,13 @@ symlinks=(
     vim
     vimrc
 )
-echo "Installing top-level symlinks ..."
-for link in ${symlinks[@]}; do
+echo "Install dotfiles symlinks $sourcedir -> $destdir ..."
+for link in ${dotfiles[@]}; do
     src="$sourcedir/${link}"
     dst="$destdir/.${link}"
     if [ -e "$dst" ] && [ ! -L "$dst" ]
     then
+        echo "Warning: Moving away $dst, will replace"
         mv -v "$dst" "$dst~" # move away backup
     fi
     ln -nsfv "$src" "$dst"
@@ -111,5 +107,9 @@ done
 echo
 
 echo Installation complete! ${destdir} ready.
+echo
+
+echo Make sure to load this file with:
+echo "  " source $destdir/bashrc
 echo
 
