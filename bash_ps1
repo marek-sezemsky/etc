@@ -18,6 +18,8 @@ then
     __c_cyan="\[$(tput setaf 6)\]"
     __c_white="\[$(tput setaf 7)\]"
 
+    __c_dim="\[$(tput setaf 8)\]"
+
 else
     __c_off=""
 
@@ -32,6 +34,9 @@ else
     __c_magenta=""
     __c_cyan=""
     __c_white=""
+
+    __c_dim=""
+
 fi
 
 __ps1_update() # set PS1 quick and dirty
@@ -57,7 +62,7 @@ __ps1_update() # set PS1 quick and dirty
     local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_off}${__c_cyan}"
     local gitcolor="${__c_off}${__c_cyan}"
-    local dim="${__c_bold}${__c_black}"
+    local dim="${__c_bold}${__c_dim}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
     local timecolor="${dim}"
