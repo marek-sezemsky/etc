@@ -101,7 +101,7 @@ __ps1_update() # set PS1 quick and dirty
             # additionaly obtain raw hash
             local revParse="$(git rev-parse --short HEAD)"
             local hashSubject="$(git --no-pager log -1 --format=format:'%h %s')"
-            local git="# ${dim}git ${gitcolor}${gitstr} ${revParse}${__c_off} ${dim}${hashSubject}${__c_off}\n"
+            local git="# ${dim}git ${gitcolor}${revParse} ${gitstr}${__c_off} ${dim}${hashSubject}${__c_off}\n"
         fi
     fi
     PS1="${PS1}${git}"
