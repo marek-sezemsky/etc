@@ -62,7 +62,7 @@ __ps1_update() # set PS1 quick and dirty
     local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_off}${__c_cyan}"
     local gitcolor="${__c_off}${__c_cyan}"
-    local dim="${__c_bold}${__c_dim}"
+    local dim="${__c_bold}${__c_black}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
     local timecolor="${dim}"
@@ -106,7 +106,9 @@ __ps1_update() # set PS1 quick and dirty
             # additionaly obtain raw hash
             local revParse="$(git rev-parse --short HEAD)"
             local hashSubject="$(git --no-pager log -1 --format=format:'%h %s')"
-            local git="# ${dim}git ${gitcolor}${revParse} ${gitstr}${__c_off} ${dim}${hashSubject}${__c_off}\n"
+            local git1="# ${dim}git ${gitcolor}${revParse} ${gitstr}${__c_off}"
+            local git2="# ${dim}git ${hashSubject}"
+            local git="${git1}\n${git2}\n"
         fi
     fi
     PS1="${PS1}${git}"
