@@ -28,15 +28,6 @@ Source from ~/.bashrc:
     fi
 
 
-
-~/etc.d/*
-----------
-
-Untracked directory for any per-site or other customized bashrc files.
-
-All `~/etc.d/*/bashrc` files will be sourced.
-
-
 Binaries
 --------
 

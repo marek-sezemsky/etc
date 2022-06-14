@@ -44,9 +44,3 @@ if [ -r ~/etc/bash_ps1 ]; then
     source ~/etc/bash_ps1
 fi
 
-# load ~/etc.d/*/bashrc files
-for bashrc in $(ls ~/etc.d/*/bashrc 2>/dev/null); do
-    source ${bashrc}
-done
-unset bashrc
-
