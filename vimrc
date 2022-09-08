@@ -77,6 +77,7 @@ autocmd BufRead,BufNewFile *.tt2 set filetype=tt2html
 autocmd BufRead,BufNewFile *git/COMMIT_EDITMSG set filetype=diff
 autocmd BufRead,BufNewFile *.t set filetype=perl
 autocmd BufRead,BufNewFile *.groovy set filetype=groovy
+autocmd BufRead,BufNewFile Containerfile* set filetype=dockerfile
 
 autocmd FileType mediawiki setlocal wrap linebreak nolist expandtab wrapmargin=40
 autocmd FileType mediawiki setlocal textwidth=0 wrapmargin=0
