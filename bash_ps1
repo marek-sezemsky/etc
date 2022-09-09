@@ -1,7 +1,12 @@
 # .bash_ps1
 
 # PS1 color for capable terminals only
-__colors="$(tput colors 2>/dev/null)"
+if [ -n "${TERM:-}" ]; then
+    __colors="$(tput colors 2>/dev/null)"
+else
+    __colors="0"
+fi
+
 if [ "${__colors:-0}" -ge "8" ]
 then
     __c_off="\[$(tput sgr0)\]"
