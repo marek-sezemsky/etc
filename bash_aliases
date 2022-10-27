@@ -2,7 +2,7 @@
 
 # useful
 # (-v=natural number sort; -o/-l listing modes)
-alias _l='ls -v --size --classify --group-directories-first'
+alias _l='ls -v --size --group-directories-first'
 alias  l='_l --almost-all -o'
 alias ll='_l --all -l --inode --time-style=+%Y-%m-%dT%H.%M.%SZ%z'
 alias fn='find . -name'
