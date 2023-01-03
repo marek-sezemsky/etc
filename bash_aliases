@@ -58,3 +58,6 @@ fi
 # quick switch-to-current-master
 alias master='git checkout master && git pull --prune && git status'
 
+# quick cd up
+alias  ...='cd ../../'
+alias ....='cd ../../../../'
