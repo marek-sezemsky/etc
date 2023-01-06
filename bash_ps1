@@ -80,6 +80,12 @@ __ps1_update() # set PS1 quick and dirty
     local titlebar='\[\e]0;\u@\h:\w\a\]'
     PS1="${__c_off}${titlebar}\n"
 
+    # --- '# generic warning (optional)
+    if [ -n "${BASHRC_PS1_ALERT}" ]; then
+        local alert="! ${motdcolor}ALERT${__c_off} -- ${failurecolor}${BASHRC_PS1_ALERT}${__c_off}\n"
+    fi
+    PS1="${PS1}${alert}"
+
     # --- '# (~/.bash_ps1_motd) ..."
     local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
     if [ -n "${motd:-}" ]; then
