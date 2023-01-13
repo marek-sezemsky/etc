@@ -3,6 +3,15 @@
 # this file is typically sourced from user's ~/.bashrc
 #
 
+# we introduce aliases depending on git bash completion, so load it in
+if [ -f /etc/bash_completion.d/git ]; then
+    # EL7 path
+	. /etc/bash_completion.d/git
+elif [ -f /usr/share/bash-completion/completions/git ]; then
+    # EL8 path
+    . /usr/share/bash-completion/completions/git
+fi
+
 # append generic system paths /usr/local, usr and bin sbin
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"     # system
 export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"  # sysop
@@ -35,6 +44,7 @@ if [ -r ~/etc/bash_aliases ]; then
     source ~/etc/bash_aliases
 fi
 
+# custom git prompt
 if [ -r ~/etc/git-prompt.sh ]; then
     source ~/etc/git-prompt.sh
 fi
