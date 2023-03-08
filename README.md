@@ -1,32 +1,32 @@
-~/etc
-=====
+# `~/etc`
 
-Marek's ~/etc configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins.
+Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins, powershell and much more.
 
+## bootstrap
 
-Download and install
---------------------
+```bash
+# export HTTP_PROXY=http://..?
+( apt-get update && apt-get install bash vim git mc ) ||
+( yum install bash vim git mc )                       ||
+( dnf install bash vim git mc )
 
-Clone into your home directory:
+cd ~
+git clone --recursive git://github.com/marek-sezemsky/etc.git || 
+git clone --recursive https://marek-sezemsky@github.com/marek-sezemsky/etc.git
 
-    cd ~ && git clone --recursive git://github.com/marek-sezemsky/etc.git
+etc/install
 
-Or source proxy settings first and use proxy-friendly HTTPS.
+cat >> ~/.bashrc <<EOF
+# User specific aliases and functions
+if [ -f ~/etc/bashrc ]; then
+  source ~/etc/bashrc
+fi
 
-    # export HTTP_PROXY=http://
-    cd ~ && git clone --recursive https://marek-sezemsky@github.com/marek-sezemsky/etc.git
+EOF
 
-Install (or update) with:
-
-    cd ~ && etc/install
-
-Source from ~/.bashrc:
-
-    # User specific aliases and functions
-    if [ -f ~/etc/bashrc ]; then
-        source ~/etc/bashrc
-    fi
-
+source ~/etc/bashrc ||
+exec bash
+```
 
 Binaries
 --------
