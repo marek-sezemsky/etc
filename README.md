@@ -6,9 +6,10 @@ Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. 
 
 ```bash
 # export HTTP_PROXY=http://..?
-( apt-get update && apt-get install bash vim git mc ) ||
-( yum install bash vim git mc )                       ||
-( dnf install bash vim git mc )
+( apt-get update && apt-get install bash vim git mc {exuberant,universal}-ctags ) ||
+( yum install bash vim git mc ctags )                       ||
+( dnf install bash vim git mc ctags )
+
 
 cd ~
 git clone --recursive git://github.com/marek-sezemsky/etc.git || 
