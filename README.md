@@ -80,5 +80,3 @@ Worthwhile(?) scripts:
 * add z/OS profile
 * add job control info support (`# jobs...`)
 * skynet timer on context
-
-* 
