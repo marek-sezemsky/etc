@@ -6,7 +6,7 @@ Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. 
 
 Seen in vild in (RH)EL/Fedora, *bian, *buntu, Slackware, WSL (EL,deb.).
 
-## bootstrap
+## `BOOTSTRAP.EXE`
 
 ```bash
 # export HTTP_PROXY=http://..?
@@ -42,7 +42,7 @@ source ~/etc/bashrc
 exec bash
 ```
 
-## Powerprompt
+## ... behold prompt! `C:\>_`
 
 ```
 # <env/dir context line(s)>...
@@ -63,7 +63,7 @@ full:
 
 ```
 
-See bash_ps1 for advanced features (per-env motd's and external live alerts and notification system).
+See [bash_ps1](bash_ps1) for all context features.
 
 
 ## Binaries
@@ -77,3 +77,8 @@ Worthwhile(?) scripts:
 ## TODO
 
 * need PowerShell support?!
+* add z/OS profile
+* add job control info support (`# jobs...`)
+* skynet timer on context
+
+* 
