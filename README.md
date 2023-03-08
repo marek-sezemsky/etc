@@ -42,7 +42,7 @@ source ~/etc/bashrc
 exec bash
 ```
 
-## ... behold prompt! `C:\>_`
+## `C:\>_`
 
 ```
 # <env/dir context line(s)>...
@@ -66,8 +66,9 @@ full:
 See [bash_ps1](bash_ps1) for all context features.
 
 
-## Binaries
-> see also bin.git repo
+## Scripts
+
+> see also the global [../bin](../bin) git repo
 
 Worthwhile(?) scripts:
 * `~/etc/install` - installation script
@@ -77,6 +78,6 @@ Worthwhile(?) scripts:
 ## TODO
 
 * need PowerShell support?!
-* add z/OS profile
-* add job control info support (`# jobs...`)
-* skynet timer on context
+* add z/OS profiles
+* merge job/worker contexts
+* skynet timers
