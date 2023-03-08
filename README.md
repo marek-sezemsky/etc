@@ -4,13 +4,16 @@
 
 Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins, powershell and much more.
 
+Seen in vild in (RH)EL/Fedora, *bian, *buntu, Slackware, WSL (EL,deb.).
+
 ## bootstrap
 
 ```bash
 # export HTTP_PROXY=http://..?
 sudo bash -c "( yum     install bash vim git mc                       ctags ) ||
               ( dnf     install bash vim git mc                       ctags ) ||
-              ( apt-get install bash vim git mc {exuberant,universal}-ctags )"
+              ( apt-get install bash vim git mc {exuberant,universal}-ctags ) ||
+                   echo install bash vim git mc {exuberant,universal}-ctags"
 ```
 
 ```bash
@@ -42,6 +45,8 @@ exec bash
 ## Powerprompt
 
 ```
+# <env/dir context line(s)>...
+# <env/dir context line(s)>...
 # marek@NOTEBOOK-YOGA7:/usr/local/sbin
 # Wed08 214719 0m4s~ 42 ✗ $
 ```
@@ -69,3 +74,6 @@ Worthwhile(?) scripts:
 * `~/etc/sync` - pull submodules recursively
 
 
+## TODO
+
+* need PowerShell support?!
