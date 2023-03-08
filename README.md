@@ -1,6 +1,5 @@
+>***If you are not me, this is very probably very useless for you. Not your generic 'dotfiles' repository.***
 # `~/etc`
-
-***If you are not me, this is very probably very useless for you. Not your generic 'dotfiles' repository.***
 
 
 Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins, powershell and much more.
