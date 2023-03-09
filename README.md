@@ -1,39 +1,83 @@
-~/etc
-=====
-
-Marek's ~/etc configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins.
+>***If you are not me, this is very probably very useless for you. Not your generic 'dotfiles' repository.***
+# `~/etc`
 
 
-Download and install
---------------------
+Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins, powershell and much more.
 
-Clone into your home directory:
+Seen in vild in (RH)EL/Fedora, *bian, *buntu, Slackware, WSL (EL,deb.).
 
-    cd ~ && git clone --recursive git://github.com/marek-sezemsky/etc.git
+## `BOOTSTRAP.EXE`
 
-Or source proxy settings first and use proxy-friendly HTTPS.
+```bash
+# export HTTP_PROXY=http://..?
+sudo bash -c "( yum     install bash vim git mc                       ctags ) ||
+              ( dnf     install bash vim git mc                       ctags ) ||
+              ( apt-get install bash vim git mc {exuberant,universal}-ctags ) ||
+                   echo install bash vim git mc {exuberant,universal}-ctags"
+```
 
-    # export HTTP_PROXY=http://
-    cd ~ && git clone --recursive https://marek-sezemsky@github.com/marek-sezemsky/etc.git
+```bash
+# clone & install
+cd ~
+git clone --recursive   git://github.com/marek-sezemsky/etc.git || 
+git clone --recursive https://github.com/marek-sezemsky/etc.git
 
-Install (or update) with:
+etc/install
+```
 
-    cd ~ && etc/install
+```bash
+# append to ~/.bashrc
+cat >> ~/.bashrc <<EOF
+# User specific aliases and functions
+if [ -f ~/etc/bashrc ]; then
+  source ~/etc/bashrc
+fi
 
-Source from ~/.bashrc:
+EOF
+```
 
-    # User specific aliases and functions
-    if [ -f ~/etc/bashrc ]; then
-        source ~/etc/bashrc
-    fi
+```bash
+# source ; reload
+source ~/etc/bashrc
+exec bash
+```
+
+## `C:\>_`
+
+```
+# <env/dir context line(s)>...
+# <env/dir context line(s)>...
+# marek@NOTEBOOK-YOGA7:/usr/local/sbin
+# Wed08 214719 0m4s~ 42 ✗ $
+```
+
+```
+full:
+
+  # <python environment>
+  # <git status>
+  # <alert...>
+  # <motd...>
+  user@hostname : fullpwd
+  DayDD HHMMSS LastCommandDuration(approx.) ReturnCode ReturnIcon <$prompt> >>>
+
+```
+
+See [bash_ps1](bash_ps1) for all context features.
 
 
-Binaries
---------
+## Scripts
 
-Worthwhile scripts:
+> see also the global [../bin](../bin) git repo
 
+Worthwhile(?) scripts:
 * `~/etc/install` - installation script
 * `~/etc/sync` - pull submodules recursively
 
 
+## TODO
+
+* need PowerShell support?!
+* add z/OS profiles
+* merge job/worker contexts
+* skynet timers
