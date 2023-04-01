@@ -100,6 +100,13 @@ __ps1_update() # set PS1 quick and dirty
     fi
     PS1="${PS1}${proxy}"
 
+    # --- '# KUBECONFIG  ..."
+    local kube=""
+    if [ -n "${KUBECONFIG:-}" ]; then
+        kube="${envs}# ${dim}KUBECONFIG ${envcolor}$KUBECONFIG${dim}${__c_off}\n"
+    fi
+    PS1="${PS1}${kube}"
+
     # --- '# envs ..."
     local envs=""
     if [ -n "${VIRTUAL_ENV:-}" ]; then
