@@ -18,6 +18,8 @@ function se {
 # PS1 PowerPrompt mimics bash_ps1;
 
 function powerprompt {
+    $__prev=$?
+
     # make a room (empty line)
     Write-Host
     
@@ -71,7 +73,13 @@ function powerprompt {
 
     # ... behold prompt!
     #     C:\>_
-    Write-Host -NoNewline "PS$('>' * ($nestedPromptLevel + 1))"
+    $ps = "PS$('>' * ($nestedPromptLevel + 1))"
+    if ( $__prev ) {
+        Write-Host -NoNewline -ForegroundColor Green "."
+        Write-Host -NoNewline " $ps"
+    } else {
+        Write-Host -NoNewline -ForegroundColor Red "X $ps"
+    }
 
     return " "
 }
