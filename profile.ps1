@@ -86,14 +86,13 @@ function powerprompt_patch {
     copy-item function:powerprompt function:prompt
 }
 
-function kubectl_complete {
-    Write-Host "Loading 'kubectl' completion."
-    kubectl completion powershell | Out-String | Invoke-Expression
-}
 
 ### profile()
 
-kubectl_complete
+# function kubectl_complete()
+Write-Host "Loading 'kubectl' completion."
+kubectl completion powershell | Out-String | Invoke-Expression
 
 powerprompt_patch
+
 
