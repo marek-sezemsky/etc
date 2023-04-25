@@ -17,12 +17,23 @@ function se {
 
 # PS1 PowerPrompt mimics bash_ps1;
 
+function is_admin() {
+    $user = [Security.Principal.WindowsIdentity]::GetCurrent();
+    (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator) 
+}
+
 function powerprompt {
     $__prev=$?
 
     # make a room (empty line)
     Write-Host
-    
+
+    # --- # admin!
+    if ( is_admin ) {
+        Write-Host -ForegroundColor Gray -NoNewline "# "
+        Write-Host -ForegroundColor Red "Administrator"
+    }
+
     # --- '# proxy ..."
     if ( $env:ALL_PROXY ) {
         Write-Host -ForegroundColor Gray -NoNewline "# all proxy "
@@ -38,10 +49,9 @@ function powerprompt {
     # [kubectx]
     $K8sContext=$(Get-Content ~/.kube/config | Select-String -Pattern "current-context: (.*)")
     If ($K8sContext) {
+        $ctx = $K8sContext.Matches[0].Groups[1].Value
         Write-Host -NoNewline -ForegroundColor Gray  "# kubectx "
-        $ctx=$K8sContext.Matches[0].Groups[1].Value
-        # Set the prompt to include the cluster name
-        Write-Host  -ForegroundColor Yellow "$ctx"
+        Write-Host -ForegroundColor Yellow "$ctx"
     }        
     
     # --- '# git ...'
