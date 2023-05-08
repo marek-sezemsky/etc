@@ -51,7 +51,11 @@ function powerprompt {
     If ($K8sContext) {
         $ctx = $K8sContext.Matches[0].Groups[1].Value
         Write-Host -NoNewline -ForegroundColor Gray  "# kubectx "
-        Write-Host -ForegroundColor Yellow "$ctx"
+        if ($K8sContext -imatch "admin") {
+            Write-Host -ForegroundColor Red "Administrator" "$ctx"
+        } else {
+            Write-Host -ForegroundColor Yellow "$ctx"
+        }
     }        
     
     # --- '# git ...'
