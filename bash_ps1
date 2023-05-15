@@ -62,11 +62,13 @@ __ps1_update() # set PS1 quick and dirty
         local usercolor="${__c_bold}${__c_green}"
         local prompt="\$"
     fi
+    local alertcolor="${__c_bold}${__c_red}"
     local failurecolor="${__c_bold}${__c_red}"
     local warningcolor="${__c_bold}${__c_yellow}"
     local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_off}${__c_cyan}"
     local gitcolor="${__c_off}${__c_cyan}"
+    local kubecolor="${__c_bold}${__c_blue}"
     local dim="${__c_bold}${__c_black}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
@@ -101,9 +103,20 @@ __ps1_update() # set PS1 quick and dirty
     PS1="${PS1}${proxy}"
 
     # --- '# KUBECONFIG  ..."
-    local kube=""
+    local kubeconfig=""
     if [ -n "${KUBECONFIG:-}" ]; then
-        kube="${envs}# ${dim}KUBECONFIG ${envcolor}$KUBECONFIG${dim}${__c_off}\n"
+        kubeconfig="${envs}# ${dim}k8s KUBECONFIG ${kubecolor}$KUBECONFIG${dim}${__c_off}\n"
+    fi
+    PS1="${PS1}${kubeconfig}"
+
+    # --- '# kubectx  ..."
+    #local kubectx="$(grep current-context < ${KUBECONFIG:-~/.kube/config} 2>/dev/null)"
+    local kubectx="$(kubectl config view --minify -o jsonpath='{.users[0].name} @ {.clusters[0].name} / {.contexts[0].context.namespace}' 2>/dev/null )"
+    if [ -n "${kubectx:-}" ]; then
+        kube="${envs}# ${dim}k8s kubectx ${kubecolor}$kubectx${dim}${__c_off}\n"
+        if grep -qi admin <<<"$kubectx"; then
+            kube="${kube}${envs}# ${dim}k8s ${alertcolor}Administrator${dim}${__c_off}\n"
+        fi
     fi
     PS1="${PS1}${kube}"
 
