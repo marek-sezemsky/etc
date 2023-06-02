@@ -62,11 +62,13 @@ __ps1_update() # set PS1 quick and dirty
         local usercolor="${__c_bold}${__c_green}"
         local prompt="\$"
     fi
+    local alertcolor="${__c_bold}${__c_red}"
     local failurecolor="${__c_bold}${__c_red}"
     local warningcolor="${__c_bold}${__c_yellow}"
     local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_off}${__c_cyan}"
     local gitcolor="${__c_off}${__c_cyan}"
+    local kubecolor="${__c_bold}${__c_blue}"
     local dim="${__c_bold}${__c_black}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
@@ -83,36 +85,55 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# generic warning (optional)
     if [ -n "${BASHRC_PS1_ALERT}" ]; then
         local alert="! ${motdcolor}ALERT${__c_off} -- ${failurecolor}${BASHRC_PS1_ALERT}${__c_off}\n"
+        PS1="${PS1}${alert}"
     fi
-    PS1="${PS1}${alert:-}"
 
     # --- '# (~/.bash_ps1_motd) ..."
     local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
     if [ -n "${motd:-}" ]; then
-        motd="# ${dim}motd ${motdcolor}${motd}${__c_off}\n"
+        motd="# ${dim}${__c_white}motd ${motdcolor}${motd}${__c_off}\n"
+        PS1="${PS1}${motd}"
     fi
-    PS1="${PS1}${motd}"
 
     # --- '# proxy ..."
-    local proxy=""
     if [ -n "${ALL_PROXY:-}" ]; then
-        local proxy="${proxy}# ${dim}all_proxy ${envcolor}$ALL_PROXY${dim}${__c_off}\n"
+        local proxy="# ${dim}${__c_magenta}webproxy ${envcolor}$ALL_PROXY${__c_off}\n"
+        PS1="${PS1}${proxy}"
     fi
-    PS1="${PS1}${proxy}"
 
+    local __kube="# ${kubecolor}k8s${__c_off}"
     # --- '# KUBECONFIG  ..."
-    local kube=""
     if [ -n "${KUBECONFIG:-}" ]; then
-        kube="${envs}# ${dim}KUBECONFIG ${envcolor}$KUBECONFIG${dim}${__c_off}\n"
+        local kubeconfig="${__kube} KUBECONFIG ${kubecolor}${KUBECONFIG}${__c_off}\n"
+        PS1="${PS1}${kubeconfig}"
     fi
-    PS1="${PS1}${kube}"
 
-    # --- '# envs ..."
-    local envs=""
-    if [ -n "${VIRTUAL_ENV:-}" ]; then
-        envs="${envs}# ${dim}pyvenv ${envcolor}$VIRTUAL_ENV${dim}${__c_off}\n"
+    # --- '# kubectx ..."
+    local kubectx="$(kubectx -c 2>/dev/null || true)" # ignore missing lib
+    if [ -n "${kubectx:-}" ]; then
+        kubectx="${__kube} context ${kubecolor}${kubectx}${__c_off}"
+        if grep -qi admin <<<"$kubectx"; then
+            kubectx="${kubectx} !!! ${alertcolor}administrator${__c_off}"
+        fi
+        PS1="${PS1}${kubectx}\n"
     fi
-    PS1="${PS1}${envs}"
+
+
+    # --- '# kubens  ..."
+    local kubens="$(kubens -c 2>/dev/null || true)" # ignore missing lib
+    if [ -n "${kubens:-}" ]; then
+        kubens="${__kube} namespace ${kubecolor}$kubens${__c_off}"
+        if grep -qi kube- <<<"$kubens"; then
+            kubens="${kubens} !!! ${alertcolor}kube-* admin namespace${__c_off}"
+        fi
+        PS1="${PS1}${kubens}\n"
+    fi
+
+    # --- '# python venvs ..."
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        local envs="# ${dim}${__c_yellow}Python venv ${envcolor}$VIRTUAL_ENV${__c_off}\n"
+        PS1="${PS1}${envs}"
+    fi
 
     # --- '# git ...'
     if declare -f __git_ps1 >/dev/null; then
@@ -120,16 +141,16 @@ __ps1_update() # set PS1 quick and dirty
         GIT_PS1_SHOWUNTRACKEDFILES=1
         GIT_PS1_SHOWUPSTREAM="verbose"
         local gitstr="$(__git_ps1 '%s')"
+        local __git="# ${dim}${__c_red}git${__c_off}"
         if [ -n "${gitstr}" ]; then
             # additionaly obtain raw hash
             local revParse="$(git rev-parse --short HEAD)"
             local hashSubject="$(git --no-pager log -1 --format=format:'%h %s')"
-            local git1="# ${dim}git ${gitcolor}${revParse} ${gitstr}${__c_off}"
-            local git2="# ${dim}git ${hashSubject}"
-            local git="${git1}\n${git2}\n"
+            local git1="${__git} ${gitcolor}${revParse} ${gitstr}${__c_off}"
+            local git2="${__git} ${hashSubject}"
+            PS1="${PS1}${git1}\n${git2}\n"
         fi
     fi
-    PS1="${PS1}${git}"
 
     # --- '# versions' for DEBUG
     if [ -n "$DEBUG" ]; then
