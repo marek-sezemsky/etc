@@ -91,20 +91,20 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# (~/.bash_ps1_motd) ..."
     local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
     if [ -n "${motd:-}" ]; then
-        motd="# ${dim}motd ${motdcolor}${motd}${__c_off}\n"
+        motd="# ${dim}${__c_white}motd ${motdcolor}${motd}${__c_off}\n"
         PS1="${PS1}${motd}"
     fi
 
     # --- '# proxy ..."
     if [ -n "${ALL_PROXY:-}" ]; then
-        local proxy="# ${dim}all_proxy ${envcolor}$ALL_PROXY${__c_off}\n"
+        local proxy="# ${dim}${__c_magenta}webproxy ${envcolor}$ALL_PROXY${__c_off}\n"
         PS1="${PS1}${proxy}"
     fi
 
-    local __kube="# ${kubecolor}k8s${__c_off} "
+    local __kube="# ${kubecolor}k8s${__c_off}"
     # --- '# KUBECONFIG  ..."
     if [ -n "${KUBECONFIG:-}" ]; then
-        local kubeconfig="${__kube} \$KUBECONFIG ${kubecolor}${KUBECONFIG}${__c_off}\n"
+        local kubeconfig="${__kube} KUBECONFIG ${kubecolor}${KUBECONFIG}${__c_off}\n"
         PS1="${PS1}${kubeconfig}"
     fi
 
@@ -131,7 +131,7 @@ __ps1_update() # set PS1 quick and dirty
 
     # --- '# python venvs ..."
     if [ -n "${VIRTUAL_ENV:-}" ]; then
-        local envs="# ${dim}Python venv ${envcolor}$VIRTUAL_ENV${__c_off}\n"
+        local envs="# ${dim}${__c_yellow}Python venv ${envcolor}$VIRTUAL_ENV${__c_off}\n"
         PS1="${PS1}${envs}"
     fi
 
@@ -141,12 +141,13 @@ __ps1_update() # set PS1 quick and dirty
         GIT_PS1_SHOWUNTRACKEDFILES=1
         GIT_PS1_SHOWUPSTREAM="verbose"
         local gitstr="$(__git_ps1 '%s')"
+        local __git="# ${dim}${__c_red}git${__c_off}"
         if [ -n "${gitstr}" ]; then
             # additionaly obtain raw hash
             local revParse="$(git rev-parse --short HEAD)"
             local hashSubject="$(git --no-pager log -1 --format=format:'%h %s')"
-            local git1="# ${dim}git ${gitcolor}${revParse} ${gitstr}${__c_off}"
-            local git2="# ${dim}git ${hashSubject}"
+            local git1="${__git} ${gitcolor}${revParse} ${gitstr}${__c_off}"
+            local git2="${__git} ${hashSubject}"
             PS1="${PS1}${git1}\n${git2}\n"
         fi
     fi
