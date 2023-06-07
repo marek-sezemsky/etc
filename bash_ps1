@@ -101,38 +101,28 @@ __ps1_update() # set PS1 quick and dirty
         PS1="${PS1}${proxy}"
     fi
 
+    # --- '# python venvs ..."
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        local envs="# ${dim}${__c_yellow}Python venv ${envcolor}$VIRTUAL_ENV${__c_off}\n"
+        PS1="${PS1}${envs}"
+    fi
+
+    # --- '# k8s KUBECONFIG  ..."
     local __kube="# ${kubecolor}k8s${__c_off}"
-    # --- '# KUBECONFIG  ..."
     if [ -n "${KUBECONFIG:-}" ]; then
         local kubeconfig="${__kube} KUBECONFIG ${kubecolor}${KUBECONFIG}${__c_off}\n"
         PS1="${PS1}${kubeconfig}"
     fi
 
-    # --- '# kubectx ..."
-    local kubectx="$(kubectx -c 2>/dev/null || true)" # ignore missing lib
-    if [ -n "${kubectx:-}" ]; then
-        kubectx="${__kube} context ${kubecolor}${kubectx}${__c_off}"
-        if grep -qi admin <<<"$kubectx"; then
-            kubectx="${kubectx} !!! ${alertcolor}administrator${__c_off}"
-        fi
-        PS1="${PS1}${kubectx}\n"
-    fi
-
-
-    # --- '# kubens  ..."
+    # --- '# k8s ns ... ctx ... (admin)"
     local kubens="$(kubens -c 2>/dev/null || true)" # ignore missing lib
     if [ -n "${kubens:-}" ]; then
-        kubens="${__kube} namespace ${kubecolor}$kubens${__c_off}"
-        if grep -qi kube- <<<"$kubens"; then
-            kubens="${kubens} !!! ${alertcolor}kube-* admin namespace${__c_off}"
+        local kubectx="$(kubectx -c 2>/dev/null || true)" # ignore missing lib
+        local kubeps1="${__kube} ns ${kubecolor}${kubens}${__c_off} ctx ${kubecolor}${kubectx}${__c_off}"
+        if [[ "$kubectx" =~ "admin" ]] || [[ "$kubens" =~ "^kube-" ]]; then
+            kubeps1="${kubeps1} !!! ${alertcolor}administrator${__c_off}"
         fi
-        PS1="${PS1}${kubens}\n"
-    fi
-
-    # --- '# python venvs ..."
-    if [ -n "${VIRTUAL_ENV:-}" ]; then
-        local envs="# ${dim}${__c_yellow}Python venv ${envcolor}$VIRTUAL_ENV${__c_off}\n"
-        PS1="${PS1}${envs}"
+        PS1="${PS1}${kubeps1}\n"
     fi
 
     # --- '# git ...'
