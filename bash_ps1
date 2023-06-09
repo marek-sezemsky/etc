@@ -88,7 +88,7 @@ __ps1_update() # set PS1 quick and dirty
         PS1="${PS1}${alert}"
     fi
 
-    # --- '# (~/.bash_ps1_motd) ..."
+    # --- '# motd <(~/.bash_ps1_motd) ..."
     local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
     if [ -n "${motd:-}" ]; then
         motd="# ${dim}${__c_white}motd ${motdcolor}${motd}${__c_off}\n"
