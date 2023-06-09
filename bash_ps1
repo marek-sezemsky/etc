@@ -88,7 +88,7 @@ __ps1_update() # set PS1 quick and dirty
         PS1="${PS1}${alert}"
     fi
 
-    # --- '# (~/.bash_ps1_motd) ..."
+    # --- '# motd <(~/.bash_ps1_motd) ..."
     local motd="$(head -1 ~/.bash_ps1_motd 2>/dev/null || true)"
     if [ -n "${motd:-}" ]; then
         motd="# ${dim}${__c_white}motd ${motdcolor}${motd}${__c_off}\n"
@@ -120,25 +120,24 @@ __ps1_update() # set PS1 quick and dirty
         local kubectx="$(kubectx -c 2>/dev/null || true)" # ignore missing lib
         local kubeps1="${__kube} ns ${kubecolor}${kubens}${__c_off} ctx ${kubecolor}${kubectx}${__c_off}"
         if [[ "$kubectx" =~ "admin" ]] || [[ "$kubens" =~ "^kube-" ]]; then
-            kubeps1="${kubeps1} !!! ${alertcolor}administrator${__c_off}"
+            kubeps1="${kubeps1} ${alertcolor}admin${__c_off}"
         fi
         PS1="${PS1}${kubeps1}\n"
     fi
 
-    # --- '# git ...'
+    # --- '# git <(__git_ps1) # (commit msg)...'
     if declare -f __git_ps1 >/dev/null; then
         GIT_PS1_SHOWDIRTYSTATE=1
         GIT_PS1_SHOWUNTRACKEDFILES=1
         GIT_PS1_SHOWUPSTREAM="verbose"
         local gitstr="$(__git_ps1 '%s')"
-        local __git="# ${dim}${__c_red}git${__c_off}"
         if [ -n "${gitstr}" ]; then
-            # additionaly obtain raw hash
+            local __git="# ${dim}${__c_red}git${__c_off}"
+            # additionaly obtain raw hash & commit message
             local revParse="$(git rev-parse --short HEAD)"
-            local hashSubject="$(git --no-pager log -1 --format=format:'%h %s')"
-            local git1="${__git} ${gitcolor}${revParse} ${gitstr}${__c_off}"
-            local git2="${__git} ${hashSubject}"
-            PS1="${PS1}${git1}\n${git2}\n"
+            local hashSubject="$(git --no-pager log -1 --format=format:'%f')" # %f - sanitizied subj. avoids special chars
+            local git="${__git} ${__c_yellow}${revParse}${__c_off} ${gitcolor}${gitstr}${__c_off} # ${hashSubject}"
+            PS1="${PS1}${git}\n"
         fi
     fi
 
