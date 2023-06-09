@@ -62,3 +62,7 @@
 	path = vim/bundle/wikipedia.vim
 	url = https://github.com/vim-scripts/wikipedia.vim.git
 
+[submodule "bundle/posh-git"]
+	path = bundle/posh-git
+	url = https://github.com/dahlbyk/posh-git
+	branch = master
