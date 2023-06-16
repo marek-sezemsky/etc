@@ -1,83 +1,67 @@
->***If you are not me, this is very probably very useless for you. Not your generic 'dotfiles' repository.***
 # `~/etc`
 
+>*If you are not me, this is very probably very useless for you. Not your generic 'dotfiles' repository.*
 
-Marek's tailored `~/etc` configuration files (`.*rc`) for bash, Vim and others. Bundles [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins, powershell and much more.
+Marek's tailored and cross-platform profile configuration files and interactive power-prompts for:
 
-Seen in vild in (RH)EL/Fedora, *bian, *buntu, Slackware, WSL (EL,deb.).
+- Linux `bash` 4.x - Fedora, *EL, *bian, *buntu, Slackware, WSL 
+- Windows `PowerShell` 5.x - Win10,11 (experimental)
 
-## `BOOTSTRAP.EXE`
+Bundles Vim configuration (incl [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins) and several other `~/.*rc` files.
 
-```bash
-# export HTTP_PROXY=http://..?
-sudo bash -c "( yum     install bash vim git mc                       ctags ) ||
-              ( dnf     install bash vim git mc                       ctags ) ||
-              ( apt-get install bash vim git mc {exuberant,universal}-ctags ) ||
-                   echo install bash vim git mc {exuberant,universal}-ctags"
-```
+## Installation
+
+Clone in the home|profile directory and run install script:
 
 ```bash
-# clone & install
-cd ~
-git clone --recursive   git://github.com/marek-sezemsky/etc.git || 
+# go to userprofile
+cd ~                    # /home/marek
+cd ${env:USERPROFILE}   # C:\Users\marek
+
+# clone (recursive for bundles)
 git clone --recursive https://github.com/marek-sezemsky/etc.git
 
-etc/install
+# install suite
+etc/install       # bash
+etc/install.ps1   # powershell; TODO
 ```
 
+## Profile activation
+
+Load in the in `~/.bashrc`:
+
 ```bash
-# append to ~/.bashrc
-cat >> ~/.bashrc <<EOF
-# User specific aliases and functions
+# `~/.bashrc` - User specific aliases and functions
+# ...
+
 if [ -f ~/etc/bashrc ]; then
   source ~/etc/bashrc
 fi
-
-EOF
 ```
+
+Load in the `Profile.ps1`:
 
 ```bash
-# source ; reload
-source ~/etc/bashrc
-exec bash
+# `$PROFILE.CurrentUserCurrentHost` User specific aliases and functions
+# ...
+
+if (Test-Path "${env:USERPROFILE}/etc/profile.ps1") {
+  . ${env:USERPROFILE}/etc/profile.ps1
+}
 ```
-
-## `C:\>_`
-
-```
-# <env/dir context line(s)>...
-# <env/dir context line(s)>...
-# marek@NOTEBOOK-YOGA7:/usr/local/sbin
-# Wed08 214719 0m4s~ 42 ✗ $
-```
-
-```
-full:
-
-  # <python environment>
-  # <git status>
-  # <alert...>
-  # <motd...>
-  user@hostname : fullpwd
-  DayDD HHMMSS LastCommandDuration(approx.) ReturnCode ReturnIcon <$prompt> >>>
-
-```
-
-See [bash_ps1](bash_ps1) for all context features.
-
 
 ## Scripts
 
 > see also the global [../bin](../bin) git repo
 
 Worthwhile(?) scripts:
-* `~/etc/install` - installation script
-* `~/etc/sync` - pull submodules recursively
 
+- `~/etc/install` - installation script
+- `~/etc/sync` - pull submodules recursively
 
 ## TODO
 
-* need PowerShell support?!
-* add z/OS profiles
-* merge job/worker contexts
-* skynet timers
+- need PowerShell support?!
+- add z/OS profiles
+- merge job/worker contexts
+- skynet timers
