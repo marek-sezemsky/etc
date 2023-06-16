@@ -23,6 +23,8 @@ then
     __c_magenta="\[$(tput setaf 5)\]"
     __c_cyan="\[$(tput setaf 6)\]"
     __c_white="\[$(tput setaf 7)\]"
+
+    __c_securecrt_dim_gray="${__c_black}${__c_bold}" # heh
 else
     __c_off=""
 
@@ -38,6 +40,8 @@ else
     __c_magenta=""
     __c_cyan=""
     __c_white=""
+
+    __c_securecrt_dim_gray=""
 fi
 
 __ps1_update() # set PS1 quick and dirty
@@ -66,8 +70,8 @@ __ps1_update() # set PS1 quick and dirty
     local kubecolor="${__c_bold}${__c_blue}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
-    local dim="${__c_dim}"
-    local timecolor="${dim}"
+    local dim="${__c_securecrt_dim_gray}"
+    local timecolor="${__c_securecrt_dim_gray}"
 
     # make a room (empty line)
     PS1="\n"
