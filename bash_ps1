@@ -12,6 +12,7 @@ then
     __c_off="\[$(tput sgr0)\]"
 
     __c_bold="\[$(tput bold)\]"
+    __c_dim="\[$(tput dim)\]"
     __c_underline="\[$(tput smul)\]"
 
     __c_black="\[$(tput setaf 0)\]"
@@ -22,13 +23,11 @@ then
     __c_magenta="\[$(tput setaf 5)\]"
     __c_cyan="\[$(tput setaf 6)\]"
     __c_white="\[$(tput setaf 7)\]"
-
-    __c_dim="\[$(tput setaf 8)\]"
-
 else
     __c_off=""
 
     __c_bold=""
+    __c_dim=""
     __c_underline=""
 
     __c_black=""
@@ -39,9 +38,6 @@ else
     __c_magenta=""
     __c_cyan=""
     __c_white=""
-
-    __c_dim=""
-
 fi
 
 __ps1_update() # set PS1 quick and dirty
@@ -67,11 +63,10 @@ __ps1_update() # set PS1 quick and dirty
     local warningcolor="${__c_bold}${__c_yellow}"
     local successcolor="${__c_bold}${__c_green}"
     local envcolor="${__c_off}${__c_cyan}"
-    local gitcolor="${__c_off}${__c_cyan}"
     local kubecolor="${__c_bold}${__c_blue}"
-    local dim="${__c_bold}${__c_black}"
     local motdcolor="${__c_bold}${__c_magenta}"
     local pathcolor="${__c_bold}${__c_yellow}"
+    local dim="${__c_dim}"
     local timecolor="${dim}"
 
     # make a room (empty line)
@@ -110,7 +105,7 @@ __ps1_update() # set PS1 quick and dirty
     # --- '# k8s KUBECONFIG  ..."
     local __kube="# ${kubecolor}k8s${__c_off}"
     if [ -n "${KUBECONFIG:-}" ]; then
-        local kubeconfig="${__kube} KUBECONFIG ${kubecolor}${KUBECONFIG}${__c_off}\n"
+        local kubeconfig="${__kube} ${__c_magenta}KUBECONFIG${__c_off} ${kubecolor}${KUBECONFIG}${__c_off}\n"
         PS1="${PS1}${kubeconfig}"
     fi
 
@@ -118,7 +113,7 @@ __ps1_update() # set PS1 quick and dirty
     local kubens="$(kubens -c 2>/dev/null || true)" # ignore missing lib
     if [ -n "${kubens:-}" ]; then
         local kubectx="$(kubectx -c 2>/dev/null || true)" # ignore missing lib
-        local kubeps1="${__kube} ns ${kubecolor}${kubens}${__c_off} ctx ${kubecolor}${kubectx}${__c_off}"
+        local kubeps1="${__kube} ${dim}ns${__c_off} ${kubecolor}${kubens}${__c_off} ${dim}ctx${__c_off} ${kubecolor}${kubectx}${__c_off}"
         if [[ "$kubectx" =~ "admin" ]] || [[ "$kubens" =~ "^kube-" ]]; then
             kubeps1="${kubeps1} ${alertcolor}admin${__c_off}"
         fi
@@ -136,7 +131,7 @@ __ps1_update() # set PS1 quick and dirty
             # additionaly obtain raw hash & commit message
             local revParse="$(git rev-parse --short HEAD)"
             local hashSubject="$(git --no-pager log -1 --format=format:'%f')" # %f - sanitizied subj. avoids special chars
-            local git="${__git} ${__c_yellow}${revParse}${__c_off} ${gitcolor}${gitstr}${__c_off} # ${hashSubject}"
+            local git="${__git} ${__c_cyan}${revParse}${__c_off} ${__c_yellow}${gitstr}${__c_off} ${dim}${hashSubject}${__c_off}"
             PS1="${PS1}${git}\n"
         fi
     fi
