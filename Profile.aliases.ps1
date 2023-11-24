@@ -35,8 +35,12 @@ function se() {
 
 # misc aliases
 
-function l()  { Get-ChildItem @args }
-function ll() { Get-ChildItem @args }
+function l()   { Get-ChildItem @args }
+function ll()  { Get-ChildItem @args }
+function e()   { & code @args }
+function t()   { & terraform @args }
+function kc()  { & kubectl @args }
+function h()   { & helm @args }
 
 # git aliases; replacing ct=cleartool + mt=multitool; RIP ClearCase, you will be missed
 
@@ -68,3 +72,5 @@ function master() {
     }
   }
 }
+
+
