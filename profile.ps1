@@ -168,6 +168,12 @@ function powerprompt {
       if ( $gitstr ) {
         Write-Host -ForegroundColor DarkYellow -NoNewline " ${gitstr}"
       }
+
+      $gitmsg = "$(git --no-pager log -1 --format=format:'%f')"
+      if ($gitmsg ) {
+        Write-Host -ForegroundColor DarkGray -NoNewline " ${gitmsg}"
+      }
+
       Write-Host 
     }
   
