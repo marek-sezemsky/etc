@@ -57,5 +57,8 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 $_dirname = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 # load modules
+. "$_dirname/Profile.paths.ps1"
 . "$_dirname/Profile.aliases.ps1"
 . "$_dirname/Profile.prompt.ps1"
+. "$_dirname/Profile.completion.ps1"
+

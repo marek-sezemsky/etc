@@ -4,6 +4,8 @@
 #
 # Windows (lite) version of bash_ps1;
 #
+Write-Host "Defining powerprompt (with 'posh-git' module)"
+Import-Module posh-git
 
 # check if current user is admin
 function is_admin() {
@@ -66,46 +68,58 @@ function powerprompt {
   # --- '# git <(__git_ps1) # (commit msg)...'
   # TODO!? gitposh
   if ($status = Get-GitStatus -Force) {
-    $branch = $status.Branch;
     # Write-Host $status
     Write-Host -ForegroundColor DarkGray -NoNewline "# "
     Write-Host -ForegroundColor DarkRed -NoNewline "git"
-    if ($status.HasWorking) {
+    if ($status) {
+      # sha1
       $hash = $( git rev-parse --short HEAD )
       if ( $hash ) {
-        Write-Host -ForegroundColor Cyan -NoNewline " $hash"
+        Write-Host -ForegroundColor DarkCyan -NoNewline " $hash"
       }
-
+      # branch
       $branch = $status.Branch;
       if ( $branch ) {
-        Write-Host -ForegroundColor DarkYellow -NoNewline " ${branch}"
+        Write-Host -ForegroundColor DarkYellow -NoNewline " ${branch}";
       }
-      
-      $gitstr="";
-      $gitstr += $(Write-GitWorkingDirStatusSummary $status -NoLeadingSpace)
-      $gitstr += $(Write-GitWorkingDirStatus $status)
+      # $gitstr += $(Write-GitWorkingDirStatus $status)
+      # '*' Working, '+' Index, '%' untracked
+      $gitstr = ""
+      if ( $status.HasWorking )   { $gitstr += "*" }
+      if ( $status.HasIndex )     { $gitstr += "+" }
+      if ( $status.HasUntracked ) { $gitstr += "%" }
       if ( $gitstr ) {
         Write-Host -ForegroundColor DarkYellow -NoNewline " ${gitstr}"
       }
+      
+      # upstream
+      $upstream = $status.Upstream;
+      if ( $upstream ) {
+        $ahead = $status.AheadBy;
+        $behind = $status.BehindBy;
+        $u = "u"
+        if ( ($behind -Eq "0") -And ($ahead -Eq "0") ) {
+          $u += "="
+        }
+        if ( !($behind -Eq "0") ) {
+          $u += "-${behind}"
+        }
+        if ( !($ahead -Eq "0") ) {
+          $u += "+${ahead}"
+        }
+        Write-Host -ForegroundColor DarkYellow -NoNewline " ${u}"
+      }
 
+      # normalized git commit message
       $gitmsg = "$(git --no-pager log -1 --format=format:'%f')"
       if ($gitmsg ) {
         Write-Host -ForegroundColor DarkGray -NoNewline " ${gitmsg}"
       }
-
+      
+      # CRLF
       Write-Host 
     }
   
-  #   Write-Host working and index
-  #   if ($status.HasWorking -and $status.HasIndex) {
-  #   }
-  #   Write-Host index
-  #   if ($status.HasIndex) {
-  #     Write-GitIndexStatus $status -NoLeadingSpace
-  #   }
-  #   Write-Host branch status
-  #   Write-GitBranchStatus $status -NoLeadingSpace
-  #   Write-GitBranchName $status
   }
 
   # [user]@[Host] C:\Dir\Subdir
@@ -155,12 +169,7 @@ function powerprompt_patch {
   copy-item function:powerprompt function:prompt
 }
 
-### profile.prompt()
 
-# powerprompt requires posh-git
-Write-Host "Loading 'posh-git' module."
-Import-Module posh-git
-
-Write-Host "Patching prompt function."
+# introduce our power prompt
 powerprompt_patch
-  
+
