@@ -49,20 +49,22 @@ function powerprompt {
   }
 
   # --- '# k8s ns ... ctx ... (admin)"
-  $kubectx=$(kubectx --current 2>$null)
-  If ($kubectx) {
-    $kubens=$(kubens --current 2>$null)
-    Write-Host -ForegroundColor DarkGray -NoNewline "# "
-    Write-Host -ForegroundColor Blue -NoNewline "k8s "
-    Write-Host -ForegroundColor Gray -NoNewline "ns "
-    Write-Host -ForegroundColor Yellow -NoNewline $kubens
-    Write-Host -ForegroundColor Gray -NoNewline " ctx "
-    Write-Host -ForegroundColor Yellow -NoNewline $kubectx
+  if (Get-Command -Name kubectx) {
+    $kubectx=$(kubectx --current 2>$null)
+    If ($kubectx) {
+      $kubens=$(kubens --current 2>$null)
+      Write-Host -ForegroundColor DarkGray -NoNewline "# "
+      Write-Host -ForegroundColor Blue -NoNewline "k8s "
+      Write-Host -ForegroundColor Gray -NoNewline "ns "
+      Write-Host -ForegroundColor Yellow -NoNewline $kubens
+      Write-Host -ForegroundColor Gray -NoNewline " ctx "
+      Write-Host -ForegroundColor Yellow -NoNewline $kubectx
 
-    if ( ($kubectx -imatch "admin") -Or ($kubens -imatch "kube-") ) {
-      Write-Host -ForegroundColor Red -NoNewline " Administrator"
+      if ( ($kubectx -imatch "admin") -Or ($kubens -imatch "kube-") ) {
+        Write-Host -ForegroundColor Red -NoNewline " Administrator"
+      }
+      Write-Host
     }
-    Write-Host 
   }
 
   # --- '# git <(__git_ps1) # (commit msg)...'

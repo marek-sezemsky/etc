@@ -9,7 +9,19 @@
 Write-Host "Loading completions"
 
 # function kubectl_complete()
-& kubectl completion powershell | Out-String | Invoke-Expression
+Try {
+    & kubectl completion powershell | Out-String | Invoke-Expression
+} 
+Catch [System.Exception] { 
+    Write-Warning "No kubectl.exe completion available"
+}
+
 
 # load helm completion
-& helm completion powershell | Out-String | Invoke-Expression
+Try {
+    & helm completion powershell | Out-String | Invoke-Expression
+}
+Catch [System.Exception] {
+    Write-Warning "No helm.exe completion available"
+}
+
