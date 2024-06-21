@@ -37,15 +37,15 @@ function powerprompt {
   if ( $env:VIRTUAL_ENV ) {
     Write-Host -NoNewline -ForegroundColor Gray  "# "
     Write-Host -NoNewline -ForegroundColor Yellow "Python venv "
-    Write-Host -ForegroundColor Cyan $env:VIRTUAL_ENV
+    Write-Host -ForegroundColor Cyan "${env:VIRTUAL_ENV}"
   }
 
   # --- '# k8s KUBECONFIG  ..."
   if ( $env:KUBECONFIG ) {
-    Write-Host -ForegroundColor DarkGray -NoNewline "# "
-    Write-Host -ForegroundColor LightBlue -NoNewline "k8s "
-    Write-Host -ForegroundColor Gray -NoNewline "KUBECONFIG "
-    Write-Host -ForegroundColor Blue $env:KUBECONFIG 
+    Write-Host -NoNewline -ForegroundColor Gray "# "
+    Write-Host -NoNewline -ForegroundColor Blue "k8s "
+    Write-Host -NoNewline -ForegroundColor Gray "KUBECONFIG "
+    Write-Host -ForegroundColor DarkCyan "${env:KUBECONFIG}"
   }
 
   # --- '# k8s ns ... ctx ... (admin)"
