@@ -34,7 +34,6 @@ fi
 
 # bash options
 shopt -s autocd
-shopt -s cdspell
 shopt -s direxpand
 shopt -s cmdhist # multiple-line command in the same history entry
 shopt -s lithist # embedded newlines rather than semicolon separators
