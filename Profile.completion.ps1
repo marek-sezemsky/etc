@@ -16,6 +16,13 @@ Catch [System.Exception] {
     Write-Warning "No kubectl.exe completion available"
 }
 
+# function oc_complete()
+Try {
+    & oc completion powershell | Out-String | Invoke-Expression
+} 
+Catch [System.Exception] { 
+    Write-Warning "No oc.exe completion available"
+}
 
 # load helm completion
 Try {
