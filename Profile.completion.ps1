@@ -6,11 +6,13 @@
 #
 
 ### profile.completion()
-Write-Host "Loading completions"
+Write-Host "Loading completions:"
 
 # function kubectl_complete()
 Try {
     & kubectl completion powershell | Out-String | Invoke-Expression
+    Write-Host "Completing: KUBECTL.EXE"
+    
 } 
 Catch [System.Exception] { 
     Write-Warning "No kubectl.exe completion available"
@@ -19,6 +21,7 @@ Catch [System.Exception] {
 # function oc_complete()
 Try {
     & oc completion powershell | Out-String | Invoke-Expression
+    Write-Host "Completing: OC.EXE"
 } 
 Catch [System.Exception] { 
     Write-Warning "No oc.exe completion available"
@@ -27,6 +30,7 @@ Catch [System.Exception] {
 # load helm completion
 Try {
     & helm completion powershell | Out-String | Invoke-Expression
+    Write-Host "Completing: HELM.EXE"
 }
 Catch [System.Exception] {
     Write-Warning "No helm.exe completion available"
