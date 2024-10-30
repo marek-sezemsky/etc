@@ -16,6 +16,7 @@ alias o='vim -o'
 alias O='vim -O'
 alias e=o
 alias E=O
+alias D=vimdiff
 
 # git aliases; replacing ct=cleartool + mt=multitool; RIP ClearCase, you will be missed
 alias g='git'
