@@ -12,7 +12,7 @@ Write-Host "Define aliases"
 # - patch the powerprompt function back to our version to revert venv's default prompt addition of "(venv)" prefix
 #
 function se() {
-  $tryEnvDirs = @( "venv", "env" )
+  $tryEnvDirs = @( "env", "venv" )
   $found = 0;
   
   foreach ($dir in $tryEnvDirs ) {
