@@ -1,8 +1,6 @@
 #Requires -Version 5.1
 #
-# PS1 PowerPrompt
-#
-# Completion (for all available utilities)
+# PS1 PowerPrompt Git bindings
 #
 
 ### profile.completion()

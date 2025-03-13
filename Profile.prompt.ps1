@@ -16,23 +16,23 @@ function is_admin() {
 function powerprompt {
   # remember status of just finished command
   $__prev=$?
-  
+
   # make a room since last printout (empty line)
   Write-Host
-  
+
   # --- # admin!
   if ( is_admin ) {
     Write-Host -ForegroundColor DarkGray -NoNewline "# "
     Write-Host -ForegroundColor DarkRed "Administrator"
   }
-  
+
   # --- '# proxy ..."
   if ( $env:ALL_PROXY ) {
     Write-Host -ForegroundColor DarkGray -NoNewline "# "
     Write-Host -ForegroundColor Cyan -NoNewline "webproxy "
     Write-Host -ForegroundColor Magenta "${env:ALL_PROXY}"
   }
-  
+
   # --- '# Python venvs ..."
   if ( $env:VIRTUAL_ENV ) {
     Write-Host -NoNewline -ForegroundColor Gray  "# "
@@ -93,7 +93,7 @@ function powerprompt {
       if ( $gitstr ) {
         Write-Host -ForegroundColor DarkYellow -NoNewline " ${gitstr}"
       }
-      
+
       # upstream
       $upstream = $status.Upstream;
       if ( $upstream ) {
@@ -117,11 +117,11 @@ function powerprompt {
       if ($gitmsg ) {
         Write-Host -ForegroundColor DarkGray -NoNewline " ${gitmsg}"
       }
-      
+
       # CRLF
-      Write-Host 
+      Write-Host
     }
-  
+
   }
 
   # [user]@[Host] C:\Dir\Subdir
@@ -131,9 +131,9 @@ function powerprompt {
   Write-Host -ForegroundColor Green -NoNewline $env:COMPUTERNAME
   Write-Host -ForegroundColor DarkGray -NoNewline " "
   Write-Host $executionContext.SessionState.Path.CurrentLocation
-  
+
   # TODO!?
-  
+
   # timestamp
   Write-Host -ForegroundColor DarkGray -NoNewline "# $(Get-Date -Format "ddd.dd HH:mm:ss") "
 
@@ -151,7 +151,7 @@ function powerprompt {
   #     PS1="${PS1}${failurecolor}$retval ✗ "
   # fi
   # PS1="${PS1}${prompt}${__c_off} "
-  
+
   # ... behold prompt!
   #     C:\>_
   $ps = "PS$('>' * ($nestedPromptLevel + 1))"
