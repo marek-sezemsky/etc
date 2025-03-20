@@ -4,14 +4,14 @@
 
 Marek's tailored and cross-platform profile configuration files and interactive power-prompts for:
 
-- Linux `bash` 4.x - Fedora, *EL, *bian, *buntu, Slackware, WSL 
+- Linux `bash` 4.x - Fedora, *EL, *bian, *buntu, Slackware, WSL, Git-Bash...
 - Windows `PowerShell` 5.x - Win10,11 (experimental)
 
 Bundles Vim configuration (incl [vim-pathogen](https://github.com/tpope/vim-pathogen) plugins) and several other `~/.*rc` files.
 
 ## Installation
 
-Clone in the home|profile directory and run install script:
+Clone in the home|profile directory and run install script for apropriate environment/shell:
 
 ```bash
 # go to userprofile
@@ -23,7 +23,7 @@ git clone --recursive https://github.com/marek-sezemsky/etc.git
 
 # install suite
 etc/install       # bash
-etc/install.ps1   # powershell; TODO
+etc/install.ps1   # powershell
 ```
 
 ## Profile activation
