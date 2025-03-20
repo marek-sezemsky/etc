@@ -8,8 +8,7 @@ $modules = @(
 )
 
 $count = $modules.Length
-$user = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-Write-Host "Installing $count PSGallery modules for CurrentUser $user ..."
+Write-Host "Installing $count PSGallery modules ..."
 Write-Host
 
 $startTime = Get-Date
@@ -17,7 +16,7 @@ $startTime = Get-Date
 foreach ($module in $modules) {
     Write-Host "Installing: $module"
     try {
-        Install-Module -Name $module -Force -Repository PSGallery -Scope CurrentUser -ErrorAction Stop
+        Install-Module -Name $module -Force -Repository PSGallery
     } catch {
         Write-Error $_.Exception.Message
         exit 1
