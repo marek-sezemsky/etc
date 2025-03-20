@@ -1,0 +1,48 @@
+#### Winget package list file
+
+# System/Addons
+Microsoft.WindowsTerminal
+Microsoft.PowerToys
+Open-Shell.Open-Shell-Menu
+Rainmeter.Rainmeter
+
+# Drivers/Mouse
+Logitech.GHUB
+
+# Internet
+Google.Chrome
+Microsoft.Edge
+
+# Utils
+7zip.7zip
+Ghisler.TotalCommander
+WinSCP.WinSCP
+JAMSoftware.TreeSize.Free
+GIMP.GIMP
+IrfanSkiljan.IrfanView
+JGraph.Draw
+
+# Development/Coding
+Git.Git
+GitHub.GitHubDesktop
+GitHub.cli
+GoLang.Go
+WiresharkFoundation.Wireshark
+
+# IDEs
+Notepad++.Notepad++
+vim.vim.nightly
+Microsoft.VisualStudioCode
+
+# Cloud/Infra
+Hashicorp.Terraform
+Hashicorp.Vagrant
+Hashicorp.Vault
+Hashicorp.Packer
+
+# K8s
+Kubernetes.kubectl
+RedHat.OpenShift-Client
+ahmetb.kubectx
+ahmetb.kubens
+Helm.Helm
