@@ -1,36 +1,39 @@
 #Requires -Version 5.1
 #
-# PS1 PowerPrompt
+# Profile.completion.ps1
 #
-# Completion (for all available utilities)
+# Dynamically load completion for all available utilities.
 #
 
-### profile.completion()
-Write-Host "Loading completions:"
+Write-Host "Loading: completions:" -NoNewline
 
-# function kubectl_complete()
-Try {
-    & kubectl completion powershell | Out-String | Invoke-Expression
-    Write-Host "Completing: KUBECTL.EXE"
-}
-Catch [System.Exception] {
-    Write-Warning "No kubectl.exe completion available"
+# Dictionary to store commands and their completion scripts
+$completions = @{
+    "kubectl" = { kubectl completion powershell }
+    "oc"      = { oc completion powershell }
+    "helm"    = { helm completion powershell }
 }
 
-# function oc_complete()
-Try {
-    & oc completion powershell | Out-String | Invoke-Expression
-    Write-Host "Completing: OC.EXE"
+$missing = @()
+
+# Iterate over the dictionary and load completions
+foreach ($command in $completions.Keys) {
+    Try {
+        & ($completions[$command]) | Out-String | Invoke-Expression
+        Write-Host " $command" -NoNewline
+    }
+    Catch [System.Exception] {
+        $missing += $command
+    }
 }
-Catch [System.Exception] {
-    Write-Warning "No oc.exe completion available"
+Write-Host # EOL
+
+# Display missing completions if any
+if ($missing.Count -gt 0) {
+    Write-Warning "Completions failed to load: $($missing -join ' ')"
 }
 
-# load helm completion
-Try {
-    & helm completion powershell | Out-String | Invoke-Expression
-    Write-Host "Completing: HELM.EXE"
-}
-Catch [System.Exception] {
-    Write-Warning "No helm.exe completion available"
-}
+# Cleanup temporary variables
+Remove-Variable -Scope Global -ErrorAction SilentlyContinue -Name 'completions'
+Remove-Variable -Scope Global -ErrorAction SilentlyContinue -Name 'missing'
+
