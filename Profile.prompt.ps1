@@ -124,18 +124,20 @@ function powerprompt {
 
   }
 
-  # [user]@[Host] C:\Dir\Subdir
+  # [user]@[Host] Tue.31 23:59:59
   Write-Host -ForegroundColor DarkGray -NoNewline "# "
   Write-Host -ForegroundColor Green -NoNewline $env:USERNAME
   Write-Host -ForegroundColor DarkGray -NoNewline "@"
   Write-Host -ForegroundColor Green -NoNewline $env:COMPUTERNAME
-  Write-Host -ForegroundColor DarkGray -NoNewline " "
-  Write-Host $executionContext.SessionState.Path.CurrentLocation
+  Write-Host -ForegroundColor DarkGray " $(Get-Date -Format "ddd.dd HH:mm:ss")"
 
-  # TODO!?
 
-  # timestamp
-  Write-Host -ForegroundColor DarkGray -NoNewline "# $(Get-Date -Format "ddd.dd HH:mm:ss") "
+  # C:\Dir\Subdir ($MY_PROMPT_ENVS)
+  Write-Host -ForegroundColor DarkGray -NoNewline "# "
+  Write-Host -NoNewline $executionContext.SessionState.Path.CurrentLocation
+    if ($env:MY_PROMPT_ENVS) {
+    Write-Host -ForegroundColor Cyan -NoNewline " $($env:MY_PROMPT_ENVS)"
+  }
 
 
   # # --- '# time retval \$' # dík Pane Klobouk 🕑
@@ -156,10 +158,10 @@ function powerprompt {
   #     C:\>_
   $ps = "PS$('>' * ($nestedPromptLevel + 1))"
   if ( $__prev ) {
-    Write-Host -NoNewline -ForegroundColor Green "."
-    Write-Host -NoNewline " $ps"
+    Write-Host -NoNewline -ForegroundColor Green " ."
+    Write-Host -NoNewline "$ps"
   } else {
-    Write-Host -NoNewline -ForegroundColor Red "X $ps"
+    Write-Host -NoNewline -ForegroundColor Red " X $ps"
   }
 
   # --- '# versions' for DEBUG
