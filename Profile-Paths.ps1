@@ -6,7 +6,7 @@
 #
 
 ### profile.paths()
-Write-Host "Add Paths: ~/bin, /c/Utils"
+Write-Host "Loading: Profile-Paths"
 
 Add-Path -Directory "${env:USERPROFILE}/bin"
 Add-Path -Directory 'C:\Utils'

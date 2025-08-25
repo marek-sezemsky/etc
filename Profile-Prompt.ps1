@@ -4,7 +4,7 @@
 #
 # Windows (lite) version of bash_ps1;
 #
-Write-Host "Defining powerprompt (with 'posh-git' module)"
+Write-Host "Loading: Profile-Prompt (with posh-git)"
 Import-Module posh-git
 
 # check if current user is admin

@@ -2,7 +2,7 @@
 #
 # PowerShell profile aliases
 #
-Write-Host "Define aliases"
+Write-Host "Loading: Profile-Aliases"
 
 #
 # "se" -- source (Python) environmnt

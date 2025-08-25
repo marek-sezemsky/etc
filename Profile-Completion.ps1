@@ -5,7 +5,7 @@
 # Dynamically load completion for all available utilities.
 #
 
-Write-Host "Loading: completions:" -NoNewline
+Write-Host "Loading: Profile-Completions:" -NoNewline
 
 # Dictionary to store commands and their completion scripts
 $completions = @{

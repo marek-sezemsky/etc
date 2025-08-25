@@ -1,5 +1,6 @@
 #Requires -Version 5.1
 
+Write-Host "Loading: Profile"
 
 # https://www.splunk.com/en_us/blog/tips-and-tricks/powershell-profiles-and-add-path.html
 function Add-Path {
@@ -57,8 +58,8 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 $_dirname = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 # load modules
-. "$_dirname/Profile.paths.ps1"
-. "$_dirname/Profile.aliases.ps1"
-. "$_dirname/Profile.prompt.ps1"
-. "$_dirname/Profile.completion.ps1"
+. "$_dirname/Profile-Paths.ps1"
+. "$_dirname/Profile-Aliases.ps1"
+. "$_dirname/Profile-Prompt.ps1"
+. "$_dirname/Profile-Completions.ps1"
 
