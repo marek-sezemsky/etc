@@ -2,7 +2,6 @@
 #
 # PowerShell profile aliases
 #
-Write-Host "Loading: Profile-Aliases"
 
 #
 # "se" -- source (Python) environmnt
@@ -35,6 +34,8 @@ function se() {
 }
 
 # misc aliases
+
+Write-Host "Loading: Profile-Aliases"
 
 function l()   { Get-ChildItem @args }
 function ll()  { Get-ChildItem @args }
