@@ -59,6 +59,14 @@ Worthwhile(?) scripts:
 - `~/etc/install` - installation script
 - `~/etc/sync` - pull submodules recursively
 
+## Notes
+
+WSL poison `$PATH` with Windows paths; to strip with first /mnt/c/* occurence:
+
+```bash
+export PATH="${PATH/%:\/mnt\/c\/*/}"
+```
+
 ## TODO
 
 - need PowerShell support?!
